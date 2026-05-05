@@ -31,7 +31,7 @@ class OnboardingPresenter {
     let pages: [OnboardingPageModel] = [
         OnboardingPageModel(
             imageName: "onboarding1",
-            title: "Welcome to PRO SCOUT",
+            title: "Welcome to Plus90",
             subtitle: "Your ultimate destination for live scores,\nscout reports, and elite performance tracking."
         ),
         OnboardingPageModel(
@@ -39,11 +39,13 @@ class OnboardingPresenter {
             title: "Track Every League",
             subtitle: "Follow your favourite leagues and get\nreal-time updates instantly."
         ),
-        OnboardingPageModel(
-            imageName: "onboarding2", // should be onboarding3
-            title: "Your Favourites, Always Ready",
-            subtitle: "Save leagues and access them anytime,\neven offline."
-        )
+      /*
+       OnboardingPageModel(
+           imageName: "onboarding2", // should be onboarding3
+           title: "Your Favourites, Always Ready",
+           subtitle: "Save leagues and access them anytime,\neven offline."
+       )
+       */
     ]
 
     init(view: OnboardingViewProtocol) {

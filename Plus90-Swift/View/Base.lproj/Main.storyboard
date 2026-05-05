@@ -36,7 +36,7 @@
                                 <rect key="frame" x="56" y="306" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="5Qd-mg-BGA" kind="embed" id="hUA-ub-pWm"/>
+                                    <segue destination="5Qd-mg-BGA" kind="embed" identifier="embedPageVC" id="hUA-ub-pWm"/>
                                 </connections>
                             </containerView>
                         </subviews>

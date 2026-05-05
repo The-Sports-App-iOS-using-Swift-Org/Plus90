@@ -40,7 +40,7 @@ class OnboardingPresenter {
             subtitle: "Follow your favourite leagues and get\nreal-time updates instantly."
         ),
         OnboardingPageModel(
-            imageName: "onboarding3",
+            imageName: "onboarding2", // should be onboarding3
             title: "Your Favourites, Always Ready",
             subtitle: "Save leagues and access them anytime,\neven offline."
         )

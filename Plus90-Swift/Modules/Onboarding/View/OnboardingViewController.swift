@@ -5,39 +5,47 @@
 //  Created by Bayoumi on 05/05/2026.
 //
 
+
 import UIKit
 
 class OnboardingViewController: UIViewController {
 
-    
-    private var presenter: OnboardingPresenter!
+    private lazy var presenter: OnboardingPresenter = {
+        OnboardingPresenter(view: self)
+    }()
 
     private var pageVC: OnboardingPageViewController?
 
-    private let appGreen: UIColor = UIColor(named: "AppGreen") ?? .systemGreen
+    private let appGreen: UIColor = UIColor(named: "AppGreen") ?? UIColor(
+        red: 52/255, green: 199/255, blue: 89/255, alpha: 1
+    )
+
+
+    private lazy var containerView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .clear
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
 
     private lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
         pc.currentPageIndicatorTintColor = appGreen
-        pc.pageIndicatorTintColor        = .systemGray4
-        pc.isUserInteractionEnabled      = false
+        pc.pageIndicatorTintColor = .systemGray4
+        pc.isUserInteractionEnabled = false
         pc.translatesAutoresizingMaskIntoConstraints = false
         return pc
     }()
 
     private lazy var actionButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Next", for: .normal)
+        btn.setTitle("Get Started", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = .boldSystemFont(ofSize: 17)
-        btn.backgroundColor  = appGreen
+        btn.backgroundColor = appGreen
         btn.layer.cornerRadius = 14
-        btn.clipsToBounds    = true
-        btn.addTarget(
-            self,
-            action: #selector(actionButtonTapped),
-            for: .touchUpInside
-        )
+        btn.clipsToBounds = true
+        btn.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -47,97 +55,77 @@ class OnboardingViewController: UIViewController {
         btn.setTitle("Skip", for: .normal)
         btn.setTitleColor(.systemGray, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 15)
-        btn.addTarget(
-            self,
-            action: #selector(skipButtonTapped),
-            for: .touchUpInside
-        )
+        btn.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
 
-
-    private var containerView: UIView? {
-        return view.subviews.first(where: { !($0 is UIButton) && !($0 is UIPageControl) })
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        presenter = OnboardingPresenter(view: self)
+        setupLayout()
+        embedPageViewController()
     }
 
-
-    private var didSetupUI = false
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        guard !didSetupUI else { return }
-        didSetupUI = true
-        setupProgrammaticUI()
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "embedPageVC",
-           let pageVC = segue.destination as? OnboardingPageViewController {
-            self.pageVC       = pageVC
-            pageVC.pageDelegate = self
-            pageVC.setupPages(presenter.pages)
-        }
-    }
-
-    private func setupProgrammaticUI() {
-        guard let container = view.subviews.first(where: {
-            // The container view added by storyboard embed
-            String(describing: type(of: $0)) != "UIButton" &&
-            String(describing: type(of: $0)) != "UIPageControl"
-        }) else { return }
-
+    private func setupLayout() {
+        view.addSubview(containerView)
         view.addSubview(pageControl)
         view.addSubview(actionButton)
         view.addSubview(skipButton)
 
-        NSLayoutConstraint.activate([
-            pageControl.topAnchor.constraint(
-                equalTo: container.bottomAnchor,
-                constant: 16
-            ),
-            pageControl.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor
-            ),
+        pageControl.numberOfPages = presenter.pages.count
+        pageControl.currentPage = 0
 
-            actionButton.topAnchor.constraint(
-                equalTo: pageControl.bottomAnchor,
-                constant: 20
-            ),
-            actionButton.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 30
-            ),
-            actionButton.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -30
-            ),
+        updateActionButton(isLastPage: presenter.pages.count == 1)
+
+        NSLayoutConstraint.activate([
+
+            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.72),
+
+            pageControl.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 16),
+            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            actionButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 20),
+            actionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            actionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             actionButton.heightAnchor.constraint(equalToConstant: 52),
 
-
-            skipButton.topAnchor.constraint(
-                equalTo: actionButton.bottomAnchor,
-                constant: 14
-            ),
-            skipButton.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor
-            ),
+            skipButton.topAnchor.constraint(equalTo: actionButton.bottomAnchor, constant: 14),
+            skipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             skipButton.bottomAnchor.constraint(
                 lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor,
                 constant: -20
             )
         ])
-
-
-        pageControl.numberOfPages = presenter.pages.count
-        pageControl.currentPage   = 0
     }
 
+    private func embedPageViewController() {
+        let pvc = OnboardingPageViewController(
+            transitionStyle: .scroll,
+            navigationOrientation: .horizontal
+        )
+        pvc.pageDelegate = self
+        pvc.setupPages(presenter.pages)
+
+        self.pageVC = pvc
+
+        addChild(pvc)
+        containerView.addSubview(pvc.view)
+        pvc.view.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            pvc.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+            pvc.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            pvc.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            pvc.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+
+        pvc.didMove(toParent: self)
+    }
 
     @objc private func actionButtonTapped() {
         presenter.didTapActionButton()
@@ -160,10 +148,7 @@ extension OnboardingViewController: OnboardingViewProtocol {
             duration: 0.25,
             options: .transitionCrossDissolve
         ) {
-            self.actionButton.setTitle(
-                isLastPage ? "Get Started" : "Next",
-                for: .normal
-            )
+            self.actionButton.setTitle(isLastPage ? "Get Started" : "Next", for: .normal)
         }
         UIView.animate(withDuration: 0.25) {
             self.skipButton.alpha = isLastPage ? 0 : 1
@@ -177,16 +162,16 @@ extension OnboardingViewController: OnboardingViewProtocol {
     }
 
     func navigateToMainApp() {
-        print("Navigation To MainTabBar")
-        /*let tabBar = MainTabBarController()
-        tabBar.modalPresentationStyle = .fullScreen
-        tabBar.modalTransitionStyle   = .crossDissolve
-        present(tabBar, animated: true)*/
+        print("Navigating to MainTabBarController")
+        // Uncomment when ready:
+        // let tabBar = MainTabBarController()
+        // tabBar.modalPresentationStyle = .fullScreen
+        // tabBar.modalTransitionStyle = .crossDissolve
+        // present(tabBar, animated: true)
     }
 }
 
 extension OnboardingViewController: OnboardingPageViewControllerDelegate {
-
     func didSwipeToPage(index: Int) {
         presenter.didChangePage(to: index)
     }

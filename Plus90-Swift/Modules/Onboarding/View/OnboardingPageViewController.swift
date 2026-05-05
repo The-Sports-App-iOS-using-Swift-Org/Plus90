@@ -7,55 +7,73 @@
 
 import UIKit
 
+
 protocol OnboardingPageViewControllerDelegate: AnyObject {
     func didSwipeToPage(index: Int)
 }
 
 class OnboardingPageViewController: UIPageViewController {
 
+   
     weak var pageDelegate: OnboardingPageViewControllerDelegate?
     private var contentVCs: [OnboardingContentViewController] = []
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
         dataSource = self
-        delegate   = self
+        delegate = self
         hideDefaultPageControl()
     }
 
+    
     func setupPages(_ pages: [OnboardingPageModel]) {
+        
+        guard !pages.isEmpty else {
+            print("ERROR: No pages provided to OnboardingPageViewController")
+            return
+        }
 
         contentVCs = pages.enumerated().map { index, model in
-            let vc          = OnboardingContentViewController()
-            vc.pageIndex    = index
-            vc.pageModel    = model
+            let vc = OnboardingContentViewController()
+            vc.pageIndex = index
+            vc.pageModel = model
             return vc
         }
 
+        
         guard let firstVC = contentVCs.first else { return }
+
         setViewControllers(
             [firstVC],
             direction: .forward,
-            animated: false
+            animated: false,
+            completion: nil
         )
     }
 
     func scrollToPage(at index: Int, animated: Bool = true) {
-        guard
-            index >= 0,
-            index < contentVCs.count,
-            let currentVC = viewControllers?.first as? OnboardingContentViewController
-        else { return }
+     
+        guard !contentVCs.isEmpty else {
+            print("ERROR: contentVCs is empty")
+            return
+        }
+        guard index >= 0, index < contentVCs.count else {
+            print("ERROR: index \(index) out of range (0..<\(contentVCs.count))")
+            return
+        }
+        guard let currentVC = viewControllers?.first as? OnboardingContentViewController else {
+            print("ERROR: current VC is not OnboardingContentViewController")
+            return
+        }
 
-        let direction: NavigationDirection = index > currentVC.pageIndex
-            ? .forward
-            : .reverse
-
+        let direction: NavigationDirection = index > currentVC.pageIndex ? .forward : .reverse
         setViewControllers(
             [contentVCs[index]],
             direction: direction,
-            animated: animated
+            animated: animated,
+            completion: nil
         )
     }
 
@@ -63,11 +81,10 @@ class OnboardingPageViewController: UIPageViewController {
         return (viewControllers?.first as? OnboardingContentViewController)?.pageIndex ?? 0
     }
 
-    // MARK: - Hide default UIPageControl dots
     private func hideDefaultPageControl() {
         view.subviews
-            .compactMap { \$0 as? UIPageControl }
-            .forEach { \$0.isHidden = true }
+            .compactMap { $0 as? UIPageControl }
+            .forEach { $0.isHidden = true }
     }
 }
 
@@ -79,8 +96,10 @@ extension OnboardingPageViewController: UIPageViewControllerDataSource {
     ) -> UIViewController? {
         guard
             let vc = viewController as? OnboardingContentViewController,
-            vc.pageIndex > 0
+            vc.pageIndex > 0,
+            !contentVCs.isEmpty
         else { return nil }
+
         return contentVCs[vc.pageIndex - 1]
     }
 
@@ -90,11 +109,14 @@ extension OnboardingPageViewController: UIPageViewControllerDataSource {
     ) -> UIViewController? {
         guard
             let vc = viewController as? OnboardingContentViewController,
-            vc.pageIndex < contentVCs.count - 1
+            vc.pageIndex < contentVCs.count - 1,
+            !contentVCs.isEmpty
         else { return nil }
+
         return contentVCs[vc.pageIndex + 1]
     }
 }
+
 
 extension OnboardingPageViewController: UIPageViewControllerDelegate {
 

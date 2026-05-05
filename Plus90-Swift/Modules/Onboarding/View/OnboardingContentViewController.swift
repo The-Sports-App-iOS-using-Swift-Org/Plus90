@@ -5,12 +5,14 @@
 //  Created by Bayoumi on 05/05/2026.
 //
 
+
 import UIKit
 
 class OnboardingContentViewController: UIViewController {
 
     var pageIndex: Int = 0
     var pageModel: OnboardingPageModel?
+
 
     private let imageView: UIImageView = {
         let iv = UIImageView()
@@ -21,6 +23,8 @@ class OnboardingContentViewController: UIViewController {
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
+
+
 
     private let titleLabel: UILabel = {
         let lbl = UILabel()
@@ -54,56 +58,24 @@ class OnboardingContentViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(subtitleLabel)
 
+
+
         NSLayoutConstraint.activate([
-            
-            imageView.topAnchor.constraint(
-                equalTo: view.topAnchor,
-                constant: 30
-            ),
-            imageView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 20
-            ),
-            imageView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -20
-            ),
-            imageView.heightAnchor.constraint(
-                equalTo: view.heightAnchor,
-                multiplier: 0.60
-            ),
 
-            
-            titleLabel.topAnchor.constraint(
-                equalTo: imageView.bottomAnchor,
-                constant: 30
-            ),
-            titleLabel.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 24
-            ),
-            titleLabel.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -24
-            ),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            imageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.60),
 
-            
-            subtitleLabel.topAnchor.constraint(
-                equalTo: titleLabel.bottomAnchor,
-                constant: 14
-            ),
-            subtitleLabel.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 30
-            ),
-            subtitleLabel.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -30
-            ),
-            subtitleLabel.bottomAnchor.constraint(
-                lessThanOrEqualTo: view.bottomAnchor,
-                constant: -20
-            )
+  
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 14),
+            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            subtitleLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20)
         ])
     }
 
@@ -113,5 +85,6 @@ class OnboardingContentViewController: UIViewController {
         titleLabel.text    = model.title
         subtitleLabel.text = model.subtitle
         imageView.image    = UIImage(named: model.imageName)
+
     }
 }

@@ -48,10 +48,10 @@
             </objects>
             <point key="canvasLocation" x="717" y="105"/>
         </scene>
-        <!--Page View Controller-->
+        <!--Onboarding Page View Controller-->
         <scene sceneID="LSC-1C-XMP">
             <objects>
-                <pageViewController storyboardIdentifier="OnboardingPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="5Qd-mg-BGA" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="OnboardingPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="5Qd-mg-BGA" customClass="OnboardingPageViewController" customModule="Plus90_Swift" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fRP-fd-M2P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1413" y="105"/>

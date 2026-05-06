@@ -17,14 +17,16 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var cardContainerView: UIView!
+
     private var headerMaskLayer = CAShapeLayer()
-   
+    private lazy var presenter: FavoritesPresenterProtocol = FavoritesPresenter(view: self)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHeaderShape()
         setupCardShadow()
         setupTableView()
-     
+        presenter.viewDidLoad()
     }
 
     private func setupHeaderShape() {
@@ -76,17 +78,19 @@ extension FavoritesViewController: FavoritesViewProtocol {
 
 extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return presenter.getFavoritesCount()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteLeagueCell", for: indexPath) as? FavoriteLeagueCell else {
             return UITableViewCell()
         }
-      
+        let item = presenter.getFavoriteItem(at: indexPath.row)
+        cell.configure(with: item)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
+            presenter.didSelectFavorite(at: indexPath.row)
         }
 }

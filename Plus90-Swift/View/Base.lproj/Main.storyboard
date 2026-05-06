@@ -56,7 +56,7 @@
             </objects>
             <point key="canvasLocation" x="1413" y="105"/>
         </scene>
-        <!--Item 2-->
+        <!--Favorites-->
         <scene sceneID="DXJ-15-wbz">
             <objects>
                 <viewController storyboardIdentifier="FavoritesViewController" id="W4Q-hK-Tuk" customClass="FavoritesViewController" customModule="Plus90_Swift" customModuleProvider="target" sceneMemberID="viewController">
@@ -99,7 +99,7 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="gVd-9U-TUX">
-                                                            <rect key="frame" x="127.00000000000001" y="15" width="41.333333333333329" height="53.666666666666657"/>
+                                                            <rect key="frame" x="127.00000000000003" y="15" width="41.333333333333343" height="53.666666666666657"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eY0-8R-lzd">
                                                                     <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="20.333333333333332"/>
@@ -146,7 +146,7 @@
                             <constraint firstItem="CKF-A3-M4Z" firstAttribute="leading" secondItem="Y0z-e8-Ma2" secondAttribute="leading" id="vaq-LP-1yD"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="BIY-Do-jaI"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="heart" catalog="system" id="BIY-Do-jaI"/>
                     <connections>
                         <outlet property="cardContainerView" destination="BRG-Mr-bd9" id="ltz-cO-DYD"/>
                         <outlet property="headerView" destination="CKF-A3-M4Z" id="BLv-jF-cHk"/>
@@ -194,14 +194,15 @@
     </scenes>
     <resources>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

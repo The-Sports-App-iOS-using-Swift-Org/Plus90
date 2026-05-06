@@ -9,6 +9,9 @@ import UIKit
 
 protocol FavoritesViewProtocol: AnyObject {
     func reloadData()
+    func showDeleteConfirmation(at index: Int, leagueName: String)
+        func toggleEmptyState(show: Bool)
+    
 }
 
 
@@ -28,7 +31,10 @@ class FavoritesViewController: UIViewController {
         setupTableView()
         presenter.viewDidLoad()
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
+    }
     private func setupHeaderShape() {
         headerView.backgroundColor = .systemGreen
         
@@ -74,6 +80,58 @@ extension FavoritesViewController: FavoritesViewProtocol {
         tableView.reloadData()
         self.view.setNeedsLayout()
     }
+    func showDeleteConfirmation(at index: Int, leagueName: String) {
+        let alert = UIAlertController(
+            title: "Remove Favorite",
+            message: "Are you sure you want to remove \(leagueName) from your favorites?",
+            preferredStyle: .alert
+        )
+        
+        let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { _ in
+            self.presenter.confirmRemoval(at: index)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+
+    func toggleEmptyState(show: Bool) {
+        if show {
+            let emptyView = UIView(frame: tableView.bounds)
+            
+            let icon = UIImageView(image: UIImage(systemName: "heart.slash"))
+            icon.tintColor = .systemGray4
+            icon.contentMode = .scaleAspectFit
+            
+            let label = UILabel()
+            label.text = "No Favorites Yet"
+            label.font = .systemFont(ofSize: 18, weight: .medium)
+            label.textColor = .secondaryLabel
+            
+            let stack = UIStackView(arrangedSubviews: [icon, label])
+            stack.axis = .vertical
+            stack.spacing = 10
+            stack.alignment = .center
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            
+            emptyView.addSubview(stack)
+            NSLayoutConstraint.activate([
+                stack.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
+                stack.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor),
+                icon.heightAnchor.constraint(equalToConstant: 60),
+                icon.widthAnchor.constraint(equalToConstant: 60)
+            ])
+            
+            tableView.backgroundView = emptyView
+            tableView.separatorStyle = .none
+        } else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
+    }
 }
 
 extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
@@ -92,5 +150,14 @@ extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
             presenter.didSelectFavorite(at: indexPath.row)
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                presenter.didRequestRemoval(at: indexPath.row)
+            }
         }
+        
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+            return "Remove"
+    }
 }

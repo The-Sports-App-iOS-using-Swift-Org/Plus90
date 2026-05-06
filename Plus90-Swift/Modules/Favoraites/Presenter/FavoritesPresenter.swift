@@ -9,12 +9,13 @@ import Foundation
 
 protocol FavoritesPresenterProtocol: AnyObject {
     func viewDidLoad()
+    func viewWillAppear()
     func getFavoritesCount() -> Int
     func getFavoriteItem(at index: Int) -> FavoriteLeague
-    func didSelectLeague(at index: Int)
     func didSelectFavorite(at index: Int)
+    func didRequestRemoval(at index: Int)
+    func confirmRemoval(at index: Int)
 }
-
 class FavoritesPresenter: FavoritesPresenterProtocol {
     private weak var view: FavoritesViewProtocol?
     private var favorites: [FavoriteLeague] = []
@@ -24,24 +25,16 @@ class FavoritesPresenter: FavoritesPresenterProtocol {
     }
 
     func viewDidLoad() {
-        favorites = [
-            FavoriteLeague(name: "Premier League", region: "England", imageName: "onboarding1"),
-            FavoriteLeague(name: "NBA", region: "United States", imageName: "onboarding1"),
-            FavoriteLeague(name: "Champions League", region: "Europe", imageName: "onboarding1"),
-            FavoriteLeague(name: "La Liga", region: "Spain", imageName: "onboarding1"),
-            FavoriteLeague(name: "EuroLeague", region: "Europe", imageName: "onboarding1"),
-            
-            FavoriteLeague(name: "La Liga", region: "Spain", imageName: "onboarding1"),
-            FavoriteLeague(name: "EuroLeague", region: "Europe", imageName: "onboarding1"),
-            FavoriteLeague(name: "La Liga", region: "Spain", imageName: "onboarding1"),
-            FavoriteLeague(name: "EuroLeague", region: "Europe", imageName: "onboarding1"),
-            FavoriteLeague(name: "La Liga", region: "Spain", imageName: "onboarding1"),
-            FavoriteLeague(name: "EuroLeague", region: "Europe", imageName: "onboarding1"),
-            FavoriteLeague(name: "La Liga", region: "Spain", imageName: "onboarding1"),
-            FavoriteLeague(name: "EuroLeague", region: "Europe", imageName: "onboarding1"),
-            FavoriteLeague(name: "La Liga", region: "Spain", imageName: "onboarding1"),
-            FavoriteLeague(name: "EuroLeague", region: "Europe", imageName: "onboarding1")
-        ]
+        loadData()
+    }
+
+    func viewWillAppear() {
+        loadData()
+    }
+
+    private func loadData() {
+        favorites = CoreDataManager.shared.fetchFavorites()
+        view?.toggleEmptyState(show: favorites.isEmpty)
         view?.reloadData()
     }
 
@@ -53,15 +46,22 @@ class FavoritesPresenter: FavoritesPresenterProtocol {
         return favorites[index]
     }
 
-    func didSelectLeague(at index: Int) {
-        let league = favorites[index]
-        print("Navigate to details for: \(league.name)")
-    }
     func didSelectFavorite(at index: Int) {
         let selectedLeague = favorites[index]
         print("Navigate to details for: \(selectedLeague.name)")
+    }
+
+    func didRequestRemoval(at index: Int) {
+        let league = favorites[index]
+        view?.showDeleteConfirmation(at: index, leagueName: league.name)
+    }
+
+    func confirmRemoval(at index: Int) {
+        let item = favorites[index]
+        CoreDataManager.shared.deleteLeague(name: item.name)
+        favorites.remove(at: index)
         
-        // Navigation to details if online otherwise show alert
-        // view?.navigateToDetails(for: selectedLeague)
+        view?.toggleEmptyState(show: favorites.isEmpty)
+        view?.reloadData()
     }
 }

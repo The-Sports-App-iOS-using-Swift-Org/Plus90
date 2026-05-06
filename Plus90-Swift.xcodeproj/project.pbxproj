@@ -103,12 +103,13 @@
 		BA1F6A802FAA5B770079BF3D /* Plus90-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				BA891CBD2FAAC11400025C5F /* View */,
+				BA891CBC2FAAC10800025C5F /* Modules */,
+				BA891CBB2FAAC0F000025C5F /* Model */,
 				BA1F6A812FAA5B770079BF3D /* AppDelegate.swift */,
 				BA1F6A832FAA5B770079BF3D /* SceneDelegate.swift */,
 				BA1F6A852FAA5B770079BF3D /* ViewController.swift */,
-				BA1F6A872FAA5B770079BF3D /* Main.storyboard */,
 				BA1F6A8D2FAA5B790079BF3D /* Assets.xcassets */,
-				BA1F6A8F2FAA5B790079BF3D /* LaunchScreen.storyboard */,
 				BA1F6A922FAA5B790079BF3D /* Info.plist */,
 				BA1F6A8A2FAA5B770079BF3D /* Plus90_Swift.xcdatamodeld */,
 			);
@@ -130,6 +131,77 @@
 				BA1F6AA72FAA5B790079BF3D /* Plus90_SwiftUITestsLaunchTests.swift */,
 			);
 			path = "Plus90-SwiftUITests";
+			sourceTree = "<group>";
+		};
+		BA891CBB2FAAC0F000025C5F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA891CBF2FAAC16D00025C5F /* Services */,
+				BA891CBE2FAAC15900025C5F /* Entities */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA891CBC2FAAC10800025C5F /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				BA891CC32FAAC20B00025C5F /* Teams */,
+				BA891CC22FAAC1FF00025C5F /* Sports */,
+				BA891CC12FAAC1EE00025C5F /* Leagues */,
+				BA891CC02FAAC1DC00025C5F /* Favoriates */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		BA891CBD2FAAC11400025C5F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BA1F6A872FAA5B770079BF3D /* Main.storyboard */,
+				BA1F6A8F2FAA5B790079BF3D /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BA891CBE2FAAC15900025C5F /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		BA891CBF2FAAC16D00025C5F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BA891CC02FAAC1DC00025C5F /* Favoriates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Favoriates;
+			sourceTree = "<group>";
+		};
+		BA891CC12FAAC1EE00025C5F /* Leagues */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Leagues;
+			sourceTree = "<group>";
+		};
+		BA891CC22FAAC1FF00025C5F /* Sports */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sports;
+			sourceTree = "<group>";
+		};
+		BA891CC32FAAC20B00025C5F /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Teams;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

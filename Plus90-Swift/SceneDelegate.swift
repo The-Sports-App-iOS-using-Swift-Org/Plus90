@@ -10,45 +10,31 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        window = UIWindow(windowScene: windowScene)
-        
-        if OnboardingPresenter.hasSeenOnboarding() {
-            print("Showing MainTabBarController After Showing Onboaridng once in SceneDelegate")
-          //  window?.rootViewController = MainTabBarController()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let onboardingVC = storyboard.instantiateViewController(
-                withIdentifier: "OnboardingViewController"
-            ) as! OnboardingViewController
-            window?.rootViewController = onboardingVC
-
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let onboardingVC = storyboard.instantiateViewController(
-                withIdentifier: "OnboardingViewController"
-            ) as! OnboardingViewController
-            window?.rootViewController = onboardingVC
-        }
-        
-        window?.makeKeyAndVisible()
-    }
-    private func makeOnboardingVC() -> UIViewController {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
-        guard let onboardingVC = storyboard.instantiateViewController(
-            withIdentifier: "OnboardingViewController"
-        ) as? OnboardingViewController else {
-            print("ERROR: Could not find 'OnboardingViewController' in Main.storyboard")
-            print("Check: Storyboard ID is set to 'OnboardingViewController'")
-            return UIViewController()
+            guard let windowScene = (scene as? UIWindowScene) else { return }
+            window = UIWindow(windowScene: windowScene)
+            
+             if OnboardingPresenter.hasSeenOnboarding() {
+                setRootToMainApp()
+            } else {
+                setRootToOnboarding()
+            }
+            
+            window?.makeKeyAndVisible()
         }
 
-        return onboardingVC
-    }
+         func setRootToMainApp() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainTabBar = storyboard.instantiateViewController(withIdentifier: "MainTabBarController")
+            window?.rootViewController = mainTabBar
+        }
+
+      
+        func setRootToOnboarding() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let onboardingVC = storyboard.instantiateViewController(withIdentifier: "OnboardingViewController")
+            window?.rootViewController = onboardingVC
+        }
     
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

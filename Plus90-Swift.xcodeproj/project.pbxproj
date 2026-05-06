@@ -18,6 +18,9 @@
 		BA1F6AA62FAA5B790079BF3D /* Plus90_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F6AA52FAA5B790079BF3D /* Plus90_SwiftUITests.swift */; };
 		BA1F6AA82FAA5B790079BF3D /* Plus90_SwiftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F6AA72FAA5B790079BF3D /* Plus90_SwiftUITestsLaunchTests.swift */; };
 		BA1F6AB62FAA5CB80079BF3D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BA1F6AB52FAA5CB80079BF3D /* Alamofire */; };
+		BA2646042FAACC0700D6F4BF /* SportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2646032FAACC0700D6F4BF /* SportsViewController.swift */; };
+		BA7D82352FABA2FC007436D2 /* SportsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D82332FABA2FC007436D2 /* SportsCollectionViewCell.swift */; };
+		BA7D82362FABA2FC007436D2 /* SportsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		BA1F6AA12FAA5B790079BF3D /* Plus90-SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Plus90-SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA1F6AA52FAA5B790079BF3D /* Plus90_SwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus90_SwiftUITests.swift; sourceTree = "<group>"; };
 		BA1F6AA72FAA5B790079BF3D /* Plus90_SwiftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus90_SwiftUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BA2646032FAACC0700D6F4BF /* SportsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsViewController.swift; sourceTree = "<group>"; };
+		BA7D82332FABA2FC007436D2 /* SportsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsCollectionViewCell.swift; sourceTree = "<group>"; };
+		BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SportsCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +139,23 @@
 			path = "Plus90-SwiftUITests";
 			sourceTree = "<group>";
 		};
+		BA2646012FAACBE900D6F4BF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		BA2646022FAACBF100D6F4BF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BA2646032FAACC0700D6F4BF /* SportsViewController.swift */,
+				BA7D82332FABA2FC007436D2 /* SportsCollectionViewCell.swift */,
+				BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BA891CBB2FAAC0F000025C5F /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +216,8 @@
 		BA891CC22FAAC1FF00025C5F /* Sports */ = {
 			isa = PBXGroup;
 			children = (
+				BA2646022FAACBF100D6F4BF /* View */,
+				BA2646012FAACBE900D6F4BF /* Presenter */,
 			);
 			path = Sports;
 			sourceTree = "<group>";
@@ -317,6 +342,7 @@
 				BA1F6A912FAA5B790079BF3D /* LaunchScreen.storyboard in Resources */,
 				BA1F6A8E2FAA5B790079BF3D /* Assets.xcassets in Resources */,
 				BA1F6A892FAA5B770079BF3D /* Main.storyboard in Resources */,
+				BA7D82362FABA2FC007436D2 /* SportsCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,7 +368,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA1F6A862FAA5B770079BF3D /* ViewController.swift in Sources */,
+				BA7D82352FABA2FC007436D2 /* SportsCollectionViewCell.swift in Sources */,
 				BA1F6A822FAA5B770079BF3D /* AppDelegate.swift in Sources */,
+				BA2646042FAACC0700D6F4BF /* SportsViewController.swift in Sources */,
 				BA1F6A8C2FAA5B770079BF3D /* Plus90_Swift.xcdatamodeld in Sources */,
 				BA1F6A842FAA5B770079BF3D /* SceneDelegate.swift in Sources */,
 			);

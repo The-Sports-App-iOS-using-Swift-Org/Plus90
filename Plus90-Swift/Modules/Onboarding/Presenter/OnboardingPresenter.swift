@@ -39,13 +39,12 @@ class OnboardingPresenter {
             title: "Track Every League",
             subtitle: "Follow your favourite leagues and get\nreal-time updates instantly."
         ),
-      /*
        OnboardingPageModel(
-           imageName: "onboarding2", // should be onboarding3
+           imageName: "onboarding3",
            title: "Your Favourites, Always Ready",
            subtitle: "Save leagues and access them anytime,\neven offline."
        )
-       */
+       
     ]
 
     init(view: OnboardingViewProtocol) {

@@ -161,13 +161,15 @@ extension OnboardingViewController: OnboardingViewProtocol {
         pageVC?.scrollToPage(at: presenter.currentIndex)
     }
 
-    func navigateToMainApp() {
-        print("Navigating to MainTabBarController")
-        // Uncomment when ready:
-        // let tabBar = MainTabBarController()
-        // tabBar.modalPresentationStyle = .fullScreen
-        // tabBar.modalTransitionStyle = .crossDissolve
-        // present(tabBar, animated: true)
+    func navigateToMainApp() {        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainTabBar = storyboard.instantiateViewController(withIdentifier: "MainTabBarController")
+        
+        guard let window = self.view.window else { return }
+        
+        UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            window.rootViewController = mainTabBar
+        }, completion: nil)
     }
 }
 

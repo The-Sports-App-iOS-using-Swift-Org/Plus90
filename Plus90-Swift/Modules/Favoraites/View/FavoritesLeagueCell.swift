@@ -55,6 +55,7 @@ class FavoriteLeagueCell: UITableViewCell {
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setupHierarchy()
+            setupConstraints()
             self.layoutIfNeeded()
         }
     required init?(coder: NSCoder) {
@@ -75,7 +76,25 @@ class FavoriteLeagueCell: UITableViewCell {
         textStackView.addArrangedSubview(regionLabel)
     }
     
-
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            iconImageView.widthAnchor.constraint(equalToConstant: 48),
+            iconImageView.heightAnchor.constraint(equalToConstant: 48),
+            
+            chevronImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            chevronImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            chevronImageView.widthAnchor.constraint(equalToConstant: 12),
+            chevronImageView.heightAnchor.constraint(equalToConstant: 20),
+            
+            textStackView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
+            textStackView.trailingAnchor.constraint(equalTo: chevronImageView.leadingAnchor, constant: -12),
+            textStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 80)
+        ])
+    }
     
     func configure(with league: FavoriteLeague) {
         titleLabel.text = league.name

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// Modules/Favoraites/Presenter/FavoritesPresenter
 protocol FavoritesPresenterProtocol: AnyObject {
     func viewDidLoad()
     func viewWillAppear()

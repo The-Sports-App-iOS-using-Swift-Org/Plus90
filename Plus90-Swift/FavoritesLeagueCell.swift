@@ -6,6 +6,7 @@
 //
 
 import UIKit
+// Modules/Favoraites/View/FavoriteLeagueCell
 
 class FavoriteLeagueCell: UITableViewCell {
     

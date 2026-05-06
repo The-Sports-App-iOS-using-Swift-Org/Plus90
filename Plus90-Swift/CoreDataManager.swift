@@ -7,7 +7,7 @@
 
 import CoreData
 import UIKit
-
+//Model/Services/CoreDataManager
 class CoreDataManager {
     static let shared = CoreDataManager()
     private init() {}

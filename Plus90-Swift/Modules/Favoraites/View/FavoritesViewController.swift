@@ -83,12 +83,10 @@ extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteLeagueCell", for: indexPath) as? FavoriteLeagueCell else {
             return UITableViewCell()
         }
- 
+      
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
-            
-           
         }
 }

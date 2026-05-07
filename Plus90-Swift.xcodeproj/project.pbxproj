@@ -120,9 +120,7 @@
 		3DED7A782FAD0F9F008FCDE9 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				3DBF16892FABF80F00DF0E89 /* OnboardingContentViewController.swift */,
-				3DBF168A2FABF80F00DF0E89 /* OnboardingPageViewController.swift */,
-				3DBF168B2FABF80F00DF0E89 /* OnboardingViewController.swift */,
+				3DBF16872FABF80F00DF0E89 /* OnboardingPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -130,7 +128,9 @@
 		3DED7A792FAD0FA8008FCDE9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3DBF16872FABF80F00DF0E89 /* OnboardingPresenter.swift */,
+				3DBF16892FABF80F00DF0E89 /* OnboardingContentViewController.swift */,
+				3DBF168A2FABF80F00DF0E89 /* OnboardingPageViewController.swift */,
+				3DBF168B2FABF80F00DF0E89 /* OnboardingViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

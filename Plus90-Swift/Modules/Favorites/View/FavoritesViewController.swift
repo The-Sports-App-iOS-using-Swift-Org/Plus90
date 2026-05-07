@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// Modules/Favoraites/View/FavoritesViewController
 protocol FavoritesViewProtocol: AnyObject {
     func reloadData()
     func showDeleteConfirmation(at index: Int, leagueName: String)

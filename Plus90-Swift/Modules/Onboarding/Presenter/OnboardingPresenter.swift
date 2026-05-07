@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// Modules/Onboarding/Presenter/OnboardingPresenter
 
 struct OnboardingPageModel {
     let imageName: String

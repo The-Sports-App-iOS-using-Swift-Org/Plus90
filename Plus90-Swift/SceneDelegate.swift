@@ -14,11 +14,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             guard let windowScene = (scene as? UIWindowScene) else { return }
             window = UIWindow(windowScene: windowScene)
             
-             if OnboardingPresenter.hasSeenOnboarding() {
+           /*  if OnboardingPresenter.hasSeenOnboarding() {
                 setRootToMainApp()
             } else {
                 setRootToOnboarding()
-            }
+            }*/
             
             window?.makeKeyAndVisible()
         }

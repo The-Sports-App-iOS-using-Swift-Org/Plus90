@@ -13,6 +13,9 @@ class SportsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var sportsImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupCellUI()
+    }
+    private func setupCellUI() {
         self.contentView.layer.cornerRadius = 15
         self.contentView.layer.masksToBounds = true
         self.layer.cornerRadius = 15

@@ -6,29 +6,27 @@
 //
 
 import UIKit
-
-class SportsViewController: UIViewController ,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class SportsViewController: UIViewController {
     @IBOutlet weak var headerSportsView: UIView!
     @IBOutlet weak var sportsCollectionView: UICollectionView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         headerSportsViewDecoration()
         setupCollectionView()
     }
-
     func headerSportsViewDecoration() {
         headerSportsView.layer.cornerRadius = 40
         headerSportsView.layer.maskedCorners = [.layerMinXMaxYCorner]
     }
-    
     func setupCollectionView() {
         sportsCollectionView.dataSource = self
         sportsCollectionView.delegate = self
         let nib = UINib(nibName: "SportsCollectionViewCell", bundle: nil)
         sportsCollectionView.register(nib, forCellWithReuseIdentifier: "SportsCell")
     }
-    
+}
+
+extension SportsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
     }
@@ -36,7 +34,6 @@ class SportsViewController: UIViewController ,UICollectionViewDataSource, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportsCell", for: indexPath) as! SportsCollectionViewCell
         return cell
     }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let sectionInsets: CGFloat = 30
         let interItemSpacing: CGFloat = 15

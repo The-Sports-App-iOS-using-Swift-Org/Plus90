@@ -21,6 +21,8 @@
 		BA2646042FAACC0700D6F4BF /* SportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2646032FAACC0700D6F4BF /* SportsViewController.swift */; };
 		BA7D82352FABA2FC007436D2 /* SportsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D82332FABA2FC007436D2 /* SportsCollectionViewCell.swift */; };
 		BA7D82362FABA2FC007436D2 /* SportsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */; };
+		BA8BECA02FAD03C200FB1A97 /* LeaguesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BEC9E2FAD03C200FB1A97 /* LeaguesTableViewCell.swift */; };
+		BA8BECA12FAD03C200FB1A97 /* LeaguesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8BEC9F2FAD03C200FB1A97 /* LeaguesTableViewCell.xib */; };
 		BAB6CF872FACA39700CA286E /* Sport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6CF862FACA39700CA286E /* Sport.swift */; };
 		BAB6CF8E2FACAABB00CA286E /* LeaguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6CF8D2FACAABB00CA286E /* LeaguesViewController.swift */; };
 		BAF93AC32FAC749E009BBBAC /* SportsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF93AC22FAC749E009BBBAC /* SportsPresenter.swift */; };
@@ -63,6 +65,8 @@
 		BA2646032FAACC0700D6F4BF /* SportsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsViewController.swift; sourceTree = "<group>"; };
 		BA7D82332FABA2FC007436D2 /* SportsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsCollectionViewCell.swift; sourceTree = "<group>"; };
 		BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SportsCollectionViewCell.xib; sourceTree = "<group>"; };
+		BA8BEC9E2FAD03C200FB1A97 /* LeaguesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesTableViewCell.swift; sourceTree = "<group>"; };
+		BA8BEC9F2FAD03C200FB1A97 /* LeaguesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeaguesTableViewCell.xib; sourceTree = "<group>"; };
 		BAB6CF862FACA39700CA286E /* Sport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sport.swift; sourceTree = "<group>"; };
 		BAB6CF8D2FACAABB00CA286E /* LeaguesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesViewController.swift; sourceTree = "<group>"; };
 		BAF93AC22FAC749E009BBBAC /* SportsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsPresenter.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 				BA1F6A872FAA5B770079BF3D /* Main.storyboard */,
 				BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */,
 				BA1F6A8F2FAA5B790079BF3D /* LaunchScreen.storyboard */,
+				BA8BEC9F2FAD03C200FB1A97 /* LeaguesTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				BAB6CF8D2FACAABB00CA286E /* LeaguesViewController.swift */,
+				BA8BEC9E2FAD03C200FB1A97 /* LeaguesTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -364,6 +370,7 @@
 			files = (
 				BA1F6A912FAA5B790079BF3D /* LaunchScreen.storyboard in Resources */,
 				BA1F6A8E2FAA5B790079BF3D /* Assets.xcassets in Resources */,
+				BA8BECA12FAD03C200FB1A97 /* LeaguesTableViewCell.xib in Resources */,
 				BA1F6A892FAA5B770079BF3D /* Main.storyboard in Resources */,
 				BA7D82362FABA2FC007436D2 /* SportsCollectionViewCell.xib in Resources */,
 			);
@@ -400,6 +407,7 @@
 				BA1F6A822FAA5B770079BF3D /* AppDelegate.swift in Sources */,
 				BA2646042FAACC0700D6F4BF /* SportsViewController.swift in Sources */,
 				BA1F6A8C2FAA5B770079BF3D /* Plus90_Swift.xcdatamodeld in Sources */,
+				BA8BECA02FAD03C200FB1A97 /* LeaguesTableViewCell.swift in Sources */,
 				BA1F6A842FAA5B770079BF3D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

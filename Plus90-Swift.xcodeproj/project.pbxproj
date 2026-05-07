@@ -21,6 +21,9 @@
 		BA2646042FAACC0700D6F4BF /* SportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2646032FAACC0700D6F4BF /* SportsViewController.swift */; };
 		BA7D82352FABA2FC007436D2 /* SportsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D82332FABA2FC007436D2 /* SportsCollectionViewCell.swift */; };
 		BA7D82362FABA2FC007436D2 /* SportsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */; };
+		BAF93AC32FAC749E009BBBAC /* SportsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF93AC22FAC749E009BBBAC /* SportsPresenter.swift */; };
+		BAF93AC52FAC750C009BBBAC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF93AC42FAC750C009BBBAC /* NetworkService.swift */; };
+		BAF93AC72FAC7823009BBBAC /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF93AC62FAC7823009BBBAC /* League.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +61,9 @@
 		BA2646032FAACC0700D6F4BF /* SportsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsViewController.swift; sourceTree = "<group>"; };
 		BA7D82332FABA2FC007436D2 /* SportsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsCollectionViewCell.swift; sourceTree = "<group>"; };
 		BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SportsCollectionViewCell.xib; sourceTree = "<group>"; };
+		BAF93AC22FAC749E009BBBAC /* SportsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsPresenter.swift; sourceTree = "<group>"; };
+		BAF93AC42FAC750C009BBBAC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		BAF93AC62FAC7823009BBBAC /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +148,7 @@
 		BA2646012FAACBE900D6F4BF /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				BAF93AC22FAC749E009BBBAC /* SportsPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -151,7 +158,6 @@
 			children = (
 				BA2646032FAACC0700D6F4BF /* SportsViewController.swift */,
 				BA7D82332FABA2FC007436D2 /* SportsCollectionViewCell.swift */,
-				BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				BA1F6A872FAA5B770079BF3D /* Main.storyboard */,
+				BA7D82342FABA2FC007436D2 /* SportsCollectionViewCell.xib */,
 				BA1F6A8F2FAA5B790079BF3D /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -188,6 +195,7 @@
 		BA891CBE2FAAC15900025C5F /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				BAF93AC62FAC7823009BBBAC /* League.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 		BA891CBF2FAAC16D00025C5F /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BAF93AC42FAC750C009BBBAC /* NetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -367,7 +376,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAF93AC32FAC749E009BBBAC /* SportsPresenter.swift in Sources */,
+				BAF93AC72FAC7823009BBBAC /* League.swift in Sources */,
 				BA1F6A862FAA5B770079BF3D /* ViewController.swift in Sources */,
+				BAF93AC52FAC750C009BBBAC /* NetworkService.swift in Sources */,
 				BA7D82352FABA2FC007436D2 /* SportsCollectionViewCell.swift in Sources */,
 				BA1F6A822FAA5B770079BF3D /* AppDelegate.swift in Sources */,
 				BA2646042FAACC0700D6F4BF /* SportsViewController.swift in Sources */,

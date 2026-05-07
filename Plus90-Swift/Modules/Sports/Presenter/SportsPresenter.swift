@@ -6,3 +6,12 @@
 //
 
 import Foundation
+protocol SportsPresenterProtocol{
+    func fetchAllLeague()
+}
+class SportsPresenter:SportsPresenterProtocol{
+    var result :[League] =[]
+    func fetchAllLeague() {
+        <#code#>
+    }
+}

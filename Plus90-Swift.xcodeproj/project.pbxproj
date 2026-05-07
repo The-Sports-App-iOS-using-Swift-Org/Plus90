@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -70,12 +70,6 @@
 		BA1F6AA72FAA5B790079BF3D /* Plus90_SwiftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus90_SwiftUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		3DF2409A2FAA75E400BC8023 /* Model */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Model; sourceTree = "<group>"; };
-		3DF2409D2FAA760500BC8023 /* Modules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Modules; sourceTree = "<group>"; };
-		3DF2409E2FAA761B00BC8023 /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		BA1F6A7B2FAA5B770079BF3D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -125,9 +119,6 @@
 		BA1F6A802FAA5B770079BF3D /* Plus90-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				3DF2409E2FAA761B00BC8023 /* View */,
-				3DF2409D2FAA760500BC8023 /* Modules */,
-				3DF2409A2FAA75E400BC8023 /* Model */,
 				BA1F6A812FAA5B770079BF3D /* AppDelegate.swift */,
 				BA1F6A832FAA5B770079BF3D /* SceneDelegate.swift */,
 				BA1F6A8D2FAA5B790079BF3D /* Assets.xcassets */,
@@ -179,11 +170,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				3DF2409A2FAA75E400BC8023 /* Model */,
-				3DF2409D2FAA760500BC8023 /* Modules */,
-				3DF2409E2FAA761B00BC8023 /* View */,
 			);
 			name = "Plus90-Swift";
 			packageProductDependencies = (

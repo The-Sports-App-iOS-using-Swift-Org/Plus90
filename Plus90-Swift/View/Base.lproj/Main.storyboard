@@ -18,16 +18,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ox4-7j-6X7">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="191.66666666666666"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="213"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sports" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OgE-EM-dq7">
-                                        <rect key="frame" x="25" y="115" width="99" height="36"/>
+                                        <rect key="frame" x="25" y="120" width="99" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wins, losses, and legends in motion" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9HB-Yq-qz5">
-                                        <rect key="frame" x="25" y="141.66666666666666" width="259" height="20"/>
+                                        <rect key="frame" x="25" y="166" width="259" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -35,17 +35,17 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="9HB-Yq-qz5" secondAttribute="bottom" constant="30" id="09J-jy-cEy"/>
                                     <constraint firstAttribute="trailing" secondItem="OgE-EM-dq7" secondAttribute="trailing" constant="269" id="4Gg-mk-xzV"/>
                                     <constraint firstItem="9HB-Yq-qz5" firstAttribute="leading" secondItem="Ox4-7j-6X7" secondAttribute="leading" constant="25" id="a6L-vZ-Byd"/>
                                     <constraint firstItem="OgE-EM-dq7" firstAttribute="leading" secondItem="Ox4-7j-6X7" secondAttribute="leading" constant="25" id="cEF-mu-f1M"/>
-                                    <constraint firstItem="OgE-EM-dq7" firstAttribute="top" secondItem="Ox4-7j-6X7" secondAttribute="top" constant="115" id="nhf-0c-wpd"/>
+                                    <constraint firstItem="9HB-Yq-qz5" firstAttribute="top" secondItem="OgE-EM-dq7" secondAttribute="bottom" constant="10" id="kUj-BC-SAt"/>
+                                    <constraint firstItem="OgE-EM-dq7" firstAttribute="top" secondItem="Ox4-7j-6X7" secondAttribute="top" constant="120" id="nhf-0c-wpd"/>
                                     <constraint firstAttribute="trailing" secondItem="9HB-Yq-qz5" secondAttribute="trailing" constant="109" id="zhH-Ve-63J"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ocb-HY-XWR">
-                                <rect key="frame" x="10" y="201.66666666666669" width="373" height="567.33333333333326"/>
-                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="10" y="223" width="373" height="546"/>
+                                <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Lhg-X1-OEz">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -65,14 +65,14 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bhH-0o-Gkg"/>
-                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ox4-7j-6X7" firstAttribute="leading" secondItem="bhH-0o-Gkg" secondAttribute="leading" id="59D-2f-Icn"/>
                             <constraint firstItem="Ocb-HY-XWR" firstAttribute="leading" secondItem="bhH-0o-Gkg" secondAttribute="leading" constant="10" id="IMt-zp-f5x"/>
                             <constraint firstItem="bhH-0o-Gkg" firstAttribute="bottom" secondItem="Ocb-HY-XWR" secondAttribute="bottom" id="Num-km-7FC"/>
                             <constraint firstItem="Ox4-7j-6X7" firstAttribute="width" secondItem="bhH-0o-Gkg" secondAttribute="width" id="Rqc-28-LUm"/>
                             <constraint firstItem="bhH-0o-Gkg" firstAttribute="trailing" secondItem="Ocb-HY-XWR" secondAttribute="trailing" constant="10" id="T76-aJ-dLQ"/>
-                            <constraint firstItem="Ox4-7j-6X7" firstAttribute="height" secondItem="bhH-0o-Gkg" secondAttribute="height" multiplier="0.27" id="de9-6r-Irs"/>
+                            <constraint firstItem="Ox4-7j-6X7" firstAttribute="height" secondItem="bhH-0o-Gkg" secondAttribute="height" multiplier="0.3" id="de9-6r-Irs"/>
                             <constraint firstItem="bhH-0o-Gkg" firstAttribute="trailing" secondItem="Ox4-7j-6X7" secondAttribute="trailing" id="hJr-Bx-wqa"/>
                             <constraint firstItem="Ocb-HY-XWR" firstAttribute="top" secondItem="Ox4-7j-6X7" secondAttribute="bottom" constant="10" id="vG8-dU-Xl3"/>
                             <constraint firstItem="Ox4-7j-6X7" firstAttribute="top" secondItem="YRT-3S-Tna" secondAttribute="top" id="w3r-xV-4ib"/>
@@ -110,6 +110,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="10s-y5-T8p" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="zZ7-Fm-EOO">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

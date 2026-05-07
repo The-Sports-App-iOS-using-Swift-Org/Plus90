@@ -9,8 +9,11 @@ import UIKit
 class SportsViewController: UIViewController {
     @IBOutlet weak var headerSportsView: UIView!
     @IBOutlet weak var sportsCollectionView: UICollectionView!
+    var presenter: SportsPresenterProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter = SportsPresenter()
+        presenter?.attachView(self)
         headerSportsViewDecoration()
         setupCollectionView()
     }
@@ -25,19 +28,26 @@ class SportsViewController: UIViewController {
         sportsCollectionView.register(nib, forCellWithReuseIdentifier: "SportsCell")
     }
 }
-
-extension SportsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension SportsViewController: SportsViewProtocol {
+    func startAnimating() {}
+    func stopAnimating() {}
+    func reloadCollection() {
+        sportsCollectionView.reloadData()
+    }
+}
+extension SportsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return presenter?.getSportsCount() ?? 0
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportsCell", for: indexPath) as! SportsCollectionViewCell
+        if let sport = presenter?.getSport(at: indexPath.row) {
+            cell.configure(name: sport.name, image: sport.image)
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let sectionInsets: CGFloat = 30
-        let interItemSpacing: CGFloat = 15
-        let availableWidth = collectionView.frame.width - sectionInsets - interItemSpacing
+        let availableWidth = collectionView.frame.width - 45
         let itemWidth = availableWidth / 2
         return CGSize(width: itemWidth, height: itemWidth + 60)
     }

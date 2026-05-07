@@ -39,6 +39,11 @@ extension SportsViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter?.getSportsCount() ?? 0
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter?.didSelectSport(at: indexPath.row)
+        let leaguesVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesVC") as! LeaguesViewController
+        navigationController?.pushViewController(leaguesVC, animated: true)
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportsCell", for: indexPath) as! SportsCollectionViewCell
         if let sport = presenter?.getSport(at: indexPath.row) {

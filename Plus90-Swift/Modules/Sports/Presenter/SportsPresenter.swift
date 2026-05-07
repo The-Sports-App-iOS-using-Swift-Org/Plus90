@@ -1,5 +1,4 @@
-//
-//  SportsPresenter.swift
+
 //  Plus90-Swift
 //
 //  Created by Nemo on 07/05/2026.
@@ -42,3 +41,4 @@ class SportsPresenter: SportsPresenterProtocol {
         print("Selected: \(selectedSport.name)")
     }
 }
+

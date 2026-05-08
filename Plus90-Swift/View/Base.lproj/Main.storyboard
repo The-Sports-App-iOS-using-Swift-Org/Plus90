@@ -266,7 +266,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sRv-yw-1nO">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="136.66666666666666"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="151.66666666666666"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leagues" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfw-Pk-sUs">
                                         <rect key="frame" x="25" y="80" width="164" height="36"/>
@@ -282,20 +282,38 @@
                                     <constraint firstItem="kfw-Pk-sUs" firstAttribute="leading" secondItem="sRv-yw-1nO" secondAttribute="leading" constant="25" id="X5o-sC-s4b"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vgg-Mv-CE7">
+                                <rect key="frame" x="0.0" y="151.66666666666663" width="393" height="759"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaguesCell" id="4iV-Vi-1oy">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4iV-Vi-1oy" id="qK4-wb-Ggd" customClass="LeaguesTableViewCell" customModule="Plus90_Swift" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hbd-EO-oJ7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="hbd-EO-oJ7" firstAttribute="trailing" secondItem="vgg-Mv-CE7" secondAttribute="trailing" id="85W-cp-bek"/>
+                            <constraint firstItem="vgg-Mv-CE7" firstAttribute="top" secondItem="sRv-yw-1nO" secondAttribute="bottom" id="8mB-YW-oa0"/>
                             <constraint firstItem="sRv-yw-1nO" firstAttribute="trailing" secondItem="hbd-EO-oJ7" secondAttribute="trailing" id="BV6-aB-Dum"/>
+                            <constraint firstItem="vgg-Mv-CE7" firstAttribute="leading" secondItem="hbd-EO-oJ7" secondAttribute="leading" id="Dxk-A9-DtI"/>
                             <constraint firstItem="sRv-yw-1nO" firstAttribute="top" secondItem="AsI-cb-ddl" secondAttribute="top" id="NrR-kD-QhO"/>
                             <constraint firstItem="sRv-yw-1nO" firstAttribute="leading" secondItem="hbd-EO-oJ7" secondAttribute="leading" id="Tcn-tP-25Q"/>
-                            <constraint firstItem="sRv-yw-1nO" firstAttribute="height" secondItem="hbd-EO-oJ7" secondAttribute="height" multiplier="0.18" id="p1k-Ae-o7L"/>
+                            <constraint firstItem="vgg-Mv-CE7" firstAttribute="height" secondItem="hbd-EO-oJ7" secondAttribute="height" id="f9v-1s-O27"/>
+                            <constraint firstItem="sRv-yw-1nO" firstAttribute="height" secondItem="hbd-EO-oJ7" secondAttribute="height" multiplier="0.2" id="p1k-Ae-o7L"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sIo-BY-jT2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4298" y="-226"/>
+            <point key="canvasLocation" x="4296.9465648854957" y="-226.05633802816902"/>
         </scene>
         <!--Sports-->
         <scene sceneID="AhF-ih-1ne">

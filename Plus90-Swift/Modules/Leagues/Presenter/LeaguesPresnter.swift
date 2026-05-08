@@ -35,15 +35,19 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
         let completion: (LeagueResponse?) -> Void = { [weak self] response in
             guard let self = self else { return }
             self.view?.stopAnimating()
-            
-            if let result = response?.result {
-                self.leagues = result
+            if let allLeagues = response?.result {
+                if sportName.lowercased() == "football" {
+                    self.leagues = allLeagues.filter { league in
+                        return league.leagueLogo != nil && !league.leagueLogo!.isEmpty
+                    }
+                } else {
+                    self.leagues = allLeagues
+                }
                 self.view?.reloadTable()
             } else {
-                self.view?.showError(message: "Failed to load leagues.")
+                self.view?.showError(message: "No data available.")
             }
         }
-
         switch sportName.lowercased() {
         case "football": networkService.fetchFootBallLeagues(completion: completion)
         case "tennis": networkService.fetchTennisLeagues(completion: completion)
@@ -53,6 +57,6 @@ class LeaguesPresenter: LeaguesPresenterProtocol {
         }
     }
 
-    func getLeaguesCount() -> Int { return leagues.count }
-    func getLeague(at index: Int) -> League { return leagues[index] }
+    func getLeaguesCount() -> Int { leagues.count }
+    func getLeague(at index: Int) -> League { leagues[index] }
 }

@@ -53,9 +53,11 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeaguesCell", for: indexPath) as! LeaguesTableViewCell
         if let league = presenter?.getLeague(at: indexPath.row) {
             cell.leagueTitle.text = league.leagueName
-            cell.leagueCountryTitle.text = league.countryName
-            // Native call to our extension below
-            cell.leagueImage.loadImage(from: league.leagueLogo ?? "", placeholder: UIImage(named: "placeholder"))
+            cell.leagueCountryTitle.text = league.countryName ?? "International"
+            let placeholderName = selectedSportName?.lowercased() ?? "placeholder"
+            let imageUrl = league.leagueLogo ?? ""
+            print(placeholderName)
+            cell.leagueImage.loadImage(from: imageUrl, placeholder: UIImage(named: placeholderName))
         }
         return cell
     }

@@ -310,6 +310,9 @@
                             <constraint firstItem="sRv-yw-1nO" firstAttribute="height" secondItem="hbd-EO-oJ7" secondAttribute="height" multiplier="0.2" id="p1k-Ae-o7L"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="leaguesTableView" destination="vgg-Mv-CE7" id="6aw-UO-avw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sIo-BY-jT2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

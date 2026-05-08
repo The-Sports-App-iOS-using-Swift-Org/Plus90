@@ -52,17 +52,21 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeaguesCell", for: indexPath) as! LeaguesTableViewCell
         if let league = presenter?.getLeague(at: indexPath.row) {
-            cell.leagueTitle.text = league.leagueName
-            cell.leagueCountryTitle.text = league.countryName ?? "International"
-            let placeholderName = selectedSportName?.lowercased() ?? "placeholder"
-            let imageUrl = league.leagueLogo ?? ""
-            print(placeholderName)
-            cell.leagueImage.loadImage(from: imageUrl, placeholder: UIImage(named: placeholderName))
+            let placeholder = selectedSportName?.lowercased() ?? "placeholder"
+            cell.configure(with: league, placeholderName: placeholder)
         }
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 100 }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let selectedLeague = presenter?.getLeague(at: indexPath.row) else { return }
+        if let detailsVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesDetailsVC") as? LeaguesDetailsViewController {
+            navigationController?.pushViewController(detailsVC, animated: true)
+        }
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
 }
 
 extension UIImageView {

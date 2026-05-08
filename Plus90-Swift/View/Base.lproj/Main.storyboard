@@ -318,10 +318,10 @@
             </objects>
             <point key="canvasLocation" x="4296.9465648854957" y="-226.05633802816902"/>
         </scene>
-        <!--View Controller-->
+        <!--Leagues Details View Controller-->
         <scene sceneID="TuO-gb-aWh">
             <objects>
-                <viewController id="Ocf-Af-328" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeaguesDetailsVC" id="Ocf-Af-328" customClass="LeaguesDetailsViewController" customModule="Plus90_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j2U-kQ-DPo">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -369,6 +369,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="350" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <size key="customSize" width="350" height="200"/>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6q3-Ob-0Wp">
@@ -378,6 +379,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="350" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <size key="customSize" width="350" height="300"/>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yKv-gu-eKq">
@@ -387,6 +389,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="350" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemBrownColor"/>
                                         <size key="customSize" width="350" height="128"/>
                                     </collectionViewCell>
                                 </cells>
@@ -439,6 +442,12 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

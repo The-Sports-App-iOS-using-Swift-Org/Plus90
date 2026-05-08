@@ -8,9 +8,9 @@
 import UIKit
 
 class LeaguesTableViewCell: UITableViewCell {
-    @IBOutlet weak var leagueImage: UIImageView!
-    @IBOutlet weak var leagueCountryTitle: UILabel!
-    @IBOutlet weak var leagueTitle: UILabel!
+    @IBOutlet private weak var leagueImage: UIImageView!
+    @IBOutlet private weak var leagueCountryTitle: UILabel!
+    @IBOutlet private weak var leagueTitle: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCellUI()
@@ -35,5 +35,11 @@ class LeaguesTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+    }
+    func configure(with league: League, placeholderName: String) {
+        leagueTitle.text = league.leagueName
+        leagueCountryTitle.text = league.countryName ?? "International"
+        let imageUrl = league.leagueLogo ?? ""
+        leagueImage.loadImage(from: imageUrl, placeholder: UIImage(named: placeholderName))
     }
 }

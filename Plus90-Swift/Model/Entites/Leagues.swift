@@ -16,5 +16,10 @@ struct League: Codable {
     let leagueName: String
     let countryName: String?
     let leagueLogo: String?
-
+    
+    enum CodingKeys: String, CodingKey {
+        case leagueName = "league_name"
+        case countryName = "country_name"
+        case leagueLogo = "league_logo"
+    }
 }

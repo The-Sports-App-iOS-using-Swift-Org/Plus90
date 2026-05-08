@@ -283,14 +283,14 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vgg-Mv-CE7">
-                                <rect key="frame" x="0.0" y="151.66666666666663" width="393" height="759"/>
+                                <rect key="frame" x="20" y="161.66666666666669" width="353" height="646.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaguesCell" id="4iV-Vi-1oy">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="353" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4iV-Vi-1oy" id="qK4-wb-Ggd" customClass="LeaguesTableViewCell" customModule="Plus90_Swift" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -300,13 +300,13 @@
                         <viewLayoutGuide key="safeArea" id="hbd-EO-oJ7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="hbd-EO-oJ7" firstAttribute="trailing" secondItem="vgg-Mv-CE7" secondAttribute="trailing" id="85W-cp-bek"/>
-                            <constraint firstItem="vgg-Mv-CE7" firstAttribute="top" secondItem="sRv-yw-1nO" secondAttribute="bottom" id="8mB-YW-oa0"/>
+                            <constraint firstItem="hbd-EO-oJ7" firstAttribute="bottom" secondItem="vgg-Mv-CE7" secondAttribute="bottom" constant="10" id="7ei-zC-loh"/>
                             <constraint firstItem="sRv-yw-1nO" firstAttribute="trailing" secondItem="hbd-EO-oJ7" secondAttribute="trailing" id="BV6-aB-Dum"/>
-                            <constraint firstItem="vgg-Mv-CE7" firstAttribute="leading" secondItem="hbd-EO-oJ7" secondAttribute="leading" id="Dxk-A9-DtI"/>
+                            <constraint firstItem="vgg-Mv-CE7" firstAttribute="top" secondItem="sRv-yw-1nO" secondAttribute="bottom" constant="10" id="NqN-ip-TE4"/>
                             <constraint firstItem="sRv-yw-1nO" firstAttribute="top" secondItem="AsI-cb-ddl" secondAttribute="top" id="NrR-kD-QhO"/>
+                            <constraint firstItem="hbd-EO-oJ7" firstAttribute="trailing" secondItem="vgg-Mv-CE7" secondAttribute="trailing" constant="20" id="Sw4-1t-gsg"/>
                             <constraint firstItem="sRv-yw-1nO" firstAttribute="leading" secondItem="hbd-EO-oJ7" secondAttribute="leading" id="Tcn-tP-25Q"/>
-                            <constraint firstItem="vgg-Mv-CE7" firstAttribute="height" secondItem="hbd-EO-oJ7" secondAttribute="height" id="f9v-1s-O27"/>
+                            <constraint firstItem="vgg-Mv-CE7" firstAttribute="leading" secondItem="hbd-EO-oJ7" secondAttribute="leading" constant="20" id="ZkX-Bx-xx1"/>
                             <constraint firstItem="sRv-yw-1nO" firstAttribute="height" secondItem="hbd-EO-oJ7" secondAttribute="height" multiplier="0.2" id="p1k-Ae-o7L"/>
                         </constraints>
                     </view>

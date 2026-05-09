@@ -24,7 +24,26 @@ class TeamDetailsViewController: UIViewController {
         presenter = TeamPresenter(view: self)
         presenter.fetchDetails(teamId: teamId)
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        appearance.shadowColor = .clear
+        
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.label]
+        
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
+        navigationController?.navigationBar.scrollEdgeAppearance = nil
+    }
     private func setupUI() {
         view.backgroundColor = .systemBackground
         title = "Team Squad"

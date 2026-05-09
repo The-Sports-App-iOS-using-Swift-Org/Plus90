@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D9A9D952FAE07D900940CA2 /* LeaguesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9A9D932FAE07D900940CA2 /* LeaguesTableViewCell.xib */; };
-		3D9A9D962FAE07D900940CA2 /* SportsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9A9D942FAE07D900940CA2 /* SportsCollectionViewCell.xib */; };
 		3DBBB95C2FAF7B55004F03C7 /* MatchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBBB95B2FAF7B55004F03C7 /* MatchEvent.swift */; };
 		3DBBB9632FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DBBB9622FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib */; };
 		3DBBB9642FAF7C49004F03C7 /* LatestEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBBB9612FAF7C49004F03C7 /* LatestEventCollectionViewCell.swift */; };
@@ -17,6 +15,8 @@
 		3DBBB9702FAF806E004F03C7 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBBB96F2FAF806E004F03C7 /* Team.swift */; };
 		3DBBB9732FAF816A004F03C7 /* TeamsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DBBB9722FAF816A004F03C7 /* TeamsCollectionViewCell.xib */; };
 		3DBBB9742FAF816A004F03C7 /* TeamsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBBB9712FAF816A004F03C7 /* TeamsCollectionViewCell.swift */; };
+		3DBBB9762FAF86E6004F03C7 /* LeaguesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DBBB9752FAF86E6004F03C7 /* LeaguesTableViewCell.xib */; };
+		3DBBB9782FAF86F3004F03C7 /* SportsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DBBB9772FAF86F3004F03C7 /* SportsCollectionViewCell.xib */; };
 		3DBF167C2FABF80F00DF0E89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DBF16782FABF80F00DF0E89 /* LaunchScreen.storyboard */; };
 		3DBF16952FABF80F00DF0E89 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF167E2FABF80F00DF0E89 /* FavoritesPresenter.swift */; };
 		3DBF16962FABF80F00DF0E89 /* FavoritesLeagueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF16802FABF80F00DF0E89 /* FavoritesLeagueCell.swift */; };
@@ -69,8 +69,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3D9A9D932FAE07D900940CA2 /* LeaguesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LeaguesTableViewCell.xib; path = /Users/bayoumi/Downloads/LeaguesTableViewCell.xib; sourceTree = "<absolute>"; };
-		3D9A9D942FAE07D900940CA2 /* SportsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SportsCollectionViewCell.xib; path = /Users/bayoumi/Downloads/SportsCollectionViewCell.xib; sourceTree = "<absolute>"; };
 		3DBBB95B2FAF7B55004F03C7 /* MatchEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchEvent.swift; sourceTree = "<group>"; };
 		3DBBB9612FAF7C49004F03C7 /* LatestEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		3DBBB9622FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LatestEventCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -79,6 +77,8 @@
 		3DBBB96F2FAF806E004F03C7 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		3DBBB9712FAF816A004F03C7 /* TeamsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsCollectionViewCell.swift; sourceTree = "<group>"; };
 		3DBBB9722FAF816A004F03C7 /* TeamsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamsCollectionViewCell.xib; sourceTree = "<group>"; };
+		3DBBB9752FAF86E6004F03C7 /* LeaguesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LeaguesTableViewCell.xib; path = ../LeaguesTableViewCell.xib; sourceTree = SOURCE_ROOT; };
+		3DBBB9772FAF86F3004F03C7 /* SportsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SportsCollectionViewCell.xib; path = ../SportsCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		3DBF167A2FABF80F00DF0E89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DBF167E2FABF80F00DF0E89 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
 		3DBF16802FABF80F00DF0E89 /* FavoritesLeagueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesLeagueCell.swift; sourceTree = "<group>"; };
@@ -245,9 +245,9 @@
 		BA8BECA52FAD0B0900FB1A97 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3DBBB9772FAF86F3004F03C7 /* SportsCollectionViewCell.xib */,
+				3DBBB9752FAF86E6004F03C7 /* LeaguesTableViewCell.xib */,
 				3DBBB9682FAF7D86004F03C7 /* Main.storyboard */,
-				3D9A9D932FAE07D900940CA2 /* LeaguesTableViewCell.xib */,
-				3D9A9D942FAE07D900940CA2 /* SportsCollectionViewCell.xib */,
 				3DBF16782FABF80F00DF0E89 /* LaunchScreen.storyboard */,
 				BACB14F42FAD987000407D0E /* UpcomingCollectionViewCell.swift */,
 				BACB14F52FAD987000407D0E /* UpcomingCollectionViewCell.xib */,
@@ -495,14 +495,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DBBB9762FAF86E6004F03C7 /* LeaguesTableViewCell.xib in Resources */,
 				3DBBB96A2FAF7D86004F03C7 /* Main.storyboard in Resources */,
 				3DBF167C2FABF80F00DF0E89 /* LaunchScreen.storyboard in Resources */,
-				3D9A9D952FAE07D900940CA2 /* LeaguesTableViewCell.xib in Resources */,
 				3DBBB9632FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib in Resources */,
-				3D9A9D962FAE07D900940CA2 /* SportsCollectionViewCell.xib in Resources */,
 				3DBBB9732FAF816A004F03C7 /* TeamsCollectionViewCell.xib in Resources */,
 				BACB14F72FAD987000407D0E /* UpcomingCollectionViewCell.xib in Resources */,
 				BA1F6A8E2FAA5B790079BF3D /* Assets.xcassets in Resources */,
+				3DBBB9782FAF86F3004F03C7 /* SportsCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

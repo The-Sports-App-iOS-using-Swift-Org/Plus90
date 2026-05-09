@@ -1,0 +1,23 @@
+//
+//  Team.swift
+//  Plus90-Swift
+//
+//  Created by Bayoumi on 09/05/2026.
+//
+
+struct TeamResponse: Codable {
+    let success: Int
+    let result: [Team]?
+}
+
+struct Team: Codable {
+    let teamKey: Int
+    let teamName: String
+    let teamLogo: String?
+
+    enum CodingKeys: String, CodingKey {
+        case teamKey = "team_key"
+        case teamName = "team_name"
+        case teamLogo = "team_logo"
+    }
+}

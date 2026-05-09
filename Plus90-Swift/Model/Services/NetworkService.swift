@@ -16,6 +16,7 @@ protocol NetworkServiceProtocol {
     func fetchH2H(firstId: Int, secondId: Int, completion: @escaping (H2HResponse?) -> Void)
     
     func fetchLatestEvents(leagueId: Int, completion: @escaping (H2HResponse?) -> Void)
+    func fetchTeams(leagueId: Int, completion: @escaping (TeamResponse?) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
@@ -85,5 +86,12 @@ class NetworkService: NetworkServiceProtocol {
                     completion(nil)
                 }
             }
+    }
+    func fetchTeams(leagueId: Int, completion: @escaping (TeamResponse?) -> Void) {
+        let urlString = "\(baseUrl)football/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
+        
+        AF.request(urlString).validate().responseDecodable(of: TeamResponse.self) { response in
+            completion(response.value)
+        }
     }
 }

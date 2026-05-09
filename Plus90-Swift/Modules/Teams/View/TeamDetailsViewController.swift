@@ -1,0 +1,209 @@
+//
+//  TeamDetailsViewController.swift
+//  Plus90-Swift
+//
+//  Created by Bayoumi on 09/05/2026.
+//
+
+
+import UIKit
+
+class TeamDetailsViewController: UIViewController {
+
+    @IBOutlet weak var teamDetailsCollectionView: UICollectionView!
+    
+    var teamId: Int?
+    private var teamData: Team?
+    private var presenter: TeamPresenter!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        setupCollectionView()
+        
+        presenter = TeamPresenter(view: self)
+        presenter.fetchDetails(teamId: teamId)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        appearance.shadowColor = .clear
+        
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.label]
+        
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
+        navigationController?.navigationBar.scrollEdgeAppearance = nil
+    }
+    private func setupUI() {
+        view.backgroundColor = .systemBackground
+        title = "Team Squad"
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .systemBackground
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
+    private func setupCollectionView() {
+        teamDetailsCollectionView.delegate = self
+        teamDetailsCollectionView.dataSource = self
+        teamDetailsCollectionView.backgroundColor = .clear
+        
+        teamDetailsCollectionView.register(UINib(nibName: "TeamHeaderCell", bundle: nil), forCellWithReuseIdentifier: "HeaderCell")
+        teamDetailsCollectionView.register(UINib(nibName: "StaffCell", bundle: nil), forCellWithReuseIdentifier: "StaffCell")
+        teamDetailsCollectionView.register(UINib(nibName: "PlayerCell", bundle: nil), forCellWithReuseIdentifier: "PlayerCell")
+        
+        teamDetailsCollectionView.register(TeamSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+        
+        teamDetailsCollectionView.setCollectionViewLayout(createLayout(), animated: false)
+    }
+}
+
+extension TeamDetailsViewController: TeamDetailsViewProtocol {
+    func startLoading() {
+       
+    }
+    
+    func stopLoading() {
+    }
+    
+    func displayTeamData(_ team: Team) {
+        self.teamData = team
+        DispatchQueue.main.async {
+            self.teamDetailsCollectionView.reloadData()
+        }
+    }
+    
+    func displayError(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+}
+
+extension TeamDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int { return 3 }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case 0: return 1
+        case 1: return teamData?.coaches?.count ?? 0
+        case 2: return teamData?.players?.count ?? 0
+        default: return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.section {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderCell", for: indexPath) as! TeamHeaderCell
+            if let data = teamData {
+                cell.configure(name: data.teamName, logoUrl: data.teamLogo)
+            }
+            return cell
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StaffCell", for: indexPath) as! StaffCell
+            if let coach = teamData?.coaches?[indexPath.item] {
+                cell.configure(with: coach)
+            }
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlayerCell", for: indexPath) as! PlayerCell
+            if let player = teamData?.players?[indexPath.item] {
+                cell.configure(with: player)
+            }
+            return cell
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! TeamSectionHeaderView
+        switch indexPath.section {
+        case 1: header.configure(title: "Manager & Staff")
+        case 2: header.configure(title: "Active Roster")
+        default: header.configure(title: "")
+        }
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.section > 0 {
+            cell.alpha = 0
+            cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            UIView.animate(withDuration: 0.3, delay: 0.05 * Double(indexPath.item), options: .curveEaseOut) {
+                cell.alpha = 1
+                cell.transform = .identity
+            }
+        }
+    }
+}
+
+extension TeamDetailsViewController {
+    private func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
+            switch sectionIndex {
+            case 0: return self.createHeaderSection()
+            case 1: return self.createStaffSection()
+            default: return self.createPlayerSection()
+            }
+        }
+    }
+
+    private func createHeaderSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(240))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0)
+        return section
+    }
+
+    private func createStaffSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .absolute(170))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        section.boundarySupplementaryItems = [createHeaderSupplementaryItem()]
+        
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 8, bottom: 5, trailing: 8)
+        return section
+    }
+
+    private func createPlayerSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(85))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16)
+        
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        
+        section.boundarySupplementaryItems = [header]
+        return section
+    }
+
+    private func createHeaderSupplementaryItem() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
+        return NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    }
+}

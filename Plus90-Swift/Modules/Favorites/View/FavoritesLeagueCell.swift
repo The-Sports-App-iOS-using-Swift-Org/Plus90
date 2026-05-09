@@ -100,6 +100,25 @@ class FavoriteLeagueCell: UITableViewCell {
     func configure(with league: FavoriteLeague) {
         titleLabel.text = league.name
         regionLabel.text = league.region
-        iconImageView.image = UIImage(named: league.imageName)
+        iconImageView.image = UIImage(named: "football")
+        
+         
+        guard let url = URL(string: league.imageName) else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            if let error = error {
+                 return
+            }
+            
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self?.iconImageView.image = image
+                }
+            } else {
+                print("Failed to convert data to image")
+            }
+        }.resume()
     }
 }

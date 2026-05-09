@@ -25,8 +25,13 @@ class LeaguesViewController: UIViewController {
         if let sport = selectedSportName {
             presenter?.fetchLeagues(for: sport)
         }
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationItem.hidesBackButton = true
+    }
     private func setupTableView() {
         leaguesTableView.delegate = self
         leaguesTableView.dataSource = self
@@ -61,6 +66,10 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let selectedLeague = presenter?.getLeague(at: indexPath.row) else { return }
         if let detailsVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesDetailsVC") as? LeaguesDetailsViewController {
+            detailsVC.leagueId = selectedLeague.leagueKey
+            detailsVC.leagueName = selectedLeague.leagueName
+            detailsVC.leagueRegion = selectedLeague.countryName
+            detailsVC.leagueImageUrl = selectedLeague.leagueLogo
             navigationController?.pushViewController(detailsVC, animated: true)
         }
     }
@@ -79,5 +88,11 @@ extension UIImageView {
                 DispatchQueue.main.async { self?.image = image }
             }
         }.resume()
+    }
+}
+
+extension LeaguesViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return (navigationController?.viewControllers.count ?? 0) > 1
     }
 }

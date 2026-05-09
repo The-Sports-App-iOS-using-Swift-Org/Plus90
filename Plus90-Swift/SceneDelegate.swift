@@ -10,32 +10,14 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-            guard let windowScene = (scene as? UIWindowScene) else { return }
-            window = UIWindow(windowScene: windowScene)
-            
-             if OnboardingPresenter.hasSeenOnboarding() {
-                setRootToMainApp()
-            } else {
-                setRootToOnboarding()
-            }
-            
-            window?.makeKeyAndVisible()
-        }
-
-         func setRootToMainApp() {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainTabBar = storyboard.instantiateViewController(withIdentifier: "MainTabBarController")
-            window?.rootViewController = mainTabBar
-        }
-
-      
-        func setRootToOnboarding() {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let onboardingVC = storyboard.instantiateViewController(withIdentifier: "OnboardingViewController")
-            window?.rootViewController = onboardingVC
-        }
-    
+    func scene(_ scene: UIScene,willConnectTo session: UISceneSession,options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let splashVC = storyboard.instantiateViewController(withIdentifier: "SplashVC")
+        window?.rootViewController = splashVC
+        window?.makeKeyAndVisible()
+    }
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
     }

@@ -10,6 +10,8 @@ import Foundation
 
 protocol LeaguesDetailsPresenterProtocol{
     func loadData()
+    func toggleFavorite(name: String, region: String, image: String) 
+    func checkFavoriteStatus(name: String)
 }
 class LeaguesDetailsPresenter : LeaguesDetailsPresenterProtocol {
     private weak var view: LeaguesDetailsViewProtocol?
@@ -46,4 +48,23 @@ class LeaguesDetailsPresenter : LeaguesDetailsPresenterProtocol {
             self?.view?.refreshUI(events: events, teams: teams)
         }
     }
+    
+    func toggleFavorite(name: String, region: String, image: String) {
+        if CoreDataManager.shared.isLeagueFavorite(name: name) {
+            CoreDataManager.shared.deleteLeague(name: name)
+            // THIS LINE IS REQUIRED:
+            view?.updateFavoriteButton(isFavorite: false)
+        } else {
+            CoreDataManager.shared.saveLeague(name: name, region: region, image: image)
+            // THIS LINE IS REQUIRED:
+            view?.updateFavoriteButton(isFavorite: true)
+        }
+    }
+
+    
+    func checkFavoriteStatus(name: String) {
+            let isFav = CoreDataManager.shared.isLeagueFavorite(name: name)
+            view?.updateFavoriteButton(isFavorite: isFav)
+    }
+    
 }

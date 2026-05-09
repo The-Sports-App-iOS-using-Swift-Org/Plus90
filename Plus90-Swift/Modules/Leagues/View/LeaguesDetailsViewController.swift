@@ -2,25 +2,34 @@
 //  Plus90-Swift
 //  Created by Nemo on 08/05/2026.
 
+
 import UIKit
 
 protocol LeaguesDetailsViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func refreshUI(events: [MatchEvent], teams: [Team])
+    func updateFavoriteButton(isFavorite: Bool)
 }
-class LeaguesDetailsViewController: UIViewController {
+
+class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var heartImage: UIImageView!
     @IBOutlet weak var leaguesCompositionalLeaguesCollectionView: UICollectionView!
     
     private let activityIndicator: UIActivityIndicatorView = {
-            let indicator = UIActivityIndicatorView(style: .large)
-            indicator.color = .systemBlue
-            indicator.hidesWhenStopped = true
-            return indicator
-        }()
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .systemBlue
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     
     var leagueId: Int?
+    var leagueName: String?
+    var leagueRegion: String?
+    var leagueImageUrl: String?
+    
     private var presenter: LeaguesDetailsPresenterProtocol!
     private var latestEvents: [MatchEvent] = []
     private var teams: [Team] = []
@@ -29,13 +38,30 @@ class LeaguesDetailsViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupCollectionView()
+        setupHeartImageGesture()
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         if let id = leagueId {
             presenter = LeaguesDetailsPresenter(view: self, leagueId: id)
             presenter.loadData()
+            
+            if let name = leagueName {
+                presenter.checkFavoriteStatus(name: name)
+            }
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     private func setupUI() {
         view.backgroundColor = .systemBackground
         
@@ -45,6 +71,12 @@ class LeaguesDetailsViewController: UIViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+
+    private func setupHeartImageGesture() {
+        heartImage.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(favoriteTapped))
+        heartImage.addGestureRecognizer(tapGesture)
     }
     
     private func setupCollectionView() {
@@ -60,30 +92,70 @@ class LeaguesDetailsViewController: UIViewController {
         
         leaguesCompositionalLeaguesCollectionView.setCollectionViewLayout(createCompositionalLayout(), animated: false)
     }
+    
+    @objc private func backButtonAction() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func favoriteTapped() {
+    
+        guard let name = leagueName else {
+            print("Error: leagueName is NIL. Check the previous screen's data passing!")
+            return
+        }
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            self.heartImage.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        }) { _ in
+            UIView.animate(withDuration: 0.1) {
+                self.heartImage.transform = .identity
+            }
+        }
+        
+        presenter.toggleFavorite(name: name,
+                                region: leagueRegion ?? "Unknown",
+                                image: leagueImageUrl ?? "")
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return (navigationController?.viewControllers.count ?? 0) > 1
+    }
 }
 
 extension LeaguesDetailsViewController: LeaguesDetailsViewProtocol {
+    
     func showLoading() {
-            DispatchQueue.main.async {
-                self.activityIndicator.startAnimating()
-                self.leaguesCompositionalLeaguesCollectionView.alpha = 0
-            }
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+            self.leaguesCompositionalLeaguesCollectionView.alpha = 0
         }
+    }
     
     func hideLoading() {
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                UIView.animate(withDuration: 0.3) {
-                    self.leaguesCompositionalLeaguesCollectionView.alpha = 1.0
-                }
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            UIView.animate(withDuration: 0.3) {
+                self.leaguesCompositionalLeaguesCollectionView.alpha = 1.0
             }
         }
+    }
     
     func refreshUI(events: [MatchEvent], teams: [Team]) {
         self.latestEvents = events
         self.teams = teams
         DispatchQueue.main.async {
             self.leaguesCompositionalLeaguesCollectionView.reloadData()
+        }
+    }
+    
+    func updateFavoriteButton(isFavorite: Bool) {
+        DispatchQueue.main.async {
+            print("Protocol called: updateFavoriteButton with status: \(isFavorite)")
+            let imageName = isFavorite ? "heart.fill" : "heart"
+            let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .semibold)
+            
+            self.heartImage.image = UIImage(systemName: imageName, withConfiguration: config)
+            self.heartImage.tintColor = isFavorite ? .systemRed : .white
         }
     }
 }
@@ -162,14 +234,11 @@ extension LeaguesDetailsViewController {
     private func createHorizontalTeamsSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(100), heightDimension: .absolute(130))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 20, trailing: 16)
-        
         section.boundarySupplementaryItems = [createHeaderSupplementaryItem()]
         return section
     }
@@ -178,10 +247,8 @@ extension LeaguesDetailsViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
-
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [createHeaderSupplementaryItem()]
         return section

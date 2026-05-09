@@ -124,8 +124,10 @@ extension LeaguesDetailsViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             if indexPath.section == 2 {
                 let selectedTeam = teams[indexPath.item]
-                
-                print("Selected Team: \(selectedTeam.teamName)")
+                if let teamDetailsVC = storyboard?.instantiateViewController(withIdentifier: "TeamDetailsVC") as? TeamDetailsViewController {
+                    teamDetailsVC.teamId = selectedTeam.teamKey
+                    self.navigationController?.pushViewController(teamDetailsVC, animated: true)
+                }
             }
         }
 }

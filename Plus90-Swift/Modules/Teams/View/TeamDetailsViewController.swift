@@ -46,7 +46,7 @@ class TeamDetailsViewController: UIViewController {
         teamDetailsCollectionView.register(UINib(nibName: "StaffCell", bundle: nil), forCellWithReuseIdentifier: "StaffCell")
         teamDetailsCollectionView.register(UINib(nibName: "PlayerCell", bundle: nil), forCellWithReuseIdentifier: "PlayerCell")
         
-        teamDetailsCollectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+        teamDetailsCollectionView.register(TeamSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         
         teamDetailsCollectionView.setCollectionViewLayout(createLayout(), animated: false)
     }

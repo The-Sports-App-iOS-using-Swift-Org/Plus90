@@ -18,7 +18,6 @@ class LatestEventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var awayTeamNameLabel: UILabel!
     @IBOutlet weak var scoreViewContainer: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
-    
     @IBOutlet weak var dateIcon: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
 

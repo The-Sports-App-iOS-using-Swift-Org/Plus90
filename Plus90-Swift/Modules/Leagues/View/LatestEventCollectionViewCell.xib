@@ -12,14 +12,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="LatestEventCollectionViewCell" customModule="Plus90_Swift" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="372" height="215"/>
+            <rect key="frame" x="0.0" y="0.0" width="403" height="215"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="372" height="215"/>
+                <rect key="frame" x="0.0" y="0.0" width="403" height="215"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WxH-Sv-QdW" userLabel="Card Container">
-                        <rect key="frame" x="8" y="8" width="356" height="199"/>
+                        <rect key="frame" x="8" y="8" width="387" height="199"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SERIE A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g89-YM-kSi">
                                 <rect key="frame" x="15.999999999999996" y="16" width="48.666666666666657" height="16"/>
@@ -28,13 +28,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finished" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgF-dE-lei">
-                                <rect key="frame" x="284.33333333333331" y="16" width="55.666666666666686" height="17"/>
+                                <rect key="frame" x="315.33333333333331" y="16" width="55.666666666666686" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlV-SF-iIk" userLabel="Score Container">
-                                <rect key="frame" x="143" y="64.666666666666671" width="70" height="35"/>
+                                <rect key="frame" x="158.66666666666666" y="64.666666666666671" width="70" height="35"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 - 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6t-jx-Okc">
                                         <rect key="frame" x="8" y="7.3333333333333268" width="54" height="20.333333333333329"/>
@@ -53,33 +53,33 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="urT-Xo-lZp" userLabel="Home Image">
-                                <rect key="frame" x="63" y="47" width="50" height="50"/>
+                                <rect key="frame" x="78.666666666666671" y="47" width="50.000000000000014" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1Yx-Xp-zWp"/>
                                     <constraint firstAttribute="width" constant="50" id="p88-46-9Iu"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Uqj-Hi-NUR" userLabel="Away Image">
-                                <rect key="frame" x="243" y="47" width="50" height="50"/>
+                                <rect key="frame" x="258.66666666666669" y="47" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="0a7-6M-o0b"/>
                                     <constraint firstAttribute="height" constant="50" id="O6C-iC-5iR"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l50-hg-uMb">
-                                <rect key="frame" x="48.666666666666657" y="105" width="79" height="17"/>
+                                <rect key="frame" x="64" y="105" width="79" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geg-at-qOK">
-                                <rect key="frame" x="230" y="105" width="76" height="17"/>
+                                <rect key="frame" x="245.66666666666663" y="105" width="76" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6TJ-rN-mKr" userLabel="Separator">
-                                <rect key="frame" x="16" y="157" width="324" height="1"/>
+                                <rect key="frame" x="16" y="157" width="355" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="mSg-8X-v86"/>
@@ -134,7 +134,7 @@
                 <constraint firstAttribute="bottom" secondItem="WxH-Sv-QdW" secondAttribute="bottom" constant="8" id="hAk-Ga-o1R"/>
                 <constraint firstAttribute="trailing" secondItem="WxH-Sv-QdW" secondAttribute="trailing" constant="8" id="l4r-pe-QSh"/>
             </constraints>
-            <size key="customSize" width="372" height="215"/>
+            <size key="customSize" width="403" height="215"/>
             <connections>
                 <outlet property="awayTeamImage" destination="Uqj-Hi-NUR" id="eU6-YD-EP9"/>
                 <outlet property="awayTeamNameLabel" destination="geg-at-qOK" id="m6B-hh-i6J"/>
@@ -148,7 +148,7 @@
                 <outlet property="scoreViewContainer" destination="mlV-SF-iIk" id="diu-sG-bdY"/>
                 <outlet property="statusLabel" destination="zgF-dE-lei" id="7R5-jb-ZHj"/>
             </connections>
-            <point key="canvasLocation" x="167.93893129770993" y="165.84507042253523"/>
+            <point key="canvasLocation" x="191.6030534351145" y="165.84507042253523"/>
         </collectionViewCell>
     </objects>
     <resources>

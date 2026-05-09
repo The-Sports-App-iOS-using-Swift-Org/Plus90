@@ -61,5 +61,29 @@ class NetworkService: NetworkServiceProtocol {
         }
     }
 
+    func fetchLatestEvents(leagueId: Int, completion: @escaping (H2HResponse?) -> Void) {
+        // We set a date range from 15 days ago to today
+        let today = Date()
+        let fifteenDaysAgo = Calendar.current.date(byAdding: .day, value: -15, to: today)!
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        let fromDate = formatter.string(from: fifteenDaysAgo)
+        let toDate = formatter.string(from: today)
 
+        let urlString = "\(baseUrl)football/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
+        
+        AF.request(urlString)
+            .validate()
+            .responseDecodable(of: H2HResponse.self) { response in
+                switch response.result {
+                case .success(let result):
+                    completion(result)
+                case .failure(let error):
+                    print("Fixtures Fetch Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
 }

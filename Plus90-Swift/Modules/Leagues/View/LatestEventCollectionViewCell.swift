@@ -58,17 +58,20 @@ class LatestEventCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with match: MatchEvent) {
-        leagueLabel.text = match.league_name.uppercased()
-        statusLabel.text = match.event_status
+        leagueLabel.text = match.leagueName?.uppercased()
+        statusLabel.text = match.eventStatus
         
-        homTeamNameLabel.text = match.event_home_team
-        awayTeamNameLabel.text = match.event_away_team
+        homTeamNameLabel.text = match.eventHomeTeam
+        awayTeamNameLabel.text = match.eventAwayTeam
         
-        scoreLabel.text = match.event_final_result
+        scoreLabel.text = match.eventFinalResult
         
-        dateLabel.text = "\(match.event_date), \(match.event_time)"
+        let date = match.eventDate ?? ""
+        let time = match.eventTime ?? ""
+        dateLabel.text = "\(date), \(time)"
         
-        homeTeamImage.loadImage(from: match.home_team_logo ?? "", placeholder: UIImage(named: "placeholder"))
-        awayTeamImage.loadImage(from: match.away_team_logo ?? "", placeholder: UIImage(named: "placeholder"))
+        homeTeamImage.loadImage(from: match.homeTeamLogo ?? "", placeholder: UIImage(named: "placeholder"))
+        awayTeamImage.loadImage(from: match.awayTeamLogo ?? "", placeholder: UIImage(named: "placeholder"))
     }
+    
 }

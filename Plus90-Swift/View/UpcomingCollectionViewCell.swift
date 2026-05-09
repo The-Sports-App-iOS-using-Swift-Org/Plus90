@@ -13,6 +13,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class UpcomingCollectionViewCell: UICollectionViewCell {
 
@@ -49,4 +50,30 @@ class UpcomingCollectionViewCell: UICollectionViewCell {
             cornerRadius: 16
         ).cgPath
     }
+    
+    func configure(with match: MatchEvent) {
+            team1Name.text = match.eventHomeTeam
+            team2Name.text = match.eventAwayTeam
+            dateLabel.text = "\(match.eventDate ?? "")\n\(match.eventTime ?? "")"
+            
+            let placeholder = UIImage(named: "football")
+            team1Image.image = placeholder
+            team2Image.image = placeholder
+
+            if let homeUrl = match.homeTeamLogo {
+                AF.request(homeUrl).responseData { [weak self] response in
+                    if let data = response.data, let image = UIImage(data: data) {
+                        self?.team1Image.image = image
+                    }
+                }
+            }
+            
+            if let awayUrl = match.awayTeamLogo {
+                AF.request(awayUrl).responseData { [weak self] response in
+                    if let data = response.data, let image = UIImage(data: data) {
+                        self?.team2Image.image = image
+                    }
+                }
+            }
+        }
 }

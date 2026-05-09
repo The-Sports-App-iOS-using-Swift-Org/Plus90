@@ -8,7 +8,7 @@ import UIKit
 protocol LeaguesDetailsViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
-    func refreshUI(events: [MatchEvent], teams: [Team])
+    func refreshUI(upcoming: [MatchEvent], latest: [MatchEvent], teams: [Team])
     func updateFavoriteButton(isFavorite: Bool)
 }
 
@@ -31,6 +31,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     var leagueImageUrl: String?
     
     private var presenter: LeaguesDetailsPresenterProtocol!
+    private var upcomingEvents: [MatchEvent] = []
     private var latestEvents: [MatchEvent] = []
     private var teams: [Team] = []
     
@@ -83,6 +84,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
         leaguesCompositionalLeaguesCollectionView.delegate = self
         leaguesCompositionalLeaguesCollectionView.dataSource = self
         
+        leaguesCompositionalLeaguesCollectionView.register(UINib(nibName: "UpcomingCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "UpcomingCollectionViewCell")
         leaguesCompositionalLeaguesCollectionView.register(UINib(nibName: "LatestEventCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "LatestEventCell")
         leaguesCompositionalLeaguesCollectionView.register(UINib(nibName: "TeamsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TeamsCell")
         
@@ -141,8 +143,9 @@ extension LeaguesDetailsViewController: LeaguesDetailsViewProtocol {
         }
     }
     
-    func refreshUI(events: [MatchEvent], teams: [Team]) {
-        self.latestEvents = events
+    func refreshUI(upcoming: [MatchEvent], latest: [MatchEvent], teams: [Team]) {
+        self.upcomingEvents = upcoming
+        self.latestEvents = latest
         self.teams = teams
         DispatchQueue.main.async {
             self.leaguesCompositionalLeaguesCollectionView.reloadData()
@@ -169,6 +172,7 @@ extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
+        case 0: return upcomingEvents.count
         case 1: return latestEvents.count
         case 2: return teams.count
         default: return 0
@@ -176,31 +180,38 @@ extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LatestEventCell", for: indexPath) as! LatestEventCollectionViewCell
-            cell.configure(with: latestEvents[indexPath.item])
-            return cell
-        } else if indexPath.section == 2 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamsCell", for: indexPath) as! TeamsCollectionViewCell
-            cell.configure(with: teams[indexPath.item])
-            return cell
+            switch indexPath.section {
+            case 0:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpcomingCollectionViewCell", for: indexPath) as! UpcomingCollectionViewCell
+                cell.configure(with: upcomingEvents[indexPath.item])
+                return cell
+            case 1:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LatestEventCell", for: indexPath) as! LatestEventCollectionViewCell
+                cell.configure(with: latestEvents[indexPath.item])
+                return cell
+            case 2:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamsCell", for: indexPath) as! TeamsCollectionViewCell
+                cell.configure(with: teams[indexPath.item])
+                return cell
+            default:
+                return UICollectionViewCell()
+            }
         }
-        return UICollectionViewCell()
-    }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeaderView", for: indexPath) as! SectionHeaderView
-            
-            switch indexPath.section {
-            case 1: header.titleLabel.text = "Latest Events"
-            case 2: header.titleLabel.text = "Teams"
-            default: header.titleLabel.text = ""
+            if kind == UICollectionView.elementKindSectionHeader {
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeaderView", for: indexPath) as! SectionHeaderView
+                
+                switch indexPath.section {
+                case 0: header.titleLabel.text = "Upcoming Events"
+                case 1: header.titleLabel.text = "Latest Events"
+                case 2: header.titleLabel.text = "Teams"
+                default: header.titleLabel.text = ""
+                }
+                return header
             }
-            return header
+            return UICollectionReusableView()
         }
-        return UICollectionReusableView()
-    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 2 {
@@ -216,14 +227,32 @@ extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionVi
 extension LeaguesDetailsViewController {
     
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
-            switch sectionIndex {
-            case 1: return self.createVerticalLatestEventsSection()
-            case 2: return self.createHorizontalTeamsSection()
-            default: return self.createEmptyPlaceholderSection()
+            return UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
+                switch sectionIndex {
+                case 0: return self.createUpcomingEventsSection()
+                case 1: return self.createVerticalLatestEventsSection()
+                case 2: return self.createHorizontalTeamsSection()
+                default: return self.createEmptyPlaceholderSection()
+                }
             }
         }
-    }
+
+        private func createUpcomingEventsSection() -> NSCollectionLayoutSection {
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(200))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .groupPagingCentered // Center aligned scrolling
+            section.interGroupSpacing = 12
+            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 20, trailing: 16)
+            
+            // Add header
+            section.boundarySupplementaryItems = [createHeaderSupplementaryItem()]
+            return section
+        }
     
     private func createEmptyPlaceholderSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(0.1))

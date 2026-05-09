@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 // Modules/Favoraites/View/FavoriteLeagueCell
 
 class FavoriteLeagueCell: UITableViewCell {
@@ -99,26 +100,25 @@ class FavoriteLeagueCell: UITableViewCell {
     
     func configure(with league: FavoriteLeague) {
         titleLabel.text = league.name
-        regionLabel.text = league.region
+        regionLabel.text = league.region.capitalized
         iconImageView.image = UIImage(named: "football")
         
          
-        guard let url = URL(string: league.imageName) else {
+       
+        let urlString = league.imageName ?? ""
+        guard let url = URL(string: urlString) else { return }
+        
+        if let cachedResponse = URLCache.shared.cachedResponse(for: URLRequest(url: url)),
+            let cachedImage = UIImage(data: cachedResponse.data) {
+            self.iconImageView.image = cachedImage
             return
         }
+
+        AF.request(url).responseData { [weak self] response in
+            if let data = response.data, let image = UIImage(data: data) {
+                self?.iconImageView.image = image
+            }
+        }
         
-        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            if let error = error {
-                 return
-            }
-            
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self?.iconImageView.image = image
-                }
-            } else {
-                print("Failed to convert data to image")
-            }
-        }.resume()
     }
 }

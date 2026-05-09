@@ -18,6 +18,7 @@ protocol NetworkServiceProtocol {
     func fetchTeams(leagueId: Int, completion: @escaping (TeamResponse?) -> Void)
     
     func fetchTeamDetails(teamId: Int, completion: @escaping (Team?) -> Void)
+    func fetchUpcomingEvents(leagueId: Int, completion: @escaping (H2HResponse?) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
@@ -104,6 +105,31 @@ class NetworkService: NetworkServiceProtocol {
                     completion(teamData.result?.first)
                 case .failure(let error):
                     print("Team Details Fetch Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
+    
+    func fetchUpcomingEvents(leagueId: Int, completion: @escaping (H2HResponse?) -> Void) {
+        let today = Date()
+        let twentyDaysFromNow = Calendar.current.date(byAdding: .day, value: 20, to: today)!
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        let fromDate = formatter.string(from: today)
+        let toDate = formatter.string(from: twentyDaysFromNow)
+
+        let urlString = "\(baseUrl)football/?met=Fixtures&leagueId=\(leagueId)&from=\(fromDate)&to=\(toDate)&APIkey=\(apiKey)"
+        
+        AF.request(urlString)
+            .validate()
+            .responseDecodable(of: H2HResponse.self) { response in
+                switch response.result {
+                case .success(let result):
+                    completion(result)
+                case .failure(let error):
+                    print("Upcoming Events Fetch Error: \(error.localizedDescription)")
                     completion(nil)
                 }
             }

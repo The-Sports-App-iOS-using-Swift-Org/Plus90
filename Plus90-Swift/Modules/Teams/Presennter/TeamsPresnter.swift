@@ -8,14 +8,13 @@
 import Foundation
 
 protocol TeamDetailsViewProtocol: AnyObject {
-    func showLoading()
-    func hideLoading()
-    func renderTeamData(_ team: Team)
-    func showError(_ message: String)
+    func startLoading()
+    func stopLoading()
+    func displayTeamData(_ team: Team)
+    func displayError(message: String)
 }
 
 class TeamPresenter {
-    
     private weak var view: TeamDetailsViewProtocol?
     private let networkService: NetworkServiceProtocol
     
@@ -24,27 +23,22 @@ class TeamPresenter {
         self.networkService = networkService
     }
     
-    func getTeamDetails(id: Int) {
-        view?.showLoading()
+    func fetchDetails(teamId: Int?) {
+        guard let id = teamId else {
+            view?.displayError(message: "Invalid Team ID")
+            return
+        }
         
+        view?.startLoading()
         networkService.fetchTeamDetails(teamId: id) { [weak self] team in
             guard let self = self else { return }
-            self.view?.hideLoading()
+            self.view?.stopLoading()
             
             if let teamInfo = team {
-                self.view?.renderTeamData(teamInfo)
+                self.view?.displayTeamData(teamInfo)
             } else {
-                self.view?.showError("Failed to fetch team data.")
+                self.view?.displayError(message: "Could not load team details.")
             }
         }
-    }
-    
-    // Logic for counting items (Presenter handles the "Numbers")
-    func getPlayersCount(team: Team?) -> Int {
-        return team?.players?.count ?? 0
-    }
-    
-    func getCoachesCount(team: Team?) -> Int {
-        return team?.coaches?.count ?? 0
     }
 }

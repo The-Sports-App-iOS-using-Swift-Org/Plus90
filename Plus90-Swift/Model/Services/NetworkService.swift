@@ -14,16 +14,16 @@ protocol NetworkServiceProtocol {
     func fetchBasketBallLeagues(completion: @escaping (LeagueResponse?) -> Void)
     func fetchCricketLeagues(completion: @escaping (LeagueResponse?) -> Void)
     func fetchH2H(firstId: Int, secondId: Int, completion: @escaping (H2HResponse?) -> Void)
-    
     func fetchLatestEvents(leagueId: Int, completion: @escaping (H2HResponse?) -> Void)
     func fetchTeams(leagueId: Int, completion: @escaping (TeamResponse?) -> Void)
+    
+    func fetchTeamDetails(teamId: Int, completion: @escaping (Team?) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
     private let apiKey = "f53e0b0a6b8c53985ca5b20708c34bdb7ad3cff2465075297be0bada5f7b0983"
     private let baseUrl = "https://apiv2.allsportsapi.com/"
 
-    // MARK: - Generic League Fetcher
     private func fetchLeagues(for sport: String, completion: @escaping (LeagueResponse?) -> Void) {
         let urlString = "\(baseUrl)\(sport)/?met=Leagues&APIkey=\(apiKey)"
         AF.request(urlString)
@@ -63,10 +63,8 @@ class NetworkService: NetworkServiceProtocol {
     }
 
     func fetchLatestEvents(leagueId: Int, completion: @escaping (H2HResponse?) -> Void) {
-        // We set a date range from 15 days ago to today
         let today = Date()
         let fifteenDaysAgo = Calendar.current.date(byAdding: .day, value: -15, to: today)!
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         
@@ -87,11 +85,27 @@ class NetworkService: NetworkServiceProtocol {
                 }
             }
     }
+
     func fetchTeams(leagueId: Int, completion: @escaping (TeamResponse?) -> Void) {
         let urlString = "\(baseUrl)football/?met=Teams&leagueId=\(leagueId)&APIkey=\(apiKey)"
-        
         AF.request(urlString).validate().responseDecodable(of: TeamResponse.self) { response in
             completion(response.value)
         }
+    }
+
+    func fetchTeamDetails(teamId: Int, completion: @escaping (Team?) -> Void) {
+        let urlString = "\(baseUrl)football/?met=Teams&teamId=\(teamId)&APIkey=\(apiKey)"
+        
+        AF.request(urlString)
+            .validate()
+            .responseDecodable(of: TeamResponse.self) { response in
+                switch response.result {
+                case .success(let teamData):
+                    completion(teamData.result?.first)
+                case .failure(let error):
+                    print("Team Details Fetch Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
     }
 }

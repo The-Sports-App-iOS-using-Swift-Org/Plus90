@@ -61,6 +61,7 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let selectedLeague = presenter?.getLeague(at: indexPath.row) else { return }
         if let detailsVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesDetailsVC") as? LeaguesDetailsViewController {
+            detailsVC.leagueId = selectedLeague.leagueKey
             navigationController?.pushViewController(detailsVC, animated: true)
         }
     }

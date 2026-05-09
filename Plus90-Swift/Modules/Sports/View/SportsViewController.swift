@@ -40,8 +40,10 @@ extension SportsViewController: UICollectionViewDataSource, UICollectionViewDele
         return presenter?.getSportsCount() ?? 0
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter?.didSelectSport(at: indexPath.row)
         let leaguesVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesVC") as! LeaguesViewController
+        if let sport = presenter?.getSport(at: indexPath.row) {
+            leaguesVC.selectedSportName = sport.name
+        }
         navigationController?.pushViewController(leaguesVC, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -9,12 +9,12 @@ import Foundation
 
 struct LeagueResponse: Codable {
     let success: Int
-    let result: [League]
+    let result: [League]?
 }
 
 struct League: Codable {
     let leagueName: String
-    let countryName: String
+    let countryName: String?
     let leagueLogo: String?
     
     enum CodingKeys: String, CodingKey {

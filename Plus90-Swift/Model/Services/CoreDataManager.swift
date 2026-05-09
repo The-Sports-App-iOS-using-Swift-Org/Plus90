@@ -88,4 +88,17 @@ class CoreDataManager {
         
         print("Static favorites seeded successfully.")
     }
+    
+    func isLeagueFavorite(name: String) -> Bool {
+        let request = NSFetchRequest<NSManagedObject>(entityName: "FavoriteEntity")
+        request.predicate = NSPredicate(format: "name == %@", name)
+        
+        do {
+            let count = try context.count(for: request)
+            return count > 0
+        } catch {
+            return false
+        }
+    }
+    
 }

@@ -10,7 +10,7 @@ import Foundation
 
 protocol LeaguesDetailsPresenterProtocol{
     func loadData()
-    func toggleFavorite(name: String, region: String, image: String) 
+    func toggleFavorite(name: String, region: String, image: String)
     func checkFavoriteStatus(name: String)
 }
 class LeaguesDetailsPresenter : LeaguesDetailsPresenterProtocol {
@@ -50,13 +50,17 @@ class LeaguesDetailsPresenter : LeaguesDetailsPresenterProtocol {
     }
     
     func toggleFavorite(name: String, region: String, image: String) {
+        
         if CoreDataManager.shared.isLeagueFavorite(name: name) {
             CoreDataManager.shared.deleteLeague(name: name)
-            // THIS LINE IS REQUIRED:
             view?.updateFavoriteButton(isFavorite: false)
         } else {
-            CoreDataManager.shared.saveLeague(name: name, region: region, image: image)
-            // THIS LINE IS REQUIRED:
+            CoreDataManager.shared.saveLeague(
+                id: Int64(self.leagueId),
+                name: name,
+                region: region,
+                image: image
+            )
             view?.updateFavoriteButton(isFavorite: true)
         }
     }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Network
 // Modules/Favoraites/Presenter/FavoritesPresenter
 protocol FavoritesPresenterProtocol: AnyObject {
     func viewDidLoad()
@@ -48,7 +49,23 @@ class FavoritesPresenter: FavoritesPresenterProtocol {
 
     func didSelectFavorite(at index: Int) {
         let selectedLeague = favorites[index]
-        print("Navigate to details for: \(selectedLeague.name)")
+        
+        let monitor = NWPathMonitor()
+        let queue = DispatchQueue(label: "NetworkCheck")
+        
+        monitor.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                if path.status == .satisfied {
+                    print("Connection satisfied, navigating...")
+                    self?.view?.navigateToDetails(with: selectedLeague)
+                } else {
+                    print("Connection failed, showing alert.")
+                    self?.view?.showNetworkError()
+                }
+                monitor.cancel()
+            }
+        }
+        monitor.start(queue: queue)
     }
 
     func didRequestRemoval(at index: Int) {

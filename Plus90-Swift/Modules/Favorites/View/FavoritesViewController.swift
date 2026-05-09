@@ -10,8 +10,9 @@ import UIKit
 protocol FavoritesViewProtocol: AnyObject {
     func reloadData()
     func showDeleteConfirmation(at index: Int, leagueName: String)
-        func toggleEmptyState(show: Bool)
-    
+    func toggleEmptyState(show: Bool)
+    func navigateToDetails(with league: FavoriteLeague)
+    func showNetworkError()
 }
 
 
@@ -132,7 +133,35 @@ extension FavoritesViewController: FavoritesViewProtocol {
             tableView.separatorStyle = .singleLine
         }
     }
+    
+    func navigateToDetails(with league: FavoriteLeague) {
+        guard let nav = self.navigationController else {
+            return
+        }
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        if let detailsVC = storyboard.instantiateViewController(withIdentifier: "LeaguesDetailsVC") as? LeaguesDetailsViewController {
+            detailsVC.leagueId = Int(league.id)
+            detailsVC.leagueName = league.name
+            detailsVC.leagueRegion = league.region
+            detailsVC.leagueImageUrl = league.imageName
+            
+            nav.pushViewController(detailsVC, animated: true)
+        }
+    }
+    
+    func showNetworkError() {
+        let alert = UIAlertController(
+            title: "Network Connection",
+            message: "You are offline. Please check your internet connection to view league details.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
 }
+
 
 extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

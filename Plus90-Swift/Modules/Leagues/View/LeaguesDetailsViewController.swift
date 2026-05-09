@@ -99,7 +99,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     
     @objc private func favoriteTapped() {
     
-        guard let name = leagueName else {
+        guard let name = leagueName , let image = leagueImageUrl else {
             print("Error: leagueName is NIL. Check the previous screen's data passing!")
             return
         }
@@ -112,9 +112,10 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
             }
         }
         
-        presenter.toggleFavorite(name: name,
-                                region: leagueRegion ?? "Unknown",
-                                image: leagueImageUrl ?? "")
+        presenter.toggleFavorite(
+            name: name,
+            region: leagueRegion ?? "Unknown",
+            image: image)
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

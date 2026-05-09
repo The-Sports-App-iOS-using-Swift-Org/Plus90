@@ -58,6 +58,10 @@
 		BACB14F32FAD97CE00407D0E /* LeaguesDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACB14F22FAD97CE00407D0E /* LeaguesDetailsViewController.swift */; };
 		BACB14F62FAD987000407D0E /* UpcomingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACB14F42FAD987000407D0E /* UpcomingCollectionViewCell.swift */; };
 		BACB14F72FAD987000407D0E /* UpcomingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BACB14F52FAD987000407D0E /* UpcomingCollectionViewCell.xib */; };
+		BAFBFA382FAE6F8200AE44E8 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = BAFBFA372FAE6F8200AE44E8 /* SDWebImage */; };
+		BAFBFA3A2FAE6F8200AE44E8 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAFBFA392FAE6F8200AE44E8 /* SDWebImageMapKit */; };
+		BAFBFA3D2FAE723800AE44E8 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBFA3C2FAE723800AE44E8 /* SplashViewController.swift */; };
+		BAFBFA442FAE773C00AE44E8 /* splashh.gif in Resources */ = {isa = PBXBuildFile; fileRef = BAFBFA432FAE773C00AE44E8 /* splashh.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +136,8 @@
 		BACB14F22FAD97CE00407D0E /* LeaguesDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesDetailsViewController.swift; sourceTree = "<group>"; };
 		BACB14F42FAD987000407D0E /* UpcomingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingCollectionViewCell.swift; sourceTree = "<group>"; };
 		BACB14F52FAD987000407D0E /* UpcomingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingCollectionViewCell.xib; sourceTree = "<group>"; };
+		BAFBFA3C2FAE723800AE44E8 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		BAFBFA432FAE773C00AE44E8 /* splashh.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splashh.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +145,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAFBFA382FAE6F8200AE44E8 /* SDWebImage in Frameworks */,
+				BAFBFA3A2FAE6F8200AE44E8 /* SDWebImageMapKit in Frameworks */,
 				BA1F6AB62FAA5CB80079BF3D /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +259,7 @@
 		BA8BECA42FAD0AE200FB1A97 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				BAFBFA3B2FAE721400AE44E8 /* Splash */,
 				3DED7A772FAD0F63008FCDE9 /* Onboarding */,
 				BA8BECAA2FAD0B9300FB1A97 /* Teams */,
 				BA8BECA92FAD0B8A00FB1A97 /* Leagues */,
@@ -412,6 +421,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		BAFBFA3B2FAE721400AE44E8 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				BAFBFA432FAE773C00AE44E8 /* splashh.gif */,
+				BAFBFA3C2FAE723800AE44E8 /* SplashViewController.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -430,6 +448,8 @@
 			name = "Plus90-Swift";
 			packageProductDependencies = (
 				BA1F6AB52FAA5CB80079BF3D /* Alamofire */,
+				BAFBFA372FAE6F8200AE44E8 /* SDWebImage */,
+				BAFBFA392FAE6F8200AE44E8 /* SDWebImageMapKit */,
 			);
 			productName = "Plus90-Swift";
 			productReference = BA1F6A7E2FAA5B770079BF3D /* Plus90-Swift.app */;
@@ -505,6 +525,7 @@
 			mainGroup = BA1F6A752FAA5B770079BF3D;
 			packageReferences = (
 				BA1F6AB42FAA5CB80079BF3D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				BAFBFA362FAE6F8200AE44E8 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = BA1F6A7F2FAA5B770079BF3D /* Products */;
 			projectDirPath = "";
@@ -531,6 +552,9 @@
 				3DBBB9632FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib in Resources */,
 				3DBBB9732FAF816A004F03C7 /* TeamsCollectionViewCell.xib in Resources */,
 				BACB14F72FAD987000407D0E /* UpcomingCollectionViewCell.xib in Resources */,
+				BA071E292FAD711200378776 /* SportsCollectionViewCell.xib in Resources */,
+				BAFBFA442FAE773C00AE44E8 /* splashh.gif in Resources */,
+				BA071E282FAD711200378776 /* LeaguesTableViewCell.xib in Resources */,
 				BA1F6A8E2FAA5B790079BF3D /* Assets.xcassets in Resources */,
 				3DBBB9782FAF86F3004F03C7 /* SportsCollectionViewCell.xib in Resources */,
 			);
@@ -585,6 +609,7 @@
 				3DBBB9B52FAF9E3E004F03C7 /* PlayerCell.swift in Sources */,
 				3DBF16A52FABF80F00DF0E89 /* CoreDataManager.swift in Sources */,
 				BA8BECB62FAD0C6A00FB1A97 /* TeamsPresnter.swift in Sources */,
+				BAFBFA3D2FAE723800AE44E8 /* SplashViewController.swift in Sources */,
 				BA071E2B2FAD714800378776 /* LeaguesViewController.swift in Sources */,
 				BA071E2F2FAD71C700378776 /* SportsCollectionViewCell.swift in Sources */,
 				3DBF169A2FABF80F00DF0E89 /* OnboardingPageViewController.swift in Sources */,
@@ -938,6 +963,14 @@
 				version = 5.8.0;
 			};
 		};
+		BAFBFA362FAE6F8200AE44E8 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.13.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -945,6 +978,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BA1F6AB42FAA5CB80079BF3D /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		BAFBFA372FAE6F8200AE44E8 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAFBFA362FAE6F8200AE44E8 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		BAFBFA392FAE6F8200AE44E8 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAFBFA362FAE6F8200AE44E8 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -12,8 +12,8 @@
 		3DBBB95C2FAF7B55004F03C7 /* MatchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBBB95B2FAF7B55004F03C7 /* MatchEvent.swift */; };
 		3DBBB9632FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DBBB9622FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib */; };
 		3DBBB9642FAF7C49004F03C7 /* LatestEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBBB9612FAF7C49004F03C7 /* LatestEventCollectionViewCell.swift */; };
+		3DBBB96A2FAF7D86004F03C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DBBB9682FAF7D86004F03C7 /* Main.storyboard */; };
 		3DBF167C2FABF80F00DF0E89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DBF16782FABF80F00DF0E89 /* LaunchScreen.storyboard */; };
-		3DBF167D2FABF80F00DF0E89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DBF16792FABF80F00DF0E89 /* Main.storyboard */; };
 		3DBF16952FABF80F00DF0E89 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF167E2FABF80F00DF0E89 /* FavoritesPresenter.swift */; };
 		3DBF16962FABF80F00DF0E89 /* FavoritesLeagueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF16802FABF80F00DF0E89 /* FavoritesLeagueCell.swift */; };
 		3DBF16972FABF80F00DF0E89 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF16812FABF80F00DF0E89 /* FavoritesViewController.swift */; };
@@ -70,8 +70,8 @@
 		3DBBB95B2FAF7B55004F03C7 /* MatchEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchEvent.swift; sourceTree = "<group>"; };
 		3DBBB9612FAF7C49004F03C7 /* LatestEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		3DBBB9622FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LatestEventCollectionViewCell.xib; sourceTree = "<group>"; };
+		3DBBB9692FAF7D86004F03C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DBF167A2FABF80F00DF0E89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3DBF167B2FABF80F00DF0E89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DBF167E2FABF80F00DF0E89 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
 		3DBF16802FABF80F00DF0E89 /* FavoritesLeagueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesLeagueCell.swift; sourceTree = "<group>"; };
 		3DBF16812FABF80F00DF0E89 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -237,10 +237,10 @@
 		BA8BECA52FAD0B0900FB1A97 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3DBBB9682FAF7D86004F03C7 /* Main.storyboard */,
 				3D9A9D932FAE07D900940CA2 /* LeaguesTableViewCell.xib */,
 				3D9A9D942FAE07D900940CA2 /* SportsCollectionViewCell.xib */,
 				3DBF16782FABF80F00DF0E89 /* LaunchScreen.storyboard */,
-				3DBF16792FABF80F00DF0E89 /* Main.storyboard */,
 				BACB14F42FAD987000407D0E /* UpcomingCollectionViewCell.swift */,
 				BACB14F52FAD987000407D0E /* UpcomingCollectionViewCell.xib */,
 			);
@@ -483,8 +483,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DBBB96A2FAF7D86004F03C7 /* Main.storyboard in Resources */,
 				3DBF167C2FABF80F00DF0E89 /* LaunchScreen.storyboard in Resources */,
-				3DBF167D2FABF80F00DF0E89 /* Main.storyboard in Resources */,
 				3D9A9D952FAE07D900940CA2 /* LeaguesTableViewCell.xib in Resources */,
 				3DBBB9632FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib in Resources */,
 				3D9A9D962FAE07D900940CA2 /* SportsCollectionViewCell.xib in Resources */,
@@ -577,20 +577,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		3DBBB9682FAF7D86004F03C7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3DBBB9692FAF7D86004F03C7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		3DBF16782FABF80F00DF0E89 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3DBF167A2FABF80F00DF0E89 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		3DBF16792FABF80F00DF0E89 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3DBF167B2FABF80F00DF0E89 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

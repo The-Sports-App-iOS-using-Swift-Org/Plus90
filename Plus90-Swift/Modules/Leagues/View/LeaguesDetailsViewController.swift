@@ -120,7 +120,14 @@ extension LeaguesDetailsViewController {
         
         return section
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            if indexPath.section == 2 {
+                let selectedTeam = teams[indexPath.item]
+                
+                print("Selected Team: \(selectedTeam.teamName)")
+            }
+        }
 }
 
 extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {

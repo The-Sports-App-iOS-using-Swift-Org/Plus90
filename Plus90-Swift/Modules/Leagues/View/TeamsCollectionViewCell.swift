@@ -19,7 +19,11 @@ class TeamsCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+
         teamLogoImageView.layer.cornerRadius = teamLogoImageView.frame.size.width / 2
+        teamLogoImageView.clipsToBounds = true
+        teamLogoImageView.layer.borderWidth = 2
+        teamLogoImageView.layer.borderColor = UIColor.systemGray5.cgColor
     }
 
     private func setupUI() {

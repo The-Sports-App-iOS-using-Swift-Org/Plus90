@@ -49,22 +49,21 @@ class FavoritesPresenter: FavoritesPresenterProtocol {
 
     func didSelectFavorite(at index: Int) {
         let selectedLeague = favorites[index]
-        
         let monitor = NWPathMonitor()
+        
         let queue = DispatchQueue(label: "NetworkCheck")
         
         monitor.pathUpdateHandler = { [weak self] path in
             DispatchQueue.main.async {
                 if path.status == .satisfied {
-                    print("Connection satisfied, navigating...")
                     self?.view?.navigateToDetails(with: selectedLeague)
                 } else {
-                    print("Connection failed, showing alert.")
                     self?.view?.showNetworkError()
                 }
                 monitor.cancel()
             }
         }
+        
         monitor.start(queue: queue)
     }
 

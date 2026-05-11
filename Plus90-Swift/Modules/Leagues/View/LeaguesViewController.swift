@@ -11,9 +11,12 @@ class LeaguesViewController: UIViewController {
 
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var leaguesTableView: UITableView!
-    
-    private var headerMaskLayer = CAShapeLayer()
-
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .systemGreen
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
     var presenter: LeaguesPresenterProtocol?
     var selectedSportName: String?
 
@@ -56,18 +59,19 @@ class LeaguesViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationItem.hidesBackButton = true
-        self.tabBarController?.tabBar.isHidden = true
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
-    }
+    
     func setupHeaderShape() {
         headerView.layer.cornerRadius = 40
         headerView.layer.maskedCorners = [.layerMinXMaxYCorner]
     }
     private func setupTableView() {
+        view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
         leaguesTableView.delegate = self
         leaguesTableView.dataSource = self
         leaguesTableView.separatorStyle = .none
@@ -78,8 +82,20 @@ class LeaguesViewController: UIViewController {
 }
 
 extension LeaguesViewController: LeaguesViewProtocol {
-    func startAnimating() {}
-    func stopAnimating() {}
+    func startAnimating() {
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+            self.leaguesTableView.alpha = 0
+        }
+    }
+    func stopAnimating() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            UIView.animate(withDuration: 0.3) {
+                self.leaguesTableView.alpha = 1
+            }
+        }
+    }
     func reloadTable() {
         DispatchQueue.main.async { self.leaguesTableView.reloadData() }
     }
@@ -107,6 +123,7 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
             detailsVC.leagueName = selectedLeague.leagueName
             detailsVC.leagueRegion = selectedLeague.countryName
             detailsVC.leagueImageUrl = selectedLeague.leagueLogo
+            detailsVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(detailsVC, animated: true)
         }
     }

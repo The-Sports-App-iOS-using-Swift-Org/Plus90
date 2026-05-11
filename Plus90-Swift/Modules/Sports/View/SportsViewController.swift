@@ -58,6 +58,7 @@ extension SportsViewController: UICollectionViewDataSource, UICollectionViewDele
         if let sport = presenter?.getSport(at: indexPath.row) {
             leaguesVC.selectedSportName = sport.name
         }
+        leaguesVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(leaguesVC, animated: true)
     }
     

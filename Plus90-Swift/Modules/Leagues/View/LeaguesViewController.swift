@@ -9,13 +9,17 @@ import UIKit
 
 class LeaguesViewController: UIViewController {
 
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var leaguesTableView: UITableView!
     
+    private var headerMaskLayer = CAShapeLayer()
+
     var presenter: LeaguesPresenterProtocol?
     var selectedSportName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupHeaderShape()
         setupTableView()
         
         let leaguesPresenter = LeaguesPresenter()
@@ -31,6 +35,27 @@ class LeaguesViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationItem.hidesBackButton = true
+    }
+    private func setupHeaderShape() {
+       // headerView.backgroundColor = .systemGreen
+        
+        let path = UIBezierPath(roundedRect: headerView.bounds,
+                                byRoundingCorners: [.bottomLeft],
+                                cornerRadii: CGSize(width: 80, height: 50))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        headerView.layer.mask = mask
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let path = UIBezierPath(roundedRect: headerView.bounds,
+                                byRoundingCorners: [.bottomLeft],
+                                cornerRadii: CGSize(width: 80, height: 60))
+        
+        headerMaskLayer.path = path.cgPath
+        headerView.layer.mask = headerMaskLayer
     }
     private func setupTableView() {
         leaguesTableView.delegate = self

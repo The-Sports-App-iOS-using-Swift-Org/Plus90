@@ -13,7 +13,9 @@ protocol LeaguesDetailsViewProtocol: AnyObject {
 }
 
 class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
+    @IBOutlet weak var leagueTitleLabel: UILabel!
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var heartImage: UIImageView!
     @IBOutlet weak var leaguesCompositionalLeaguesCollectionView: UICollectionView!
     
@@ -24,6 +26,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
         return indicator
     }()
     
+    private var headerMaskLayer = CAShapeLayer() 
     
     var leagueId: Int?
     var leagueName: String?
@@ -37,6 +40,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupHeaderShape()
         setupUI()
         setupCollectionView()
         setupHeartImageGesture()
@@ -64,6 +68,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     }
     
     private func setupUI() {
+        leagueTitleLabel.text = leagueName
         view.backgroundColor = .systemBackground
         
         view.addSubview(activityIndicator)
@@ -73,7 +78,27 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-
+    private func setupHeaderShape() {
+       // headerView.backgroundColor = .systemGreen
+        
+        let path = UIBezierPath(roundedRect: headerView.bounds,
+                                byRoundingCorners: [.bottomLeft],
+                                cornerRadii: CGSize(width: 80, height: 60))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        headerView.layer.mask = mask
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let path = UIBezierPath(roundedRect: headerView.bounds,
+                                byRoundingCorners: [.bottomLeft],
+                                cornerRadii: CGSize(width: 80, height: 60))
+        
+        headerMaskLayer.path = path.cgPath
+        headerView.layer.mask = headerMaskLayer
+    }
+    
     private func setupHeartImageGesture() {
         heartImage.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(favoriteTapped))

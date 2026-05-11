@@ -21,6 +21,7 @@ class LeaguesViewController: UIViewController {
         super.viewDidLoad()
         setupHeaderShape()
         setupTableView()
+        setupBackButton()
         
         let leaguesPresenter = LeaguesPresenter()
         leaguesPresenter.view = self
@@ -31,31 +32,40 @@ class LeaguesViewController: UIViewController {
         }
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
+    private func setupBackButton() {
+        let backButton = UIButton(type: .system)
+        backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        backButton.tintColor = .white
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
+        headerView.addSubview(backButton)
+        
+        NSLayoutConstraint.activate([
+            backButton.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            backButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -16),
+            backButton.widthAnchor.constraint(equalToConstant: 44),
+            backButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+
+    @objc private func backTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationItem.hidesBackButton = true
+        self.tabBarController?.tabBar.isHidden = true
     }
-    private func setupHeaderShape() {
-       // headerView.backgroundColor = .systemGreen
-        
-        let path = UIBezierPath(roundedRect: headerView.bounds,
-                                byRoundingCorners: [.bottomLeft],
-                                cornerRadii: CGSize(width: 80, height: 50))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        headerView.layer.mask = mask
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        let path = UIBezierPath(roundedRect: headerView.bounds,
-                                byRoundingCorners: [.bottomLeft],
-                                cornerRadii: CGSize(width: 80, height: 60))
-        
-        headerMaskLayer.path = path.cgPath
-        headerView.layer.mask = headerMaskLayer
+    func setupHeaderShape() {
+        headerView.layer.cornerRadius = 40
+        headerView.layer.maskedCorners = [.layerMinXMaxYCorner]
     }
     private func setupTableView() {
         leaguesTableView.delegate = self

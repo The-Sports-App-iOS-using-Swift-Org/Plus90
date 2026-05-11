@@ -60,6 +60,8 @@ class LeaguesViewController: UIViewController {
     private func setupTableView() {
         leaguesTableView.delegate = self
         leaguesTableView.dataSource = self
+        leaguesTableView.separatorStyle = .none
+        leaguesTableView.backgroundColor = .clear 
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         leaguesTableView.register(nib, forCellReuseIdentifier: "LeaguesCell")
     }
@@ -99,7 +101,16 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.alpha = 0
+        cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        UIView.animate(withDuration: 0.3, delay: 0.05 * Double(indexPath.row), options: .curveEaseOut) {
+            cell.alpha = 1
+            cell.transform = .identity
+        }
     }
 }
 

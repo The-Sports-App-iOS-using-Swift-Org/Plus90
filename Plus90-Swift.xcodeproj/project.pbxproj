@@ -275,11 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				3DBC46442FB2352400105C76 /* Main.storyboard */,
-				3DBC46402FB234EF00105C76 /* LeaguesTableViewCell.xib */,
-				3DBC46412FB234EF00105C76 /* SportsCollectionViewCell.xib */,
 				3DBF16782FABF80F00DF0E89 /* LaunchScreen.storyboard */,
-				BACB14F42FAD987000407D0E /* UpcomingCollectionViewCell.swift */,
-				BACB14F52FAD987000407D0E /* UpcomingCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -347,6 +343,9 @@
 		BA8BECAD2FAD0BAF00FB1A97 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BACB14F52FAD987000407D0E /* UpcomingCollectionViewCell.xib */,
+				BACB14F42FAD987000407D0E /* UpcomingCollectionViewCell.swift */,
+				3DBC46402FB234EF00105C76 /* LeaguesTableViewCell.xib */,
 				3DBBB96D2FAF7E2B004F03C7 /* SectionHeaderView.swift */,
 				3DBBB9612FAF7C49004F03C7 /* LatestEventCollectionViewCell.swift */,
 				3DBBB9622FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib */,
@@ -398,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				BA071E1E2FAD700300378776 /* SportsViewController.swift */,
+				3DBC46412FB234EF00105C76 /* SportsCollectionViewCell.xib */,
 				BA071E2E2FAD71C700378776 /* SportsCollectionViewCell.swift */,
 			);
 			path = View;

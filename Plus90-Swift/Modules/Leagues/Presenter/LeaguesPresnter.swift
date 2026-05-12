@@ -7,18 +7,6 @@
 
 import Foundation
 
-protocol LeaguesViewProtocol: AnyObject {
-    func startAnimating()
-    func stopAnimating()
-    func reloadTable()
-    func showError(message: String)
-}
-
-protocol LeaguesPresenterProtocol {
-    func fetchLeagues(for sportName: String)
-    func getLeaguesCount() -> Int
-    func getLeague(at index: Int) -> League
-}
 
 class LeaguesPresenter: LeaguesPresenterProtocol {
     weak var view: LeaguesViewProtocol?

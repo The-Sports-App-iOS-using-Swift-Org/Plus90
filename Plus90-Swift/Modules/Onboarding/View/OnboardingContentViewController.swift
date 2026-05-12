@@ -7,7 +7,6 @@
 
 
 import UIKit
-// Modules/Onboarding/View/OnboardingContentViewController
 
 class OnboardingContentViewController: UIViewController {
 

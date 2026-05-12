@@ -6,7 +6,6 @@
 //
 
 import UIKit
-// Modules/Onboarding/View/OnboardingPageViewController
 
 
 protocol OnboardingPageViewControllerDelegate: AnyObject {

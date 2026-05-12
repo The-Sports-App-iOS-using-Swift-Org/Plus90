@@ -7,18 +7,7 @@
 
 import Foundation
 
-protocol SportsViewProtocol: AnyObject {
-    func startAnimating()
-    func stopAnimating()
-    func reloadCollection()
-}
 
-protocol SportsPresenterProtocol {
-    func attachView(_ view: SportsViewProtocol)
-    func getSportsCount() -> Int
-    func getSport(at index: Int) -> Sport
-    func didSelectSport(at index: Int)
-}
 
 class SportsPresenter: SportsPresenterProtocol {
     weak var view: SportsViewProtocol?

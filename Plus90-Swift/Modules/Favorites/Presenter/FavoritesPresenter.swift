@@ -7,16 +7,7 @@
 
 import Foundation
 import Network
-// Modules/Favoraites/Presenter/FavoritesPresenter
-protocol FavoritesPresenterProtocol: AnyObject {
-    func viewDidLoad()
-    func viewWillAppear()
-    func getFavoritesCount() -> Int
-    func getFavoriteItem(at index: Int) -> FavoriteLeague
-    func didSelectFavorite(at index: Int)
-    func didRequestRemoval(at index: Int)
-    func confirmRemoval(at index: Int)
-}
+
 class FavoritesPresenter: FavoritesPresenterProtocol {
     private weak var view: FavoritesViewProtocol?
     private var favorites: [FavoriteLeague] = []

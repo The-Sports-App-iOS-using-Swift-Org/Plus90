@@ -7,12 +7,7 @@
 
 import Foundation
 
-protocol TeamDetailsViewProtocol: AnyObject {
-    func startLoading()
-    func stopLoading()
-    func displayTeamData(_ team: Team)
-    func displayError(message: String)
-}
+
 
 class TeamPresenter {
     private weak var view: TeamDetailsViewProtocol?

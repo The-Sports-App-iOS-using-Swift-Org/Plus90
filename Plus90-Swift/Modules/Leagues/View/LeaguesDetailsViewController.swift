@@ -5,12 +5,6 @@
 
 import UIKit
 
-protocol LeaguesDetailsViewProtocol: AnyObject {
-    func showLoading()
-    func hideLoading()
-    func refreshUI(upcoming: [MatchEvent], latest: [MatchEvent], teams: [Team])
-    func updateFavoriteButton(isFavorite: Bool)
-}
 
 class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var leagueTitleLabel: UILabel!

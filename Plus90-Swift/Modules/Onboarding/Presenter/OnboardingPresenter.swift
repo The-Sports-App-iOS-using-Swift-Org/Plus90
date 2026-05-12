@@ -8,19 +8,6 @@
 import Foundation
 // Modules/Onboarding/Presenter/OnboardingPresenter
 
-struct OnboardingPageModel {
-    let imageName: String
-    let title: String
-    let subtitle: String
-}
-
-
-protocol OnboardingViewProtocol: AnyObject {
-    func updatePageControl(currentIndex: Int)
-    func updateActionButton(isLastPage: Bool)
-    func scrollToNextPage()
-    func navigateToMainApp()
-}
 
 
 class OnboardingPresenter {

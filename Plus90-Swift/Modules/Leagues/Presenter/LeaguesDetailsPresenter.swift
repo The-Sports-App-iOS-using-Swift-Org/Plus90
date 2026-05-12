@@ -8,12 +8,6 @@
 import Foundation
 
 
-protocol LeaguesDetailsPresenterProtocol{
-    func loadData()
-    func toggleFavorite(name: String, region: String, image: String)
-    func checkFavoriteStatus(name: String)
-}
-
 class LeaguesDetailsPresenter : LeaguesDetailsPresenterProtocol {
     private weak var view: LeaguesDetailsViewProtocol?
     private let networkService: NetworkServiceProtocol

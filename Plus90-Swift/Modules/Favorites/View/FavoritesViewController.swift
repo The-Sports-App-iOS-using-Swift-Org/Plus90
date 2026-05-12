@@ -146,7 +146,7 @@ extension FavoritesViewController: FavoritesViewProtocol {
             detailsVC.leagueName = league.name
             detailsVC.leagueRegion = league.region
             detailsVC.leagueImageUrl = league.imageName
-            
+            detailsVC.hidesBottomBarWhenPushed = true
             nav.pushViewController(detailsVC, animated: true)
         }
     }

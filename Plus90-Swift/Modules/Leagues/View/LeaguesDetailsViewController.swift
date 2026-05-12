@@ -18,16 +18,12 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var heartImage: UIImageView!
     @IBOutlet weak var leaguesCompositionalLeaguesCollectionView: UICollectionView!
-    
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
-        indicator.color = .systemBlue
+        indicator.color = .systemGreen
         indicator.hidesWhenStopped = true
         return indicator
     }()
-    
-    private var headerMaskLayer = CAShapeLayer() 
-    
     var leagueId: Int?
     var leagueName: String?
     var leagueRegion: String?
@@ -44,6 +40,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
         setupUI()
         setupCollectionView()
         setupHeartImageGesture()
+        setupBackButton()
         
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
@@ -55,6 +52,26 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
                 presenter.checkFavoriteStatus(name: name)
             }
         }
+    }
+    
+    private func setupBackButton() {
+        let backButton = UIButton(type: .system)
+        backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        backButton.tintColor = .white
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
+        headerView.addSubview(backButton)
+        
+        NSLayoutConstraint.activate([
+            backButton.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            backButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -16),
+            backButton.widthAnchor.constraint(equalToConstant: 44),
+            backButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+
+    @objc private func backTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,25 +95,10 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    private func setupHeaderShape() {
-       // headerView.backgroundColor = .systemGreen
-        
-        let path = UIBezierPath(roundedRect: headerView.bounds,
-                                byRoundingCorners: [.bottomLeft],
-                                cornerRadii: CGSize(width: 80, height: 60))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        headerView.layer.mask = mask
-    }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        let path = UIBezierPath(roundedRect: headerView.bounds,
-                                byRoundingCorners: [.bottomLeft],
-                                cornerRadii: CGSize(width: 80, height: 60))
-        
-        headerMaskLayer.path = path.cgPath
-        headerView.layer.mask = headerMaskLayer
+    
+    func setupHeaderShape() {
+        headerView.layer.cornerRadius = 40
+        headerView.layer.maskedCorners = [.layerMinXMaxYCorner]
     }
     
     private func setupHeartImageGesture() {
@@ -243,6 +245,7 @@ extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionVi
             let selectedTeam = teams[indexPath.item]
             if let teamDetailsVC = storyboard?.instantiateViewController(withIdentifier: "TeamDetailsVC") as? TeamDetailsViewController {
                 teamDetailsVC.teamId = selectedTeam.teamKey
+                teamDetailsVC.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(teamDetailsVC, animated: true)
             }
         }

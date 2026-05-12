@@ -6,10 +6,13 @@
 //
 
 import UIKit
+
 class SportsViewController: UIViewController {
     @IBOutlet weak var headerSportsView: UIView!
     @IBOutlet weak var sportsCollectionView: UICollectionView!
+    
     var presenter: SportsPresenterProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = SportsPresenter()
@@ -17,10 +20,18 @@ class SportsViewController: UIViewController {
         headerSportsViewDecoration()
         setupCollectionView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     func headerSportsViewDecoration() {
         headerSportsView.layer.cornerRadius = 40
         headerSportsView.layer.maskedCorners = [.layerMinXMaxYCorner]
     }
+    
     func setupCollectionView() {
         sportsCollectionView.dataSource = self
         sportsCollectionView.delegate = self
@@ -28,6 +39,7 @@ class SportsViewController: UIViewController {
         sportsCollectionView.register(nib, forCellWithReuseIdentifier: "SportsCell")
     }
 }
+
 extension SportsViewController: SportsViewProtocol {
     func startAnimating() {}
     func stopAnimating() {}
@@ -35,17 +47,21 @@ extension SportsViewController: SportsViewProtocol {
         sportsCollectionView.reloadData()
     }
 }
+
 extension SportsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter?.getSportsCount() ?? 0
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let leaguesVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesVC") as! LeaguesViewController
         if let sport = presenter?.getSport(at: indexPath.row) {
             leaguesVC.selectedSportName = sport.name
         }
+        leaguesVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(leaguesVC, animated: true)
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportsCell", for: indexPath) as! SportsCollectionViewCell
         if let sport = presenter?.getSport(at: indexPath.row) {
@@ -53,11 +69,13 @@ extension SportsViewController: UICollectionViewDataSource, UICollectionViewDele
         }
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = collectionView.frame.width - 45
         let itemWidth = availableWidth / 2
         return CGSize(width: itemWidth, height: itemWidth + 60)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
     }

@@ -11,9 +11,12 @@ class LeaguesViewController: UIViewController {
 
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var leaguesTableView: UITableView!
-    
-    private var headerMaskLayer = CAShapeLayer()
-
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .systemGreen
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
     var presenter: LeaguesPresenterProtocol?
     var selectedSportName: String?
 
@@ -21,6 +24,7 @@ class LeaguesViewController: UIViewController {
         super.viewDidLoad()
         setupHeaderShape()
         setupTableView()
+        setupBackButton()
         
         let leaguesPresenter = LeaguesPresenter()
         leaguesPresenter.view = self
@@ -31,43 +35,67 @@ class LeaguesViewController: UIViewController {
         }
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
+    private func setupBackButton() {
+        let backButton = UIButton(type: .system)
+        backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        backButton.tintColor = .white
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
+        headerView.addSubview(backButton)
+        
+        NSLayoutConstraint.activate([
+            backButton.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            backButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -16),
+            backButton.widthAnchor.constraint(equalToConstant: 44),
+            backButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+
+    @objc private func backTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationItem.hidesBackButton = true
     }
-    private func setupHeaderShape() {
-       // headerView.backgroundColor = .systemGreen
-        
-        let path = UIBezierPath(roundedRect: headerView.bounds,
-                                byRoundingCorners: [.bottomLeft],
-                                cornerRadii: CGSize(width: 80, height: 50))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        headerView.layer.mask = mask
-    }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        let path = UIBezierPath(roundedRect: headerView.bounds,
-                                byRoundingCorners: [.bottomLeft],
-                                cornerRadii: CGSize(width: 80, height: 60))
-        
-        headerMaskLayer.path = path.cgPath
-        headerView.layer.mask = headerMaskLayer
+    func setupHeaderShape() {
+        headerView.layer.cornerRadius = 40
+        headerView.layer.maskedCorners = [.layerMinXMaxYCorner]
     }
     private func setupTableView() {
+        view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
         leaguesTableView.delegate = self
         leaguesTableView.dataSource = self
+        leaguesTableView.separatorStyle = .none
+        leaguesTableView.backgroundColor = .clear 
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         leaguesTableView.register(nib, forCellReuseIdentifier: "LeaguesCell")
     }
 }
 
 extension LeaguesViewController: LeaguesViewProtocol {
-    func startAnimating() {}
-    func stopAnimating() {}
+    func startAnimating() {
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+            self.leaguesTableView.alpha = 0
+        }
+    }
+    func stopAnimating() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            UIView.animate(withDuration: 0.3) {
+                self.leaguesTableView.alpha = 1
+            }
+        }
+    }
     func reloadTable() {
         DispatchQueue.main.async { self.leaguesTableView.reloadData() }
     }
@@ -95,11 +123,21 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
             detailsVC.leagueName = selectedLeague.leagueName
             detailsVC.leagueRegion = selectedLeague.countryName
             detailsVC.leagueImageUrl = selectedLeague.leagueLogo
+            detailsVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(detailsVC, animated: true)
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.alpha = 0
+        cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        UIView.animate(withDuration: 0.3, delay: 0.05 * Double(indexPath.row), options: .curveEaseOut) {
+            cell.alpha = 1
+            cell.transform = .identity
+        }
     }
 }
 

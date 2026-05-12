@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "D0338BDF-1EA2-44E8-AEDE-828F9FA324A3",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Plus90-Swift.xcodeproj",
+      "identifier" : "BA1F6A7D2FAA5B770079BF3D",
+      "name" : "Plus90-Swift"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Plus90-Swift.xcodeproj",
+        "identifier" : "BA1F6A962FAA5B790079BF3D",
+        "name" : "Plus90-SwiftTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Plus90-Swift.xcodeproj",
+        "identifier" : "BA1F6AA02FAA5B790079BF3D",
+        "name" : "Plus90-SwiftUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -13,10 +13,8 @@ protocol NetworkServiceProtocol {
     func fetchTennisLeagues(completion: @escaping (LeagueResponse?) -> Void)
     func fetchBasketBallLeagues(completion: @escaping (LeagueResponse?) -> Void)
     func fetchCricketLeagues(completion: @escaping (LeagueResponse?) -> Void)
-    func fetchH2H(firstId: Int, secondId: Int, completion: @escaping (H2HResponse?) -> Void)
     func fetchLatestEvents(leagueId: Int, completion: @escaping (H2HResponse?) -> Void)
     func fetchTeams(leagueId: Int, completion: @escaping (TeamResponse?) -> Void)
-    
     func fetchTeamDetails(teamId: Int, completion: @escaping (Team?) -> Void)
     func fetchUpcomingEvents(leagueId: Int, completion: @escaping (H2HResponse?) -> Void)
 }
@@ -54,13 +52,6 @@ class NetworkService: NetworkServiceProtocol {
 
     func fetchCricketLeagues(completion: @escaping (LeagueResponse?) -> Void) {
         fetchLeagues(for: "cricket", completion: completion)
-    }
-
-    func fetchH2H(firstId: Int, secondId: Int, completion: @escaping (H2HResponse?) -> Void) {
-        let urlString = "\(baseUrl)football/?met=H2H&APIkey=\(apiKey)&firstTeamId=\(firstId)&secondTeamId=\(secondId)"
-        AF.request(urlString).validate().responseDecodable(of: H2HResponse.self) { response in
-            completion(response.value)
-        }
     }
 
     func fetchLatestEvents(leagueId: Int, completion: @escaping (H2HResponse?) -> Void) {

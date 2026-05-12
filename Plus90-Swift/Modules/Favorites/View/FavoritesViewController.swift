@@ -22,7 +22,6 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var cardContainerView: UIView!
 
-    private var headerMaskLayer = CAShapeLayer()
     private lazy var presenter: FavoritesPresenterProtocol = FavoritesPresenter(view: self)
 
     override func viewDidLoad() {
@@ -35,16 +34,6 @@ class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.viewWillAppear()
-    }
-    private func setupHeaderShape() {
-        headerView.backgroundColor = .systemGreen
-        
-        let path = UIBezierPath(roundedRect: headerView.bounds,
-                                byRoundingCorners: [.bottomLeft],
-                                cornerRadii: CGSize(width: 80, height: 60))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        headerView.layer.mask = mask
     }
 
     private func setupCardShadow() {
@@ -61,17 +50,9 @@ class FavoritesViewController: UIViewController {
         tableView.register(FavoriteLeagueCell.self, forCellReuseIdentifier: "FavoriteLeagueCell")
     }
 
-
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        let path = UIBezierPath(roundedRect: headerView.bounds,
-                                byRoundingCorners: [.bottomLeft],
-                                cornerRadii: CGSize(width: 80, height: 60))
-        
-        headerMaskLayer.path = path.cgPath
-        headerView.layer.mask = headerMaskLayer
+    private func setupHeaderShape() {
+        headerView.layer.cornerRadius = 40
+        headerView.layer.maskedCorners = [.layerMinXMaxYCorner]
     }
 
 }

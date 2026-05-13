@@ -17,6 +17,7 @@ class SportsViewController: UIViewController {
         super.viewDidLoad()
         presenter = SportsPresenter()
         presenter?.attachView(self)
+        applyTheme()
         headerSportsViewDecoration()
         setupCollectionView()
     }
@@ -25,6 +26,18 @@ class SportsViewController: UIViewController {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        applyTheme()
+    }
+
+    private func applyTheme() {
+        view.backgroundColor = AppColors.primaryBackground
+        headerSportsView.backgroundColor = AppColors.headerBackground
+        sportsCollectionView.backgroundColor = AppColors.primaryBackground
     }
     
     func headerSportsViewDecoration() {

@@ -20,6 +20,7 @@ class FavoritesViewController: UIViewController {
         super.viewDidLoad()
         setupHeaderShape()
         setupCardShadow()
+        applyTheme()
         setupTableView()
         presenter.viewDidLoad()
     }
@@ -45,6 +46,18 @@ class FavoritesViewController: UIViewController {
     private func setupHeaderShape() {
         headerView.layer.cornerRadius = 40
         headerView.layer.maskedCorners = [.layerMinXMaxYCorner]
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        applyTheme()
+    }
+
+    private func applyTheme() {
+        view.backgroundColor = AppColors.primaryBackground
+        headerView.backgroundColor = AppColors.headerBackground
+        tableView.backgroundColor = AppColors.primaryBackground
     }
 
 }

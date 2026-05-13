@@ -52,17 +52,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CKF-A3-M4Z">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="128"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Rq-qO-T3L">
-                                        <rect key="frame" x="68" y="80" width="108" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                        <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Rq-qO-T3L">
+                                        <rect key="frame" x="25.000000000000007" y="80" width="86.666666666666686" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="3Rq-qO-T3L" firstAttribute="top" secondItem="CKF-A3-M4Z" secondAttribute="top" constant="80" id="Vlg-eh-DcU"/>
+                                    <constraint firstAttribute="bottom" secondItem="3Rq-qO-T3L" secondAttribute="bottom" constant="24" id="nvZ-C2-Dl2"/>
                                     <constraint firstAttribute="height" constant="128" id="ovX-nq-7O7"/>
+                                    <constraint firstItem="3Rq-qO-T3L" firstAttribute="leading" secondItem="CKF-A3-M4Z" secondAttribute="leading" constant="25" id="rWS-9f-Sn8"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRG-Mr-bd9">
@@ -232,7 +234,6 @@
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MQd-m2-Y0r">
                                 <rect key="frame" x="10" y="209.66666666666669" width="373" height="559.33333333333326"/>
-                                <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Guj-fO-6iL">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -252,7 +253,7 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3ox-Ph-29B"/>
-                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="3ox-Ph-29B" firstAttribute="trailing" secondItem="eOU-hQ-OQj" secondAttribute="trailing" id="7qL-j8-Pvw"/>
                             <constraint firstItem="eOU-hQ-OQj" firstAttribute="height" secondItem="3ox-Ph-29B" secondAttribute="height" multiplier="0.3" id="Dow-f5-ubm"/>
@@ -565,9 +566,6 @@
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="figure.disc.sports" catalog="system" width="128" height="108"/>
         <image name="heart" catalog="system" width="128" height="107"/>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

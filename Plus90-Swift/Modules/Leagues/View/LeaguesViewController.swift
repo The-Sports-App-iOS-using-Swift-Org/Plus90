@@ -22,19 +22,33 @@ class LeaguesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyTheme()
         setupHeaderShape()
         setupTableView()
         setupBackButton()
-        
         let leaguesPresenter = LeaguesPresenter()
         leaguesPresenter.view = self
         presenter = leaguesPresenter
-        
+
         if let sport = selectedSportName {
             presenter?.fetchLeagues(for: sport)
         }
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        applyTheme()
+    }
+
+    private func applyTheme() {
+        view.backgroundColor = AppColors.primaryBackground
+        headerView.backgroundColor = AppColors.headerBackground
+        activityIndicator.color = AppColors.accent
+        leaguesTableView.backgroundColor = AppColors.primaryBackground
+    }
+
     private func setupBackButton() {
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
@@ -42,7 +56,7 @@ class LeaguesViewController: UIViewController {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
         headerView.addSubview(backButton)
-        
+
         NSLayoutConstraint.activate([
             backButton.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
             backButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -16),
@@ -54,13 +68,11 @@ class LeaguesViewController: UIViewController {
     @objc private func backTapped() {
         navigationController?.popViewController(animated: true)
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationItem.hidesBackButton = true
     }
-    
     func setupHeaderShape() {
         headerView.layer.cornerRadius = 40
         headerView.layer.maskedCorners = [.layerMinXMaxYCorner]
@@ -75,7 +87,7 @@ class LeaguesViewController: UIViewController {
         leaguesTableView.delegate = self
         leaguesTableView.dataSource = self
         leaguesTableView.separatorStyle = .none
-        leaguesTableView.backgroundColor = .clear 
+        leaguesTableView.backgroundColor = .clear
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         leaguesTableView.register(nib, forCellReuseIdentifier: "LeaguesCell")
     }
@@ -130,7 +142,6 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.alpha = 0
         cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
@@ -145,7 +156,6 @@ extension UIImageView {
     func loadImage(from urlString: String, placeholder: UIImage? = nil) {
         self.image = placeholder
         guard let url = URL(string: urlString) else { return }
-        
         URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async { self?.image = image }

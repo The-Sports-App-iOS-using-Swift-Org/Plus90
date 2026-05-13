@@ -27,6 +27,7 @@ class SportsViewController: UIViewController {
         presenter = SportsPresenter()
         presenter?.attachView(self)
         
+        applySavedThemeToWindow()
         applyTheme()
         headerSportsViewDecoration()
         setupCollectionView()
@@ -39,8 +40,10 @@ class SportsViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         let isDark = UserDefaults.standard.bool(forKey: "isDarkMode")
+        applySavedThemeToWindow()
         updateButtonIcon(isDark: isDark)
     }
+
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -72,19 +75,25 @@ class SportsViewController: UIViewController {
         themeToggleButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
     
+    private func applySavedThemeToWindow() {
+        let isDark = UserDefaults.standard.bool(forKey: "isDarkMode")
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else { return }
+        window.overrideUserInterfaceStyle = isDark ? .dark : .light
+    }
+    
     @objc private func handleThemeToggle() {
         let currentIsDark = UserDefaults.standard.bool(forKey: "isDarkMode")
         let newIsDark = !currentIsDark
-        
+        UserDefaults.standard.set(newIsDark, forKey: "isDarkMode")
+        updateButtonIcon(isDark: newIsDark)
+
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else { return }
-        
+
         UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
             window.overrideUserInterfaceStyle = newIsDark ? .dark : .light
         }, completion: nil)
-        
-        UserDefaults.standard.set(newIsDark, forKey: "isDarkMode")
-        updateButtonIcon(isDark: newIsDark)
     }
     
     func headerSportsViewDecoration() {

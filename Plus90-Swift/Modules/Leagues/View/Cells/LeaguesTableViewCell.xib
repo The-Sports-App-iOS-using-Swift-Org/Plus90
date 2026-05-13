@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="KGk-i7-Jjw" customClass="LeaguesTableViewCell" customModule="Plus90_Swift" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mjo-zl-gkL">
+                        <rect key="frame" x="10" y="10" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="pm1-Gz-4j7"/>
+                            <constraint firstAttribute="width" secondItem="Mjo-zl-gkL" secondAttribute="height" multiplier="1:1" id="suN-lI-4U1"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premier League" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKt-2F-cIY">
+                        <rect key="frame" x="95" y="15" width="290" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="England" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uuq-tR-ceP">
+                        <rect key="frame" x="95" y="47" width="290" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="highlightedColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Uuq-tR-ceP" firstAttribute="top" secondItem="ZKt-2F-cIY" secondAttribute="bottom" constant="8" id="9Dk-dS-3b7"/>
+                    <constraint firstItem="Uuq-tR-ceP" firstAttribute="leading" secondItem="Mjo-zl-gkL" secondAttribute="trailing" constant="15" id="B4T-ZQ-ile"/>
+                    <constraint firstAttribute="bottom" secondItem="Mjo-zl-gkL" secondAttribute="bottom" constant="10" id="Fd5-Qd-fRL"/>
+                    <constraint firstItem="ZKt-2F-cIY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="JTx-hQ-Fo9"/>
+                    <constraint firstItem="Mjo-zl-gkL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Lbg-Mf-VAc"/>
+                    <constraint firstItem="Mjo-zl-gkL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="YCZ-aU-w69"/>
+                    <constraint firstItem="ZKt-2F-cIY" firstAttribute="leading" secondItem="Mjo-zl-gkL" secondAttribute="trailing" constant="15" id="nN7-df-I6L"/>
+                    <constraint firstAttribute="trailing" secondItem="Uuq-tR-ceP" secondAttribute="trailing" constant="8" id="vRF-Ui-P3i"/>
+                    <constraint firstAttribute="trailing" secondItem="ZKt-2F-cIY" secondAttribute="trailing" constant="8" id="xGK-uc-HNs"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="leagueCountryTitle" destination="Uuq-tR-ceP" id="Z9e-uR-ZkY"/>
+                <outlet property="leagueImage" destination="Mjo-zl-gkL" id="6pR-iu-9ay"/>
+                <outlet property="leagueTitle" destination="ZKt-2F-cIY" id="j5Z-cF-eeX"/>
+            </connections>
+            <point key="canvasLocation" x="183.96946564885496" y="4.9295774647887329"/>
+        </tableViewCell>
+    </objects>
+</document>

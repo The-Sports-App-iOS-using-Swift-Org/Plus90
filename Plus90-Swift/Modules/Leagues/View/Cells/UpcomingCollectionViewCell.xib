@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UpC-EL-0wX" customClass="UpcomingCollectionViewCell" customModule="Plus90_Swift" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="403" height="215"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="403" height="215"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-Sv-QdW" userLabel="Card Container">
+                        <rect key="frame" x="8" y="8" width="387" height="199"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SERIE A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-LG-kSi">
+                                <rect key="frame" x="15.999999999999996" y="16" width="48.666666666666657" height="16"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-ST-lei">
+                                <rect key="frame" x="303.33333333333331" y="16" width="67.666666666666686" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-VS-iIk" userLabel="VS Container">
+                                <rect key="frame" x="158.66666666666666" y="64.666666666666671" width="70" height="35"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-VS-lbl">
+                                        <rect key="frame" x="8" y="7" width="54" height="21"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="UpC-VS-H"/>
+                                    <constraint firstAttribute="width" constant="70" id="UpC-VS-W"/>
+                                    <constraint firstItem="UpC-VS-lbl" firstAttribute="centerY" secondItem="UpC-VS-iIk" secondAttribute="centerY" id="UpC-VS-lblCY"/>
+                                    <constraint firstItem="UpC-VS-lbl" firstAttribute="leading" secondItem="UpC-VS-iIk" secondAttribute="leading" constant="8" id="UpC-VS-lblL"/>
+                                    <constraint firstAttribute="trailing" secondItem="UpC-VS-lbl" secondAttribute="trailing" constant="8" id="UpC-VS-lblT"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-HI-lZp" userLabel="Home Image">
+                                <rect key="frame" x="78.666666666666671" y="47" width="50.000000000000014" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="UpC-HI-H"/>
+                                    <constraint firstAttribute="width" constant="50" id="UpC-HI-W"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-AI-NUR" userLabel="Away Image">
+                                <rect key="frame" x="258.66666666666669" y="47" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="UpC-AI-H"/>
+                                    <constraint firstAttribute="width" constant="50" id="UpC-AI-W"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-HN-uMb">
+                                <rect key="frame" x="53.666666666666657" y="105" width="100" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-AN-qOK">
+                                <rect key="frame" x="233.66666666666663" y="105" width="100" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-SEP-mKr" userLabel="Separator">
+                                <rect key="frame" x="16" y="157" width="355" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="UpC-SEP-H"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-CAL-Uvc">
+                                <rect key="frame" x="16" y="167.66666666666666" width="18" height="15"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="UpC-CAL-H"/>
+                                    <constraint firstAttribute="width" constant="18" id="UpC-CAL-W"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="May 24, 2024 · 20:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpC-DT-SQM">
+                                <rect key="frame" x="42" y="167" width="130.33333333333334" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="UpC-AI-NUR" firstAttribute="centerY" secondItem="UpC-VS-iIk" secondAttribute="centerY" constant="-10" id="UpC-AI-CY"/>
+                            <constraint firstItem="UpC-AI-NUR" firstAttribute="leading" secondItem="UpC-VS-iIk" secondAttribute="trailing" constant="30" id="UpC-AI-VSgap"/>
+                            <constraint firstItem="UpC-AN-qOK" firstAttribute="centerX" secondItem="UpC-AI-NUR" secondAttribute="centerX" id="UpC-AN-CX"/>
+                            <constraint firstItem="UpC-AN-qOK" firstAttribute="width" constant="100" id="UpC-AN-W"/>
+                            <constraint firstItem="UpC-AN-qOK" firstAttribute="top" secondItem="UpC-AI-NUR" secondAttribute="bottom" constant="8" id="UpC-AN-top"/>
+                            <constraint firstAttribute="bottom" secondItem="UpC-CAL-Uvc" secondAttribute="bottom" constant="15" id="UpC-CAL-bot"/>
+                            <constraint firstItem="UpC-CAL-Uvc" firstAttribute="leading" secondItem="UpC-Sv-QdW" secondAttribute="leading" constant="16" id="UpC-CAL-lead"/>
+                            <constraint firstItem="UpC-CAL-Uvc" firstAttribute="top" secondItem="UpC-SEP-mKr" secondAttribute="bottom" constant="8" id="UpC-CAL-top"/>
+                            <constraint firstItem="UpC-DT-SQM" firstAttribute="centerY" secondItem="UpC-CAL-Uvc" secondAttribute="centerY" id="UpC-DT-CY"/>
+                            <constraint firstItem="UpC-DT-SQM" firstAttribute="leading" secondItem="UpC-CAL-Uvc" secondAttribute="trailing" constant="8" id="UpC-DT-lead"/>
+                            <constraint firstItem="UpC-HI-lZp" firstAttribute="centerY" secondItem="UpC-VS-iIk" secondAttribute="centerY" constant="-10" id="UpC-HI-CY"/>
+                            <constraint firstItem="UpC-VS-iIk" firstAttribute="leading" secondItem="UpC-HI-lZp" secondAttribute="trailing" constant="30" id="UpC-HI-VSgap"/>
+                            <constraint firstItem="UpC-HN-uMb" firstAttribute="centerX" secondItem="UpC-HI-lZp" secondAttribute="centerX" id="UpC-HN-CX"/>
+                            <constraint firstItem="UpC-HN-uMb" firstAttribute="width" constant="100" id="UpC-HN-W"/>
+                            <constraint firstItem="UpC-HN-uMb" firstAttribute="top" secondItem="UpC-HI-lZp" secondAttribute="bottom" constant="8" id="UpC-HN-top"/>
+                            <constraint firstItem="UpC-LG-kSi" firstAttribute="leading" secondItem="UpC-Sv-QdW" secondAttribute="leading" constant="16" id="UpC-LG-lead"/>
+                            <constraint firstItem="UpC-LG-kSi" firstAttribute="top" secondItem="UpC-Sv-QdW" secondAttribute="top" constant="16" id="UpC-LG-top"/>
+                            <constraint firstItem="UpC-SEP-mKr" firstAttribute="leading" secondItem="UpC-Sv-QdW" secondAttribute="leading" constant="16" id="UpC-SEP-lead"/>
+                            <constraint firstItem="UpC-SEP-mKr" firstAttribute="top" secondItem="UpC-HN-uMb" secondAttribute="bottom" constant="16" id="UpC-SEP-top"/>
+                            <constraint firstAttribute="trailing" secondItem="UpC-SEP-mKr" secondAttribute="trailing" constant="16" id="UpC-SEP-trail"/>
+                            <constraint firstItem="UpC-ST-lei" firstAttribute="top" secondItem="UpC-Sv-QdW" secondAttribute="top" constant="16" id="UpC-ST-top"/>
+                            <constraint firstAttribute="trailing" secondItem="UpC-ST-lei" secondAttribute="trailing" constant="16" id="UpC-ST-trail"/>
+                            <constraint firstItem="UpC-VS-iIk" firstAttribute="centerX" secondItem="UpC-Sv-QdW" secondAttribute="centerX" id="UpC-VS-CX"/>
+                            <constraint firstItem="UpC-VS-iIk" firstAttribute="centerY" secondItem="UpC-Sv-QdW" secondAttribute="centerY" constant="-17.5" id="UpC-VS-CYcard"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="UpC-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="UpC-Sv-QdW" secondAttribute="bottom" constant="8" id="UpC-CC-bot"/>
+                <constraint firstItem="UpC-Sv-QdW" firstAttribute="leading" secondItem="UpC-EL-0wX" secondAttribute="leading" constant="8" id="UpC-CC-lead"/>
+                <constraint firstItem="UpC-Sv-QdW" firstAttribute="top" secondItem="UpC-EL-0wX" secondAttribute="top" constant="8" id="UpC-CC-top"/>
+                <constraint firstAttribute="trailing" secondItem="UpC-Sv-QdW" secondAttribute="trailing" constant="8" id="UpC-CC-trail"/>
+            </constraints>
+            <size key="customSize" width="403" height="215"/>
+            <connections>
+                <outlet property="dateLabel" destination="UpC-DT-SQM" id="UpC-out-dt"/>
+                <outlet property="team1Image" destination="UpC-HI-lZp" id="UpC-out-t1img"/>
+                <outlet property="team1Name" destination="UpC-HN-uMb" id="UpC-out-t1nm"/>
+                <outlet property="team2Image" destination="UpC-AI-NUR" id="UpC-out-t2img"/>
+                <outlet property="team2Name" destination="UpC-AN-qOK" id="UpC-out-t2nm"/>
+            </connections>
+            <point key="canvasLocation" x="191" y="165"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="calendar" catalog="system" width="128" height="107"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

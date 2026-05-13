@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Network
 
 class SportsViewController: UIViewController {
     @IBOutlet weak var headerSportsView: UIView!
@@ -44,7 +45,6 @@ class SportsViewController: UIViewController {
         updateButtonIcon(isDark: isDark)
     }
 
-
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
@@ -59,7 +59,6 @@ class SportsViewController: UIViewController {
     
     private func setupThemeButton() {
         headerSportsView.addSubview(themeToggleButton)
-    
         themeToggleButton.addTarget(self, action: #selector(handleThemeToggle), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -107,6 +106,16 @@ class SportsViewController: UIViewController {
         let nib = UINib(nibName: "SportsCollectionViewCell", bundle: nil)
         sportsCollectionView.register(nib, forCellWithReuseIdentifier: "SportsCell")
     }
+    
+    private func showNetworkError() {
+        let alert = UIAlertController(
+            title: "Network Connection",
+            message: "You are offline. Please check your internet connection to view leagues.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
 }
 
 
@@ -124,12 +133,25 @@ extension SportsViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let leaguesVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesVC") as! LeaguesViewController
-        if let sport = presenter?.getSport(at: indexPath.row) {
-            leaguesVC.selectedSportName = sport.name
+        let monitor = NWPathMonitor()
+        let queue = DispatchQueue(label: "NetworkCheck")
+        
+        monitor.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                monitor.cancel()
+                if path.status == .satisfied {
+                    let leaguesVC = self?.storyboard?.instantiateViewController(withIdentifier: "LeaguesVC") as! LeaguesViewController
+                    if let sport = self?.presenter?.getSport(at: indexPath.row) {
+                        leaguesVC.selectedSportName = sport.name
+                    }
+                    leaguesVC.hidesBottomBarWhenPushed = true
+                    self?.navigationController?.pushViewController(leaguesVC, animated: true)
+                } else {
+                    self?.showNetworkError()
+                }
+            }
         }
-        leaguesVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(leaguesVC, animated: true)
+        monitor.start(queue: queue)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

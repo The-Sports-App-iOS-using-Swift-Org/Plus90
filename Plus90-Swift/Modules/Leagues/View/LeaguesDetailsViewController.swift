@@ -2,9 +2,8 @@
 //  Plus90-Swift
 //  Created by Nemo on 08/05/2026.
 
-
 import UIKit
-
+import Network
 
 class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var leagueTitleLabel: UILabel!
@@ -125,6 +124,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
 
         leaguesCompositionalLeaguesCollectionView.setCollectionViewLayout(createCompositionalLayout(), animated: false)
     }
+
     @objc private func favoriteTapped() {
         guard let name = leagueName, let image = leagueImageUrl else {
             print("Error: leagueName is NIL.")
@@ -136,6 +136,16 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
             UIView.animate(withDuration: 0.1) { self.heartImage.transform = .identity }
         }
         presenter.toggleFavorite(name: name, region: leagueRegion ?? "Unknown", image: image)
+    }
+
+    private func showNetworkError() {
+        let alert = UIAlertController(
+            title: "Network Connection",
+            message: "You are offline. Please check your internet connection to view team details.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -179,6 +189,7 @@ extension LeaguesDetailsViewController: LeaguesDetailsViewProtocol {
 
 extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return upcomingEvents.count
@@ -222,33 +233,45 @@ extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
-            let selectedTeam = teams[indexPath.item]
-            if let teamDetailsVC = storyboard?.instantiateViewController(withIdentifier: "TeamDetailsVC") as? TeamDetailsViewController {
-                teamDetailsVC.teamId = selectedTeam.teamKey
-                teamDetailsVC.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(teamDetailsVC, animated: true)
-            }
-        }
-    }
-}
+        guard indexPath.section == 2 else { return }
+        let selectedTeam = teams[indexPath.item]
 
+        let monitor = NWPathMonitor()
+        let queue = DispatchQueue(label: "NetworkCheck")
 
-extension LeaguesDetailsViewController {
-    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-            return UICollectionViewCompositionalLayout { sectionIndex, _ in
-                switch sectionIndex {
-                case 0:
-                    return self.upcomingEvents.isEmpty ? self.createEmptyStateSection() : self.createUpcomingEventsSection()
-                case 1:
-                    return self.latestEvents.isEmpty ? self.createEmptyStateSection() : self.createVerticalLatestEventsSection()
-                case 2:
-                    return self.teams.isEmpty ? self.createEmptyStateSection() : self.createHorizontalTeamsSection()
-                default:
-                    return self.createEmptyStateSection()
+        monitor.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                monitor.cancel()
+                if path.status == .satisfied {
+                    if let teamDetailsVC = self?.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsVC") as? TeamDetailsViewController {
+                        teamDetailsVC.teamId = selectedTeam.teamKey
+                        teamDetailsVC.hidesBottomBarWhenPushed = true
+                        self?.navigationController?.pushViewController(teamDetailsVC, animated: true)
+                    }
+                } else {
+                    self?.showNetworkError()
                 }
             }
         }
+        monitor.start(queue: queue)
+    }
+}
+
+extension LeaguesDetailsViewController {
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { sectionIndex, _ in
+            switch sectionIndex {
+            case 0:
+                return self.upcomingEvents.isEmpty ? self.createEmptyStateSection() : self.createUpcomingEventsSection()
+            case 1:
+                return self.latestEvents.isEmpty ? self.createEmptyStateSection() : self.createVerticalLatestEventsSection()
+            case 2:
+                return self.teams.isEmpty ? self.createEmptyStateSection() : self.createHorizontalTeamsSection()
+            default:
+                return self.createEmptyStateSection()
+            }
+        }
+    }
 
     private func createUpcomingEventsSection() -> NSCollectionLayoutSection {
         let item  = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
@@ -281,22 +304,18 @@ extension LeaguesDetailsViewController {
     }
 
     private func createEmptyStateSection() -> NSCollectionLayoutSection {
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16)
-            
-            section.boundarySupplementaryItems = [createHeaderSupplementaryItem()]
-            return section
-        }
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16)
+        section.boundarySupplementaryItems = [createHeaderSupplementaryItem()]
+        return section
+    }
 
     private func createHeaderSupplementaryItem() -> NSCollectionLayoutBoundarySupplementaryItem {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
         return NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
     }
 }
-

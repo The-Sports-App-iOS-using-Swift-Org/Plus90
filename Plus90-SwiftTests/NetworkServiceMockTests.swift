@@ -91,9 +91,7 @@ final class NetworkServiceMockTests: XCTestCase {
         XCTAssertEqual(mock.fetchFootBallLeaguesCallCount, 2)
     }
 
-    // -------------------------------------------------------------------------
-    // MARK: fetchTennisLeagues
-    // -------------------------------------------------------------------------
+    // fetchTennisLeagues
 
     func testTennis_Success_ResponseNotNil() {
         mock.fetchTennisLeagues { XCTAssertNotNil($0) }
@@ -127,9 +125,7 @@ final class NetworkServiceMockTests: XCTestCase {
         XCTAssertEqual(mock.fetchTennisLeaguesCallCount, 1)
     }
 
-    // -------------------------------------------------------------------------
-    // MARK: fetchBasketBallLeagues
-    // -------------------------------------------------------------------------
+    // fetchBasketBallLeagues
 
     func testBasketball_Success_ResponseNotNil() {
         mock.fetchBasketBallLeagues { XCTAssertNotNil($0) }
@@ -163,9 +159,7 @@ final class NetworkServiceMockTests: XCTestCase {
         XCTAssertEqual(mock.fetchBasketBallLeaguesCallCount, 1)
     }
 
-    // -------------------------------------------------------------------------
-    // MARK: fetchCricketLeagues
-    // -------------------------------------------------------------------------
+    // fetchCricketLeagues
 
     func testCricket_Success_ResponseNotNil() {
         mock.fetchCricketLeagues { XCTAssertNotNil($0) }
@@ -203,9 +197,7 @@ final class NetworkServiceMockTests: XCTestCase {
         XCTAssertEqual(mock.fetchCricketLeaguesCallCount, 1)
     }
 
-    // -------------------------------------------------------------------------
-    // MARK: fetchLatestEvents
-    // -------------------------------------------------------------------------
+    // fetchLatestEvents
 
     func testLatestEvents_Success_ResponseNotNil() {
         mock.fetchLatestEvents(leagueId: 152) { XCTAssertNotNil($0) }
@@ -291,9 +283,7 @@ final class NetworkServiceMockTests: XCTestCase {
         XCTAssertEqual(mock.fetchLatestEventsCallCount, 1)
     }
 
-    // -------------------------------------------------------------------------
-    // MARK: fetchUpcomingEvents
-    // -------------------------------------------------------------------------
+    // fetchUpcomingEvents
 
     func testUpcomingEvents_Success_ResponseNotNil() {
         mock.fetchUpcomingEvents(leagueId: 152) { XCTAssertNotNil($0) }
@@ -336,7 +326,6 @@ final class NetworkServiceMockTests: XCTestCase {
     }
 
     func testUpcomingEvents_Success_FinalResultIsNil() {
-        // Upcoming event has no result yet
         mock.fetchUpcomingEvents(leagueId: 152) { XCTAssertNil($0?.result?.first?.eventFinalResult) }
     }
 
@@ -365,9 +354,7 @@ final class NetworkServiceMockTests: XCTestCase {
         XCTAssertEqual(mock.fetchUpcomingEventsCallCount, 1)
     }
 
-    // -------------------------------------------------------------------------
-    // MARK: fetchTeams
-    // -------------------------------------------------------------------------
+    // fetchTeams
 
     func testTeams_Success_ResponseNotNil() {
         mock.fetchTeams(leagueId: 152) { XCTAssertNotNil($0) }
@@ -393,9 +380,7 @@ final class NetworkServiceMockTests: XCTestCase {
         XCTAssertEqual(mock.fetchTeamsCallCount, 1)
     }
 
-    // -------------------------------------------------------------------------
-    // MARK: fetchTeamDetails
-    // -------------------------------------------------------------------------
+    // fetchTeamDetails
 
     func testTeamDetails_Failure_ReturnsNil() {
         mock = MockNetworkService(shouldReturnError: true)
@@ -419,9 +404,7 @@ final class NetworkServiceMockTests: XCTestCase {
         XCTAssertEqual(mock.fetchTeamDetailsCallCount, 1)
     }
 
-    // -------------------------------------------------------------------------
-    // MARK: Cross-method interaction tests
-    // -------------------------------------------------------------------------
+    // Cross-method interaction tests
 
     func testCallCounts_AreIndependent() {
         mock.fetchFootBallLeagues { _ in }

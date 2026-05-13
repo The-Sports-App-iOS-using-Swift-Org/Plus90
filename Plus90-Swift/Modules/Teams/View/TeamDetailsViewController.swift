@@ -76,7 +76,6 @@ class TeamDetailsViewController: UIViewController {
         navigationController?.navigationBar.tintColor            = AppColors.headerText
     }
 
-    // MARK: - Collection View
     private func setupCollectionView() {
         teamDetailsCollectionView.delegate   = self
         teamDetailsCollectionView.dataSource = self
@@ -197,7 +196,6 @@ extension TeamDetailsViewController: UICollectionViewDelegate, UICollectionViewD
     }
 }
 
-// MARK: - Compositional Layout
 extension TeamDetailsViewController {
 
     private func createLayout() -> UICollectionViewCompositionalLayout {

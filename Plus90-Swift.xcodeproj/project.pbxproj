@@ -333,12 +333,12 @@
 			children = (
 				BACB14F52FAD987000407D0E /* UpcomingCollectionViewCell.xib */,
 				BACB14F42FAD987000407D0E /* UpcomingCollectionViewCell.swift */,
-				3DBC46402FB234EF00105C76 /* LeaguesTableViewCell.xib */,
-				3DBBB9612FAF7C49004F03C7 /* LatestEventCollectionViewCell.swift */,
 				3DBBB9622FAF7C49004F03C7 /* LatestEventCollectionViewCell.xib */,
+				3DBBB9612FAF7C49004F03C7 /* LatestEventCollectionViewCell.swift */,
+				3DBC46402FB234EF00105C76 /* LeaguesTableViewCell.xib */,
 				BA071E2C2FAD718A00378776 /* LeaguesTableViewCell.swift */,
-				3DBBB9712FAF816A004F03C7 /* TeamsCollectionViewCell.swift */,
 				3DBBB9722FAF816A004F03C7 /* TeamsCollectionViewCell.xib */,
+				3DBBB9712FAF816A004F03C7 /* TeamsCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";

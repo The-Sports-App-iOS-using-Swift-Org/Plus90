@@ -1,11 +1,17 @@
+//
+//  TeamSectionHeaderView.swift
+//  Plus90-Swift
+//
+//  Created by Bayoumi on 7/05/2026.
+//
+
 import UIKit
 
 class TeamSectionHeaderView: UICollectionReusableView {
 
-    private let titleLabel = UILabel()
-    private let accentBar = UIView()
-    private let subtitleDot = UIView()
-    private let containerStack = UIStackView()
+    private let titleLabel    = UILabel()
+    private let accentBar     = UIView()
+    private let separatorLine = GradientLineView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -17,24 +23,22 @@ class TeamSectionHeaderView: UICollectionReusableView {
     }
 
     private func setupUI() {
-        backgroundColor = .clear
+        applyBackground()
 
-        accentBar.backgroundColor = UIColor(named: "PitchGreen") ?? UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 1.0)
+        accentBar.backgroundColor = AppColors.accent
         accentBar.layer.cornerRadius = 2
         accentBar.translatesAutoresizingMaskIntoConstraints = false
         addSubview(accentBar)
 
         titleLabel.font = UIFont(name: "AvenirNext-Heavy", size: 15) ??
                           .systemFont(ofSize: 15, weight: .heavy)
-        titleLabel.textColor = .white
+        titleLabel.textColor = AppColors.primaryText
         titleLabel.textAlignment = .left
-        titleLabel.letterSpacing(1.5)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
 
-        let separatorView = GradientLineView()
-        separatorView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(separatorView)
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(separatorLine)
 
         NSLayoutConstraint.activate([
             accentBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
@@ -46,16 +50,39 @@ class TeamSectionHeaderView: UICollectionReusableView {
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             titleLabel.centerYAnchor.constraint(equalTo: accentBar.centerYAnchor),
 
-            separatorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            separatorView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            separatorView.heightAnchor.constraint(equalToConstant: 1)
+            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
 
+
+    private func applyBackground() {
+        if traitCollection.userInterfaceStyle == .dark {
+            backgroundColor = UIColor(red: 0.06, green: 0.09, blue: 0.07, alpha: 1)
+        } else {
+            backgroundColor = AppColors.primaryBackground
+        }
+    }
+
     func configure(title: String) {
-        titleLabel.text = title.uppercased()
-        accentBar.isHidden = title.isEmpty
+        let attributed = NSAttributedString(
+            string: title.uppercased(),
+            attributes: [.kern: CGFloat(1.5)]
+        )
+        titleLabel.attributedText = attributed
+        accentBar.isHidden        = title.isEmpty
+        separatorLine.isHidden    = title.isEmpty
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        applyBackground()
+        accentBar.backgroundColor = AppColors.accent
+        titleLabel.textColor      = AppColors.primaryText
+        separatorLine.refreshColors()
     }
 }
 
@@ -64,25 +91,29 @@ private class GradientLineView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        let green = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 1.0)
-        gradientLayer.colors = [green.cgColor, green.withAlphaComponent(0.3).cgColor, UIColor.clear.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        gradientLayer.endPoint   = CGPoint(x: 1, y: 0.5)
         layer.addSublayer(gradientLayer)
+        refreshColors()
     }
-
     required init?(coder: NSCoder) { fatalError() }
+
+    func refreshColors() {
+        let accent = AppColors.accent
+        gradientLayer.colors = [
+            accent.cgColor,
+            accent.withAlphaComponent(0.3).cgColor,
+            UIColor.clear.cgColor
+        ]
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = bounds
     }
-}
 
-private extension UILabel {
-    func letterSpacing(_ spacing: CGFloat) {
-        guard let text = self.text else { return }
-        let attributed = NSAttributedString(string: text, attributes: [.kern: spacing])
-        self.attributedText = attributed
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        refreshColors()
     }
 }

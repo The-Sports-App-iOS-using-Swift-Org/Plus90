@@ -1,3 +1,10 @@
+//
+//  PlayerCell.swift
+//  Plus90-Swift
+//
+//  Created by Bayoumi on 7/05/2026.
+//
+
 import UIKit
 
 class PlayerCell: UICollectionViewCell {
@@ -8,11 +15,11 @@ class PlayerCell: UICollectionViewCell {
     @IBOutlet weak var playerNameLbl: UILabel!
     @IBOutlet weak var playerPositionLbl: UILabel!
 
-    private let cardBg         = UIView()
-    private let leftAccent     = UIView()
-    private let positionBadge  = UIView()
-    private let divider        = UIView()
-    private let chevronIcon    = UIImageView()
+    private let cardBg        = UIView()
+    private let leftAccent    = UIView()
+    private let positionBadge = UIView()
+    private let divider       = UIView()
+    private let chevronIcon   = UIImageView()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,35 +28,42 @@ class PlayerCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateShadow()
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 14).cgPath
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        applyThemeColors()
+        if let position = playerPositionLbl.text {
+            stylePositionBadge(for: position)
+        }
     }
 
     private func setupUI() {
         clipsToBounds = false
         backgroundColor = .clear
+        layer.shadowColor   = UIColor.black.cgColor
+        layer.shadowOffset  = CGSize(width: 0, height: 3)
+        layer.shadowRadius  = 8
+        layer.shadowOpacity = 0.15
 
         cardBg.translatesAutoresizingMaskIntoConstraints = false
-        cardBg.backgroundColor = UIColor(red: 0.10, green: 0.13, blue: 0.11, alpha: 1)
         cardBg.layer.cornerRadius = 14
         cardBg.clipsToBounds = true
         insertSubview(cardBg, at: 0)
 
         leftAccent.translatesAutoresizingMaskIntoConstraints = false
-        leftAccent.backgroundColor = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 1)
         leftAccent.layer.cornerRadius = 2
         cardBg.addSubview(leftAccent)
 
         numberBg.translatesAutoresizingMaskIntoConstraints = false
-        numberBg.backgroundColor = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 0.15)
         numberBg.layer.cornerRadius = 10
-        numberBg.layer.borderWidth = 1
-        numberBg.layer.borderColor = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 0.35).cgColor
+        numberBg.layer.borderWidth  = 1
         cardBg.addSubview(numberBg)
 
         playerNumberLbl.translatesAutoresizingMaskIntoConstraints = false
         playerNumberLbl.font = UIFont(name: "AvenirNext-Heavy", size: 16) ??
                                .systemFont(ofSize: 16, weight: .heavy)
-        playerNumberLbl.textColor = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 1)
         playerNumberLbl.textAlignment = .center
         numberBg.addSubview(playerNumberLbl)
 
@@ -58,23 +72,20 @@ class PlayerCell: UICollectionViewCell {
         playerImg.clipsToBounds = true
         playerImg.contentMode = .scaleAspectFit
         playerImg.layer.borderWidth = 1.5
-        playerImg.layer.borderColor = UIColor(white: 1, alpha: 0.12).cgColor
-        playerImg.backgroundColor = UIColor(white: 1, alpha: 0.06)
         cardBg.addSubview(playerImg)
 
         divider.translatesAutoresizingMaskIntoConstraints = false
-        divider.backgroundColor = UIColor(white: 1, alpha: 0.07)
         cardBg.addSubview(divider)
 
         playerNameLbl.translatesAutoresizingMaskIntoConstraints = false
         playerNameLbl.font = UIFont(name: "AvenirNext-DemiBold", size: 14) ??
                              .systemFont(ofSize: 14, weight: .semibold)
-        playerNameLbl.textColor = .white
         cardBg.addSubview(playerNameLbl)
 
         positionBadge.translatesAutoresizingMaskIntoConstraints = false
         positionBadge.layer.cornerRadius = 9
         positionBadge.clipsToBounds = true
+        positionBadge.layer.borderWidth = 0.5
         cardBg.addSubview(positionBadge)
 
         playerPositionLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -85,11 +96,32 @@ class PlayerCell: UICollectionViewCell {
 
         chevronIcon.translatesAutoresizingMaskIntoConstraints = false
         chevronIcon.image = UIImage(systemName: "chevron.right")
-        chevronIcon.tintColor = UIColor(white: 1, alpha: 0.25)
         chevronIcon.contentMode = .scaleAspectFit
         cardBg.addSubview(chevronIcon)
 
+        applyThemeColors()
         setupConstraints()
+    }
+
+    private func applyThemeColors() {
+        let accent = AppColors.accent
+
+        cardBg.backgroundColor = AppColors.cardBackground
+
+        leftAccent.backgroundColor = accent
+
+        numberBg.backgroundColor   = accent.withAlphaComponent(0.15)
+        numberBg.layer.borderColor = accent.withAlphaComponent(0.35).cgColor
+        playerNumberLbl.textColor  = accent
+
+        playerImg.layer.borderColor  = AppColors.separator.cgColor
+        playerImg.backgroundColor    = AppColors.secondaryBackground
+
+        divider.backgroundColor = AppColors.separator
+
+        playerNameLbl.textColor = AppColors.primaryText
+
+        chevronIcon.tintColor = AppColors.secondaryText
     }
 
     private func setupConstraints() {
@@ -99,13 +131,11 @@ class PlayerCell: UICollectionViewCell {
             cardBg.trailingAnchor.constraint(equalTo: trailingAnchor),
             cardBg.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-     
             leftAccent.leadingAnchor.constraint(equalTo: cardBg.leadingAnchor),
             leftAccent.topAnchor.constraint(equalTo: cardBg.topAnchor),
             leftAccent.bottomAnchor.constraint(equalTo: cardBg.bottomAnchor),
             leftAccent.widthAnchor.constraint(equalToConstant: 4),
 
-            
             numberBg.leadingAnchor.constraint(equalTo: leftAccent.trailingAnchor, constant: 12),
             numberBg.centerYAnchor.constraint(equalTo: cardBg.centerYAnchor),
             numberBg.widthAnchor.constraint(equalToConstant: 38),
@@ -144,14 +174,6 @@ class PlayerCell: UICollectionViewCell {
         ])
     }
 
-    private func updateShadow() {
-        layer.shadowColor   = UIColor.black.cgColor
-        layer.shadowOffset  = CGSize(width: 0, height: 3)
-        layer.shadowRadius  = 8
-        layer.shadowOpacity = 0.2
-        layer.shadowPath    = UIBezierPath(roundedRect: bounds, cornerRadius: 14).cgPath
-    }
-
     func configure(with player: Player) {
         playerNameLbl.text   = player.playerName   ?? "Unknown Player"
         playerNumberLbl.text = player.playerNumber ?? "--"
@@ -164,34 +186,37 @@ class PlayerCell: UICollectionViewCell {
             playerImg.loadImage(from: urlString, placeholder: UIImage(named: "player_placeholder"))
         } else {
             playerImg.image = UIImage(named: "player_placeholder")
-            playerImg.backgroundColor = UIColor(white: 1, alpha: 0.06)
+            playerImg.backgroundColor = AppColors.secondaryBackground
         }
     }
 
     private func stylePositionBadge(for position: String) {
         let pos = position.uppercased()
         let (bg, text): (UIColor, UIColor)
+
         switch true {
         case pos.contains("GK") || pos.contains("GOAL"):
-            bg = UIColor(red: 0.98, green: 0.75, blue: 0.18, alpha: 0.20)
+            bg   = UIColor(red: 0.98, green: 0.75, blue: 0.18, alpha: 0.20)
             text = UIColor(red: 0.98, green: 0.75, blue: 0.18, alpha: 1)
         case pos.contains("DEF") || pos.contains("CB") || pos.contains("LB") || pos.contains("RB"):
-            bg = UIColor(red: 0.25, green: 0.55, blue: 1.0, alpha: 0.20)
+            bg   = UIColor(red: 0.25, green: 0.55, blue: 1.0, alpha: 0.20)
             text = UIColor(red: 0.45, green: 0.70, blue: 1.0, alpha: 1)
         case pos.contains("MID") || pos.contains("CM") || pos.contains("DM") || pos.contains("AM"):
-            bg = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 0.20)
-            text = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 1)
-        case pos.contains("FWD") || pos.contains("ST") || pos.contains("LW") || pos.contains("RW") || pos.contains("ATT"):
-            bg = UIColor(red: 1.0, green: 0.38, blue: 0.28, alpha: 0.20)
+            // Use AppColors.accent so it adapts between dark (#01632A) and light (#008337)
+            bg   = AppColors.accent.withAlphaComponent(0.20)
+            text = AppColors.accent
+        case pos.contains("FWD") || pos.contains("ST") || pos.contains("LW") ||
+             pos.contains("RW") || pos.contains("ATT"):
+            bg   = UIColor(red: 1.0, green: 0.38, blue: 0.28, alpha: 0.20)
             text = UIColor(red: 1.0, green: 0.50, blue: 0.40, alpha: 1)
         default:
-            bg = UIColor(white: 1, alpha: 0.10)
-            text = UIColor(white: 1, alpha: 0.6)
+            bg   = AppColors.secondaryBackground.withAlphaComponent(0.5)
+            text = AppColors.secondaryText
         }
-        positionBadge.backgroundColor = bg
-        positionBadge.layer.borderColor = text.withAlphaComponent(0.3).cgColor
-        positionBadge.layer.borderWidth = 0.5
-        playerPositionLbl.textColor = text
+
+        positionBadge.backgroundColor    = bg
+        positionBadge.layer.borderColor  = text.withAlphaComponent(0.30).cgColor
+        playerPositionLbl.textColor      = text
     }
 
     override var isHighlighted: Bool {
@@ -201,8 +226,8 @@ class PlayerCell: UICollectionViewCell {
                     ? CGAffineTransform(scaleX: 0.97, y: 0.97)
                     : .identity
                 self.cardBg.backgroundColor = self.isHighlighted
-                    ? UIColor(red: 0.14, green: 0.18, blue: 0.15, alpha: 1)
-                    : UIColor(red: 0.10, green: 0.13, blue: 0.11, alpha: 1)
+                    ? AppColors.secondaryBackground
+                    : AppColors.cardBackground
             }
         }
     }

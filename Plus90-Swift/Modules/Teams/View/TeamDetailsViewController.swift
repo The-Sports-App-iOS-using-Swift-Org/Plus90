@@ -1,3 +1,10 @@
+//
+//  TeamDetailsViewController.swift
+//  Plus90-Swift
+//
+//  Created by Bayoumi on 7/05/2026.
+//
+
 import UIKit
 
 class TeamDetailsViewController: UIViewController {
@@ -18,7 +25,7 @@ class TeamDetailsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        applyTransparentNavBar()
+        applyNavBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -27,39 +34,53 @@ class TeamDetailsViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = nil
     }
 
-    private func setupUI() {
-        view.backgroundColor = UIColor(red: 0.06, green: 0.09, blue: 0.07, alpha: 1)
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        applyTheme()
+        applyNavBar()
+    }
 
+    private func applyTheme() {
+        view.backgroundColor = AppColors.primaryBackground
+        teamDetailsCollectionView.backgroundColor = AppColors.primaryBackground
+    }
+
+    private func setupUI() {
+        applyTheme()
         title = "TEAM SQUAD"
-        navigationController?.navigationBar.tintColor = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 1)
+
+        navigationController?.navigationBar.tintColor = AppColors.accent
 
         navigationItem.backButtonDisplayMode = .minimal
 
-        applyTransparentNavBar()
+        applyNavBar()
     }
 
-    private func applyTransparentNavBar() {
+    private func applyNavBar() {
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = UIColor(red: 0.06, green: 0.09, blue: 0.07, alpha: 0.92)
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = AppColors.headerBackground
         appearance.shadowColor = .clear
 
         let titleAttr: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.white,
-            .font: UIFont(name: "AvenirNext-Heavy", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
+            .foregroundColor: AppColors.headerText,           // always white on green
+            .font: UIFont(name: "AvenirNext-Heavy", size: 16)
+                   ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
             .kern: CGFloat(2.0)
         ]
         appearance.titleTextAttributes = titleAttr
 
-        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.standardAppearance  = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.compactAppearance    = appearance
+        navigationController?.navigationBar.tintColor            = AppColors.headerText
     }
 
+    // MARK: - Collection View
     private func setupCollectionView() {
         teamDetailsCollectionView.delegate   = self
         teamDetailsCollectionView.dataSource = self
-        teamDetailsCollectionView.backgroundColor = .clear
+        teamDetailsCollectionView.backgroundColor = AppColors.primaryBackground
         teamDetailsCollectionView.showsVerticalScrollIndicator = false
         teamDetailsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
 
@@ -83,13 +104,9 @@ class TeamDetailsViewController: UIViewController {
 
 extension TeamDetailsViewController: TeamDetailsViewProtocol {
 
-    func startLoading() {
-        // Show indicator
-    }
+    func startLoading() { }
 
-    func stopLoading() {
-        // Hide indicator
-    }
+    func stopLoading() { }
 
     func displayTeamData(_ team: Team) {
         self.teamData = team
@@ -180,6 +197,7 @@ extension TeamDetailsViewController: UICollectionViewDelegate, UICollectionViewD
     }
 }
 
+// MARK: - Compositional Layout
 extension TeamDetailsViewController {
 
     private func createLayout() -> UICollectionViewCompositionalLayout {
@@ -206,7 +224,6 @@ extension TeamDetailsViewController {
         let itemSize  = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                heightDimension: .fractionalHeight(1.0))
         let item      = NSCollectionLayoutItem(layoutSize: itemSize)
-
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(130),
                                                heightDimension: .absolute(175))
         let group     = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
@@ -224,7 +241,6 @@ extension TeamDetailsViewController {
                                               heightDimension: .absolute(76))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16)
-
         let group   = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [createSectionHeader(height: 50)]

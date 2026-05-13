@@ -1,3 +1,10 @@
+//
+//  TeamHeaderCell.swift
+//  Plus90-Swift
+//
+//  Created by Bayoumi on 7/05/2026.
+//
+
 import UIKit
 
 class TeamHeaderCell: UICollectionViewCell {
@@ -5,13 +12,13 @@ class TeamHeaderCell: UICollectionViewCell {
     @IBOutlet weak var teamLogoImg: UIImageView!
     @IBOutlet weak var teamNameLbl: UILabel!
 
-    // MARK: - Extra UI (programmatic overlays)
-    private let stadiumBgView     = UIView()
-    private let patternOverlay    = FootballPatternView()
-    private let glowRing          = UIView()
-    private let logoContainer     = UIView()
-    private let nameTagView       = UIView()
-    private let badgeIcon         = UIImageView()
+    private let stadiumBgView  = UIView()
+    private let patternOverlay = FootballPatternView()
+    private let glowRing       = UIView()
+    private let logoContainer  = UIView()
+    private let nameTagView    = UIView()
+    private let badgeIcon      = UIImageView()
+    private let bgGradient     = CAGradientLayer()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,9 +27,14 @@ class TeamHeaderCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateGradientFrames()
-        glowRing.layer.cornerRadius = glowRing.bounds.width / 2
+        bgGradient.frame = stadiumBgView.bounds
+        glowRing.layer.cornerRadius      = glowRing.bounds.width / 2
         logoContainer.layer.cornerRadius = logoContainer.bounds.width / 2
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        applyThemeColors()
     }
 
     private func setupUI() {
@@ -33,13 +45,6 @@ class TeamHeaderCell: UICollectionViewCell {
         stadiumBgView.clipsToBounds = true
         insertSubview(stadiumBgView, at: 0)
 
-        let bgGradient = CAGradientLayer()
-        bgGradient.colors = [
-            UIColor(red: 0.05, green: 0.12, blue: 0.08, alpha: 1).cgColor,
-            UIColor(red: 0.02, green: 0.06, blue: 0.04, alpha: 1).cgColor
-        ]
-        bgGradient.startPoint = CGPoint(x: 0, y: 0)
-        bgGradient.endPoint   = CGPoint(x: 1, y: 1)
         bgGradient.name = "bgGradient"
         stadiumBgView.layer.insertSublayer(bgGradient, at: 0)
 
@@ -48,44 +53,60 @@ class TeamHeaderCell: UICollectionViewCell {
         stadiumBgView.addSubview(patternOverlay)
 
         glowRing.translatesAutoresizingMaskIntoConstraints = false
-        glowRing.backgroundColor = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 0.15)
-        glowRing.layer.shadowColor  = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 1).cgColor
-        glowRing.layer.shadowRadius = 24
-        glowRing.layer.shadowOpacity = 0.5
-        glowRing.layer.shadowOffset = .zero
         stadiumBgView.addSubview(glowRing)
 
         logoContainer.translatesAutoresizingMaskIntoConstraints = false
-        logoContainer.backgroundColor = UIColor(white: 1, alpha: 0.08)
-        logoContainer.layer.borderWidth = 1.5
-        logoContainer.layer.borderColor = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 0.4).cgColor
         stadiumBgView.addSubview(logoContainer)
 
         teamLogoImg.translatesAutoresizingMaskIntoConstraints = false
         teamLogoImg.contentMode = .scaleAspectFit
-        teamLogoImg.layer.cornerRadius = 0
         logoContainer.addSubview(teamLogoImg)
 
         nameTagView.translatesAutoresizingMaskIntoConstraints = false
-        nameTagView.backgroundColor = UIColor(white: 1, alpha: 0.08)
         nameTagView.layer.cornerRadius = 14
-        nameTagView.layer.borderWidth = 1
-        nameTagView.layer.borderColor = UIColor(white: 1, alpha: 0.12).cgColor
         stadiumBgView.addSubview(nameTagView)
 
         badgeIcon.image = UIImage(systemName: "soccerball")
-        badgeIcon.tintColor = UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 1)
         badgeIcon.translatesAutoresizingMaskIntoConstraints = false
         nameTagView.addSubview(badgeIcon)
 
         teamNameLbl.translatesAutoresizingMaskIntoConstraints = false
         teamNameLbl.font = UIFont(name: "AvenirNext-Heavy", size: 20) ??
                            .systemFont(ofSize: 20, weight: .heavy)
-        teamNameLbl.textColor = .white
         teamNameLbl.textAlignment = .left
         nameTagView.addSubview(teamNameLbl)
 
+        applyThemeColors()
         setupConstraints()
+    }
+
+    private func applyThemeColors() {
+        let accent = AppColors.accent
+        let header = AppColors.headerBackground
+
+        bgGradient.colors = [
+            header.cgColor,
+            header.withAlphaComponent(0.85).cgColor
+        ]
+        bgGradient.startPoint = CGPoint(x: 0, y: 0)
+        bgGradient.endPoint   = CGPoint(x: 1, y: 1)
+
+        glowRing.backgroundColor      = accent.withAlphaComponent(0.20)
+        glowRing.layer.shadowColor    = accent.cgColor
+        glowRing.layer.shadowRadius   = 24
+        glowRing.layer.shadowOpacity  = 0.45
+        glowRing.layer.shadowOffset   = .zero
+
+        logoContainer.backgroundColor      = UIColor.white.withAlphaComponent(0.10)
+        logoContainer.layer.borderWidth    = 1.5
+        logoContainer.layer.borderColor    = UIColor.white.withAlphaComponent(0.35).cgColor
+
+        nameTagView.backgroundColor      = UIColor.white.withAlphaComponent(0.12)
+        nameTagView.layer.borderWidth    = 1
+        nameTagView.layer.borderColor    = UIColor.white.withAlphaComponent(0.20).cgColor
+
+        teamNameLbl.textColor = AppColors.headerText
+        badgeIcon.tintColor   = AppColors.headerText
     }
 
     private func setupConstraints() {
@@ -130,12 +151,6 @@ class TeamHeaderCell: UICollectionViewCell {
         ])
     }
 
-    private func updateGradientFrames() {
-        if let bgGradient = stadiumBgView.layer.sublayers?.first(where: { $0.name == "bgGradient" }) {
-            bgGradient.frame = stadiumBgView.bounds
-        }
-    }
-
     func configure(name: String?, logoUrl: String?) {
         teamNameLbl.text = name ?? "Unknown Team"
         if let url = logoUrl {
@@ -143,7 +158,8 @@ class TeamHeaderCell: UICollectionViewCell {
         }
         logoContainer.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         logoContainer.alpha = 0
-        UIView.animate(withDuration: 0.6, delay: 0.1, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.5) {
+        UIView.animate(withDuration: 0.6, delay: 0.1,
+                       usingSpringWithDamping: 0.65, initialSpringVelocity: 0.5) {
             self.logoContainer.transform = .identity
             self.logoContainer.alpha = 1
         }
@@ -159,12 +175,11 @@ private class FootballPatternView: UIView {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         ctx.setStrokeColor(UIColor.white.cgColor)
         ctx.setLineWidth(18)
-        let stripeWidth: CGFloat = 40
-        var x: CGFloat = -stripeWidth
-        while x < rect.width + stripeWidth {
+        var x: CGFloat = -40
+        while x < rect.width + 40 {
             ctx.move(to: CGPoint(x: x, y: 0))
             ctx.addLine(to: CGPoint(x: x, y: rect.height))
-            x += stripeWidth
+            x += 40
         }
         ctx.strokePath()
     }

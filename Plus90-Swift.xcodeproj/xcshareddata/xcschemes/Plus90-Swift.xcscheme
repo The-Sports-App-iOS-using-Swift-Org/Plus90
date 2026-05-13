@@ -29,7 +29,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Plus90-Swift.xctestplan"
+            reference = "container:Plus90-Swift/Plus90-Swift.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

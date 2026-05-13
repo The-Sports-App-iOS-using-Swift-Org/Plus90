@@ -233,17 +233,22 @@ extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionVi
     }
 }
 
+
 extension LeaguesDetailsViewController {
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { sectionIndex, _ in
-            switch sectionIndex {
-            case 0:  return self.createUpcomingEventsSection()
-            case 1:  return self.createVerticalLatestEventsSection()
-            case 2:  return self.createHorizontalTeamsSection()
-            default: return self.createEmptyPlaceholderSection()
+            return UICollectionViewCompositionalLayout { sectionIndex, _ in
+                switch sectionIndex {
+                case 0:
+                    return self.upcomingEvents.isEmpty ? self.createEmptyStateSection() : self.createUpcomingEventsSection()
+                case 1:
+                    return self.latestEvents.isEmpty ? self.createEmptyStateSection() : self.createVerticalLatestEventsSection()
+                case 2:
+                    return self.teams.isEmpty ? self.createEmptyStateSection() : self.createHorizontalTeamsSection()
+                default:
+                    return self.createEmptyStateSection()
+                }
             }
         }
-    }
 
     private func createUpcomingEventsSection() -> NSCollectionLayoutSection {
         let item  = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
@@ -275,15 +280,23 @@ extension LeaguesDetailsViewController {
         return section
     }
 
-    private func createEmptyPlaceholderSection() -> NSCollectionLayoutSection {
-        let size  = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(0.1))
-        let item  = NSCollectionLayoutItem(layoutSize: size)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [item])
-        return NSCollectionLayoutSection(group: group)
-    }
+    private func createEmptyStateSection() -> NSCollectionLayoutSection {
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16)
+            
+            section.boundarySupplementaryItems = [createHeaderSupplementaryItem()]
+            return section
+        }
 
     private func createHeaderSupplementaryItem() -> NSCollectionLayoutBoundarySupplementaryItem {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
         return NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
     }
 }
+

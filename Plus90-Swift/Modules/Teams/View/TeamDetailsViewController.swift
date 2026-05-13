@@ -13,7 +13,7 @@ class TeamDetailsViewController: UIViewController {
 
     var teamId: Int?
     private var teamData: Team?
-    private var presenter: TeamPresenter!
+    private var presenter: TeamsPresnterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()

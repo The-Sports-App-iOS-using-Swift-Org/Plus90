@@ -6,8 +6,10 @@
 //
 
 import Foundation
-
-class TeamPresenter {
+protocol TeamsPresnterProtocol {
+    func fetchDetails(teamId: Int?)
+}
+class TeamPresenter : TeamsPresnterProtocol {
     private weak var view: TeamDetailsViewProtocol?
     private let networkService: NetworkServiceProtocol
     

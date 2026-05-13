@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Network
 
 class LeaguesViewController: UIViewController {
 
@@ -68,15 +69,18 @@ class LeaguesViewController: UIViewController {
     @objc private func backTapped() {
         navigationController?.popViewController(animated: true)
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationItem.hidesBackButton = true
     }
+
     func setupHeaderShape() {
         headerView.layer.cornerRadius = 40
         headerView.layer.maskedCorners = [.layerMinXMaxYCorner]
     }
+
     private func setupTableView() {
         view.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -90,6 +94,16 @@ class LeaguesViewController: UIViewController {
         leaguesTableView.backgroundColor = .clear
         let nib = UINib(nibName: "LeaguesTableViewCell", bundle: nil)
         leaguesTableView.register(nib, forCellReuseIdentifier: "LeaguesCell")
+    }
+
+    private func showNetworkError() {
+        let alert = UIAlertController(
+            title: "Network Connection",
+            message: "You are offline. Please check your internet connection to view league details.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }
 
@@ -127,21 +141,38 @@ extension LeaguesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let selectedLeague = presenter?.getLeague(at: indexPath.row) else { return }
-        if let detailsVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesDetailsVC") as? LeaguesDetailsViewController {
-            detailsVC.leagueId = selectedLeague.leagueKey
-            detailsVC.leagueName = selectedLeague.leagueName
-            detailsVC.leagueRegion = selectedLeague.countryName
-            detailsVC.leagueImageUrl = selectedLeague.leagueLogo
-            detailsVC.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(detailsVC, animated: true)
+
+        let monitor = NWPathMonitor()
+        let queue = DispatchQueue(label: "NetworkCheck")
+
+        monitor.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                monitor.cancel()
+                if path.status == .satisfied {
+                    if let detailsVC = self?.storyboard?.instantiateViewController(withIdentifier: "LeaguesDetailsVC") as? LeaguesDetailsViewController {
+                        detailsVC.leagueId = selectedLeague.leagueKey
+                        detailsVC.leagueName = selectedLeague.leagueName
+                        detailsVC.leagueRegion = selectedLeague.countryName
+                        detailsVC.leagueImageUrl = selectedLeague.leagueLogo
+                        detailsVC.hidesBottomBarWhenPushed = true
+                        self?.navigationController?.pushViewController(detailsVC, animated: true)
+                    }
+                } else {
+                    self?.showNetworkError()
+                }
+            }
         }
+        monitor.start(queue: queue)
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.alpha = 0
         cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//Model/Entities/FavoriteLeague
+
 struct FavoriteLeague {
     let id: Int64
     let name: String

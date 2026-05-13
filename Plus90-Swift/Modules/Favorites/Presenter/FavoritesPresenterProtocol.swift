@@ -5,7 +5,6 @@
 //  Created by Bayoumi on 12/05/2026.
 //
 
-
 protocol FavoritesPresenterProtocol: AnyObject {
     func viewDidLoad()
     func viewWillAppear()

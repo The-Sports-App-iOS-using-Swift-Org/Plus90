@@ -5,7 +5,6 @@
 //  Created by Bayoumi on 12/05/2026.
 //
 
-
 protocol FavoritesViewProtocol: AnyObject {
     func reloadData()
     func showDeleteConfirmation(at index: Int, leagueName: String)

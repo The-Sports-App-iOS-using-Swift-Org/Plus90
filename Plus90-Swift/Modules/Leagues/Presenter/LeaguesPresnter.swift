@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class LeaguesPresenter: LeaguesPresenterProtocol {
     weak var view: LeaguesViewProtocol?
     private let networkService: NetworkServiceProtocol

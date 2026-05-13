@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 class TeamPresenter {
     private weak var view: TeamDetailsViewProtocol?
     private let networkService: NetworkServiceProtocol

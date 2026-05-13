@@ -6,8 +6,6 @@
 //
 
 import Foundation
-// Modules/Onboarding/Presenter/OnboardingPresenter
-
 
 
 class OnboardingPresenter {

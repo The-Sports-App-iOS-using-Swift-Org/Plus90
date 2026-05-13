@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 class SportsPresenter: SportsPresenterProtocol {
     weak var view: SportsViewProtocol?
     private let sportsData: [Sport] = [

@@ -73,7 +73,6 @@
 		BACB14F32FAD97CE00407D0E /* LeaguesDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACB14F22FAD97CE00407D0E /* LeaguesDetailsViewController.swift */; };
 		BACB14F62FAD987000407D0E /* UpcomingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACB14F42FAD987000407D0E /* UpcomingCollectionViewCell.swift */; };
 		BACB14F72FAD987000407D0E /* UpcomingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BACB14F52FAD987000407D0E /* UpcomingCollectionViewCell.xib */; };
-		BADB126E2FB2A63000F67771 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB126D2FB2A63000F67771 /* SettingsViewController.swift */; };
 		BADB12712FB2A79200F67771 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB12702FB2A79200F67771 /* AppColors.swift */; };
 		BAFBFA382FAE6F8200AE44E8 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = BAFBFA372FAE6F8200AE44E8 /* SDWebImage */; };
 		BAFBFA3A2FAE6F8200AE44E8 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAFBFA392FAE6F8200AE44E8 /* SDWebImageMapKit */; };
@@ -167,7 +166,6 @@
 		BACB14F22FAD97CE00407D0E /* LeaguesDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesDetailsViewController.swift; sourceTree = "<group>"; };
 		BACB14F42FAD987000407D0E /* UpcomingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingCollectionViewCell.swift; sourceTree = "<group>"; };
 		BACB14F52FAD987000407D0E /* UpcomingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingCollectionViewCell.xib; sourceTree = "<group>"; };
-		BADB126D2FB2A63000F67771 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BADB12702FB2A79200F67771 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		BAFBFA3C2FAE723800AE44E8 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		BAFBFA432FAE773C00AE44E8 /* splashh.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splashh.gif; sourceTree = "<group>"; };
@@ -378,7 +376,6 @@
 		BA8BECA42FAD0AE200FB1A97 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				BADB126C2FB2A5E800F67771 /* Settings */,
 				BAFBFA3B2FAE721400AE44E8 /* Splash */,
 				3DED7A772FAD0F63008FCDE9 /* Onboarding */,
 				BA8BECAA2FAD0B9300FB1A97 /* Teams */,
@@ -489,9 +486,9 @@
 		BA8BECB02FAD0BF400FB1A97 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3DC30F7D2FB3BEC0004C07EE /* FavoritesViewProtocol.swift */,
 				BA8948122FB3B3F5003E63F6 /* Cells */,
 				3DBF16812FABF80F00DF0E89 /* FavoritesViewController.swift */,
+				3DC30F7D2FB3BEC0004C07EE /* FavoritesViewProtocol.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -534,14 +531,6 @@
 				BA071E242FAD70A300378776 /* NetworkService.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		BADB126C2FB2A5E800F67771 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				BADB126D2FB2A63000F67771 /* SettingsViewController.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		BADB126F2FB2A77A00F67771 /* Utiles */ = {
@@ -743,7 +732,6 @@
 				3DBF16992FABF80F00DF0E89 /* OnboardingContentViewController.swift in Sources */,
 				3DBF16A32FABF80F00DF0E89 /* FavoriateLeage.swift in Sources */,
 				BA8BECBA2FAD0CA600FB1A97 /* LeaguesPresnter.swift in Sources */,
-				BADB126E2FB2A63000F67771 /* SettingsViewController.swift in Sources */,
 				BA071E212FAD703200378776 /* Leagues.swift in Sources */,
 				3DBBB9B32FAF9E3E004F03C7 /* StaffCell.swift in Sources */,
 				3DBBB9B42FAF9E3E004F03C7 /* TeamHeaderCell.swift in Sources */,

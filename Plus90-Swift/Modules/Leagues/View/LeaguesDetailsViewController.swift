@@ -6,20 +6,24 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var heartImage: UIImageView!
     @IBOutlet weak var leaguesCompositionalLeaguesCollectionView: UICollectionView!
+
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.color = .systemGreen
         indicator.hidesWhenStopped = true
         return indicator
     }()
+
     var leagueId: Int?
     var leagueName: String?
     var leagueRegion: String?
     var leagueImageUrl: String?
+
     private var presenter: LeaguesDetailsPresenterProtocol!
     private var upcomingEvents: [MatchEvent] = []
     private var latestEvents: [MatchEvent] = []
     private var teams: [Team] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         applyTheme()
@@ -28,10 +32,13 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
         setupCollectionView()
         setupHeartImageGesture()
         setupBackButton()
-       // navigationController?.interactivePopGestureRecognizer?.delegate = self
+
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+
         if let id = leagueId {
             presenter = LeaguesDetailsPresenter(view: self, leagueId: id)
             presenter.loadData()
+
             if let name = leagueName {
                 presenter.checkFavoriteStatus(name: name)
             }

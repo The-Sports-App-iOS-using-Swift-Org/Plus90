@@ -269,8 +269,8 @@
 		BA1F6A9A2FAA5B790079BF3D /* Plus90-SwiftTests */ = {
 			isa = PBXGroup;
 			children = (
-				BA8947FF2FB3A7C9003E63F6 /* NetworkServiceTest.swift */,
 				3DF53DD32FB4A9A000F53B1B /* MockNetworkService.swift */,
+				BA8947FF2FB3A7C9003E63F6 /* NetworkServiceTest.swift */,
 				3DF53DD52FB4A9CB00F53B1B /* NetworkServiceMockTests.swift */,
 				3DF53DD72FB4AB8100F53B1B /* ModelTests.swift */,
 			);

@@ -13,28 +13,28 @@ final class ModelTests: XCTestCase {
 
     func testMatchEvent_AllFieldsSet() {
         let event = MatchEvent(
-            eventKey:         99,
-            eventDate:        "2026-01-01",
-            eventTime:        "18:00",
-            eventHomeTeam:    "Home FC",
-            eventAwayTeam:    "Away FC",
-            homeTeamLogo:     "https://logo.com/home.png",
-            awayTeamLogo:     "https://logo.com/away.png",
-            eventFinalResult: "3-0",
-            eventStatus:      "Finished",
-            leagueName:       "Test League"
+            eventKey:99,
+            eventDate:"2026-01-01",
+            eventTime:"18:00",
+            eventHomeTeam:"Home FC",
+            eventAwayTeam:"Away FC",
+            homeTeamLogo:"https://logo.com/home.png",
+            awayTeamLogo:"https://logo.com/away.png",
+            eventFinalResult:"3-0",
+            eventStatus:"Finished",
+            leagueName:"Test League"
         )
 
-        XCTAssertEqual(event.eventKey,         99)
-        XCTAssertEqual(event.eventDate,        "2026-01-01")
-        XCTAssertEqual(event.eventTime,        "18:00")
-        XCTAssertEqual(event.eventHomeTeam,    "Home FC")
-        XCTAssertEqual(event.eventAwayTeam,    "Away FC")
-        XCTAssertEqual(event.homeTeamLogo,     "https://logo.com/home.png")
-        XCTAssertEqual(event.awayTeamLogo,     "https://logo.com/away.png")
+        XCTAssertEqual(event.eventKey,99)
+        XCTAssertEqual(event.eventDate,"2026-01-01")
+        XCTAssertEqual(event.eventTime,"18:00")
+        XCTAssertEqual(event.eventHomeTeam,"Home FC")
+        XCTAssertEqual(event.eventAwayTeam,"Away FC")
+        XCTAssertEqual(event.homeTeamLogo,"https://logo.com/home.png")
+        XCTAssertEqual(event.awayTeamLogo,"https://logo.com/away.png")
         XCTAssertEqual(event.eventFinalResult, "3-0")
-        XCTAssertEqual(event.eventStatus,      "Finished")
-        XCTAssertEqual(event.leagueName,       "Test League")
+        XCTAssertEqual(event.eventStatus,"Finished")
+        XCTAssertEqual(event.leagueName,"Test League")
     }
 
     func testMatchEvent_AllOptionalFieldsNil() {

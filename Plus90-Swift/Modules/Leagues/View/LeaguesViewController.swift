@@ -34,7 +34,7 @@ class LeaguesViewController: UIViewController {
         if let sport = selectedSportName {
             presenter?.fetchLeagues(for: sport)
         }
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
+       // navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

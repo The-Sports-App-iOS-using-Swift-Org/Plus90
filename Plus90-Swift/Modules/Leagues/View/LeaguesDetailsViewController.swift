@@ -1,7 +1,3 @@
-//  LeaguesDetailsViewController.swift
-//  Plus90-Swift
-//  Created by Nemo on 08/05/2026.
-
 import UIKit
 import Network
 
@@ -20,12 +16,10 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     var leagueName: String?
     var leagueRegion: String?
     var leagueImageUrl: String?
-    
     private var presenter: LeaguesDetailsPresenterProtocol!
     private var upcomingEvents: [MatchEvent] = []
     private var latestEvents: [MatchEvent] = []
     private var teams: [Team] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         applyTheme()
@@ -34,13 +28,10 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
         setupCollectionView()
         setupHeartImageGesture()
         setupBackButton()
-        
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
-        
+       // navigationController?.interactivePopGestureRecognizer?.delegate = self
         if let id = leagueId {
             presenter = LeaguesDetailsPresenter(view: self, leagueId: id)
             presenter.loadData()
-            
             if let name = leagueName {
                 presenter.checkFavoriteStatus(name: name)
             }
@@ -68,7 +59,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
         headerView.addSubview(backButton)
-        
+
         NSLayoutConstraint.activate([
             backButton.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
             backButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -16),
@@ -80,7 +71,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     @objc private func backTapped() {
         navigationController?.popViewController(animated: true)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -90,7 +81,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
+
     private func setupUI() {
         leagueTitleLabel.text = leagueName
         view.addSubview(activityIndicator)
@@ -100,24 +91,25 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    
+
     func setupHeaderShape() {
         headerView.layer.cornerRadius = 40
         headerView.layer.maskedCorners = [.layerMinXMaxYCorner]
     }
-    
+
     private func setupHeartImageGesture() {
         heartImage.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(favoriteTapped))
         heartImage.addGestureRecognizer(tapGesture)
     }
-    
+
     private func setupCollectionView() {
         leaguesCompositionalLeaguesCollectionView.delegate = self
         leaguesCompositionalLeaguesCollectionView.dataSource = self
-        leaguesCompositionalLeaguesCollectionView.register(UINib(nibName: "UpcomingCollectionViewCell", bundle: nil),   forCellWithReuseIdentifier: "UpcomingCollectionViewCell")
+        leaguesCompositionalLeaguesCollectionView.register(UINib(nibName: "UpcomingCollectionViewCell", bundle: nil),    forCellWithReuseIdentifier: "UpcomingCollectionViewCell")
         leaguesCompositionalLeaguesCollectionView.register(UINib(nibName: "LatestEventCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "LatestEventCell")
-        leaguesCompositionalLeaguesCollectionView.register(UINib(nibName: "TeamsCollectionViewCell", bundle: nil),       forCellWithReuseIdentifier: "TeamsCell")
+        leaguesCompositionalLeaguesCollectionView.register(UINib(nibName: "TeamsCollectionViewCell", bundle: nil),        forCellWithReuseIdentifier: "TeamsCell")
+        leaguesCompositionalLeaguesCollectionView.register(EmptyStateCollectionViewCell.self,                             forCellWithReuseIdentifier: "EmptyStateCell")
         leaguesCompositionalLeaguesCollectionView.register(SectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: "SectionHeaderView")
@@ -126,10 +118,7 @@ class LeaguesDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     }
 
     @objc private func favoriteTapped() {
-        guard let name = leagueName, let image = leagueImageUrl else {
-            print("Error: leagueName is NIL.")
-            return
-        }
+        guard let name = leagueName, let image = leagueImageUrl else { return }
         UIView.animate(withDuration: 0.1, animations: {
             self.heartImage.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         }) { _ in
@@ -174,7 +163,9 @@ extension LeaguesDetailsViewController: LeaguesDetailsViewProtocol {
         self.upcomingEvents = upcoming
         self.latestEvents = latest
         self.teams = teams
-        DispatchQueue.main.async { self.leaguesCompositionalLeaguesCollectionView.reloadData() }
+        DispatchQueue.main.async {
+            self.leaguesCompositionalLeaguesCollectionView.reloadData()
+        }
     }
 
     func updateFavoriteButton(isFavorite: Bool) {
@@ -192,9 +183,9 @@ extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return upcomingEvents.count
-        case 1: return latestEvents.count
-        case 2: return teams.count
+        case 0: return upcomingEvents.isEmpty ? 1 : upcomingEvents.count
+        case 1: return latestEvents.isEmpty  ? 1 : latestEvents.count
+        case 2: return teams.isEmpty         ? 1 : teams.count
         default: return 0
         }
     }
@@ -202,17 +193,35 @@ extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
+            if upcomingEvents.isEmpty {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+                cell.configure(message: "No upcoming events")
+                return cell
+            }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpcomingCollectionViewCell", for: indexPath) as! UpcomingCollectionViewCell
             cell.configure(with: upcomingEvents[indexPath.item])
             return cell
+
         case 1:
+            if latestEvents.isEmpty {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+                cell.configure(message: "No latest events")
+                return cell
+            }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LatestEventCell", for: indexPath) as! LatestEventCollectionViewCell
             cell.configure(with: latestEvents[indexPath.item])
             return cell
+
         case 2:
+            if teams.isEmpty {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyStateCell", for: indexPath) as! EmptyStateCollectionViewCell
+                cell.configure(message: "No teams available")
+                return cell
+            }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamsCell", for: indexPath) as! TeamsCollectionViewCell
             cell.configure(with: teams[indexPath.item])
             return cell
+
         default:
             return UICollectionViewCell()
         }
@@ -233,12 +242,11 @@ extension LeaguesDetailsViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.section == 2 else { return }
+        guard indexPath.section == 2, !teams.isEmpty else { return }
         let selectedTeam = teams[indexPath.item]
 
         let monitor = NWPathMonitor()
         let queue = DispatchQueue(label: "NetworkCheck")
-
         monitor.pathUpdateHandler = { [weak self] path in
             DispatchQueue.main.async {
                 monitor.cancel()
@@ -261,14 +269,10 @@ extension LeaguesDetailsViewController {
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionIndex, _ in
             switch sectionIndex {
-            case 0:
-                return self.upcomingEvents.isEmpty ? self.createEmptyStateSection() : self.createUpcomingEventsSection()
-            case 1:
-                return self.latestEvents.isEmpty ? self.createEmptyStateSection() : self.createVerticalLatestEventsSection()
-            case 2:
-                return self.teams.isEmpty ? self.createEmptyStateSection() : self.createHorizontalTeamsSection()
-            default:
-                return self.createEmptyStateSection()
+            case 0: return self.upcomingEvents.isEmpty ? self.createEmptyStateSection() : self.createUpcomingEventsSection()
+            case 1: return self.latestEvents.isEmpty   ? self.createEmptyStateSection() : self.createVerticalLatestEventsSection()
+            case 2: return self.teams.isEmpty          ? self.createEmptyStateSection() : self.createHorizontalTeamsSection()
+            default: return self.createEmptyStateSection()
             }
         }
     }
@@ -304,10 +308,8 @@ extension LeaguesDetailsViewController {
     }
 
     private func createEmptyStateSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let item  = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80)))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16)
         section.boundarySupplementaryItems = [createHeaderSupplementaryItem()]
@@ -317,5 +319,33 @@ extension LeaguesDetailsViewController {
     private func createHeaderSupplementaryItem() -> NSCollectionLayoutBoundarySupplementaryItem {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
         return NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    }
+}
+
+class EmptyStateCollectionViewCell: UICollectionViewCell {
+    private let messageLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.addSubview(messageLabel)
+        NSLayoutConstraint.activate([
+            messageLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            messageLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+        ])
+    }
+
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+    func configure(message: String) {
+        messageLabel.text = message
     }
 }
